@@ -1,8 +1,15 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+module.exports = {
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   theme: {
-    extend: {},
+    screens: {
+      mobile: '320px',
+      tablet: '640px',
+      desktop: '1200px',
+    },
+    extend: {
+      //  додаткові кастомні стилі туть писать
+    },
   },
   plugins: [],
 };
