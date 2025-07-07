@@ -13,7 +13,6 @@ export const App = () => {
 
   return (
     <div className="App">
-      <h1>Product Catalog</h1>
       <Header />
       {/* для перевірки */}
       <p className="mt-4 text-lg text-gray-800">tailwind</p>
