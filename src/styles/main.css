@@ -27,7 +27,6 @@ body {
 
 #root {
   margin: 0 auto;
-  text-align: center;
 }
 
 .app {
@@ -38,15 +37,4 @@ body {
 ul,
 ol {
   list-style: none;
-}
-
-button,
-input {
-  outline: 0;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-image {
-  display: flex;
 }
