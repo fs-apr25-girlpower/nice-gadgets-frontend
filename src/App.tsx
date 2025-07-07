@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { getTablets } from './api/getTablets';
 import { TopSlider } from './components/TopSlider/TopSlider';
 import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer';
+
 import { ShopByCategory } from './components/ShopByCategory';
 
 export const App = () => {
@@ -20,6 +22,7 @@ export const App = () => {
       {/* для перевірки */}
       <TopSlider />
       <ShopByCategory />
+      <Footer />
     </div>
   );
 };

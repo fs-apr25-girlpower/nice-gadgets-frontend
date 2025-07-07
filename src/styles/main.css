@@ -2,7 +2,6 @@
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
-@import 'bulma/css/bulma.min.css';
 @import './colors.css';
 @import './typography.css';
 @import './breakpoints.css';
@@ -27,7 +26,6 @@ body {
 
 #root {
   margin: 0 auto;
-  text-align: center;
 }
 
 .app {
@@ -38,15 +36,4 @@ body {
 ul,
 ol {
   list-style: none;
-}
-
-button,
-input {
-  outline: 0;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-image {
-  display: flex;
 }
