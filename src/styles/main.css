@@ -2,7 +2,6 @@
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
-@import 'bulma/css/bulma.min.css';
 @import './colors.css';
 @import './typography.css';
 @import './breakpoints.css';
