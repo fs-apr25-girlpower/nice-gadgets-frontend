@@ -1,0 +1,6 @@
+header.header {
+  display: flex;
+}
+.nav-item .nav-active::before {
+  width: 100%;
+}
