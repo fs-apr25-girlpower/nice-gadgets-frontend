@@ -4,8 +4,6 @@
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
 
-@import 'bulma/css/bulma.min.css';
-
 /* Base styles */
 @font-face {
   font-family: 'Mont';
