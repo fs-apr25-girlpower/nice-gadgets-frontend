@@ -5,7 +5,7 @@ import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
 
 export const Header = () => {
   const navItemClass =
-    "flex items-center h-full relative before:content-[''] before:absolute before:bottom-[0] before:left-0 before:h-[3px] before:w-0 before:bg-black before:transition-all hover:before:w-full";
+    "flex items-center h-full relative before:content-[''] before:absolute before:bottom-[0] before:left-0 before:h-[3px] before:w-0 before:bg-black before:transition-all hover:before:w-full ";
   const headerClass =
     'w-full mobile:h-12 desktop:h-16 flex flex-row items-center gap-12 justify-between pl-[18px] border-b border-[#E2E6E9] font-bold text-[12px]';
 

@@ -1,31 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Like } from '../../images/icons/LikeIcon';
 import { Cart } from '../../images/icons/ShopCart';
 import burgerMenuIcon from '../../images/icons/burger-menu-icon.svg';
 import closeIcon from '../../images/icons/close-icon.svg';
 import { slide as Menu } from 'react-burger-menu';
-
-// Стилі для бургер-меню
-const menuClassName = 'text-[#89939A] text-[12px] font-bold h-80vh  ';
-const itemListClassName =
-  'w-full flex flex-col items-center justify-start h-full text-center text-[16px] font-bold uppercase gap-4';
-const itemClassName =
-  'h-10 hover:text-[#000000] focus:text-[#000000] transition-colors duration-300 ease-in-out';
-const burgerButtonClassName = ' ';
-const customStyles = {
-  bmMenuWrap: {
-    paddingTop: '24px',
-    width: '100vw',
-    height: 'calc(100vh - 112px)',
-    left: '0',
-    top: '48px',
-    backgroundColor: '#ffffff',
-  },
-  bmOverlay: {
-    display: 'none',
-  },
-};
+import { menuClassName } from './BurgerMenuStyles';
+import { itemListClassName } from './BurgerMenuStyles';
+import { itemClassName } from './BurgerMenuStyles';
+import { burgerButtonClassName } from './BurgerMenuStyles';
+import { customStyles } from './BurgerMenuStyles';
 
 export const BurgerMenu = () => {
   const [isEmpty] = useState<boolean>(true);
