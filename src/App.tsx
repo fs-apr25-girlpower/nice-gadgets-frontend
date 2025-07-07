@@ -9,7 +9,7 @@ export const App = () => {
     getTablets()
       .then(data => console.log(data))
       .catch(error => console.error(error));
-  }, []);
+  }, []); // test
 
   return (
     <div className="App">
