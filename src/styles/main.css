@@ -1,0 +1,52 @@
+@import 'tailwindcss';
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'bulma/css/bulma.min.css';
+@import './colors.css';
+@import './typography.css';
+@import './breakpoints.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  display: block;
+  background-color: white;
+}
+
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.app {
+  width: 100%;
+  margin: 0 auto;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button,
+input {
+  outline: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+image {
+  display: flex;
+}

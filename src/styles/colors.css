@@ -1,0 +1,61 @@
+/* створити css- змінні для зміни теми.  */
+
+.color-primary {
+  color: #313237;
+}
+
+.color-primary-bg {
+  background-color: #313237;
+}
+
+.color-secondary {
+  color: #89939a;
+}
+
+.color-secondary-bg {
+  background-color: #89939a;
+}
+
+.color-icons {
+  color: #b4bdc3;
+}
+
+.color-icons-bg {
+  background-color: #b4bdc3;
+}
+
+.color-elements {
+  color: #e2e6e9;
+}
+
+.color-elements-bg {
+  background-color: #e2e6e9;
+}
+
+.color-hoverAndBG {
+  color: #fafbfc;
+}
+
+.color-white {
+  color: #ffffff;
+}
+
+.color-white-bg {
+  background-color: #ffffff;
+}
+
+.color-green {
+  color: #27ae60;
+}
+
+.color-green {
+  background-color: #27ae60;
+}
+
+.color-red {
+  color: #eb5757;
+}
+
+.color-red-bg {
+  background-color: #eb5757;
+}
