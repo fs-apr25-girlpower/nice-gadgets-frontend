@@ -1,5 +1,3 @@
-//import './App.scss';
-
 import { useEffect } from 'react';
 import { getTablets } from './api/getTablets';
 import { TopSlider } from './components/TopSlider/TopSlider';
