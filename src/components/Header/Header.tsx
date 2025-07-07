@@ -3,10 +3,13 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
 import './Header.css';
 export const Header = () => {
-  const navItemClass =
-    "flex items-center h-full relative before:content-[''] before:absolute before:bottom-[0] before:left-0 before:h-[3px] before:w-0 before:bg-black before:transition-all hover:before:w-full ";
   const headerClass =
     'header flex w-full mobile:h-12 desktop:h-16 flex flex-row items-center gap-12 justify-between pl-[18px] border-b border-[#E2E6E9] font-bold text-[12px]';
+  const navItemClass =
+    "flex items-center h-full relative before:content-[''] before:absolute before:bottom-[0] before:left-0 before:h-[3px] before:w-0 before:bg-black before:transition-all hover:before:w-full hover:text-[#313237] ";
+
+  // const isActive = ({ isActive }: { isActive: boolean }) =>
+  // isActive ? 'text-black nav-active' : 'text-[#828282]';
 
   return (
     <>
@@ -18,7 +21,7 @@ export const Header = () => {
           >
             <Logo />
           </NavLink>
-          <ul className="h-full flex flex-row justify-between gap-16 items-center text-center uppercase text-[#828282] mobile:hidden tablet:flex">
+          <ul className="h-full flex flex-row justify-between gap-16 tablet:gap-12 items-center text-center uppercase text-[#828282] mobile:hidden tablet:flex">
             <li className={navItemClass}>
               <NavLink
                 to={'/'}

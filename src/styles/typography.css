@@ -1,3 +1,4 @@
+/* === FONT FACES === */
 @font-face {
   font-family: 'Mont';
   src: url('/fonts/Mont-Regular.otf') format('opentype');
@@ -21,6 +22,7 @@
   font-style: bold;
   font-display: swap;
 }
+
 body {
   font-family: 'Mont', sans-serif;
   font-weight: 400;
@@ -28,68 +30,6 @@ body {
   color: #313237;
   font-size: 16px;
   background-color: white;
-}
-
-h1 {
-  font-family: 'Mont', sans-serif;
-  font-weight: 800; /* Desktop & Tablet/H1 /
-  font-size: 48px;
-  line-height: 56px;
-  letter-spacing: -0.01em;
-
-  / mobile */
-  @media (max-width: 767px) {
-    font-size: 32px;
-    line-height: 41px;
-  }
-}
-
-h2 {
-  font-family: 'Mont', sans-serif;
-  font-weight: 800;
-  font-size: 32px;
-  line-height: 41px;
-  letter-spacing: -0.01em;
-
-  @media (max-width: 767px) {
-    font-size: 22px;
-    line-height: 140%;
-    letter-spacing: 0;
-  }
-}
-.small-text {
-  font-family: 'Mont', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 15px;
-}
-.body-text {
-  font-family: 'Mont', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  letter-spacing: 0;
-  color: #313237;
-}
-.button-text {
-  font-family: 'Mont', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 21px;
-  text-transform: uppercase;
-  letter-spacing: 0;
-}
-
-.uppercase-text {
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 11px;
-  letter-spacing: 0;
-
-  @media (max-width: 767px) {
-    font-size: 12px;
-  }
 }
 
 a {
@@ -109,6 +49,33 @@ p {
   font-family: inherit;
 }
 
+h1 {
+  font-family: 'Mont', sans-serif;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.01em;
+
+  @media (max-width: 767px) {
+    font-size: 32px;
+    line-height: 41px;
+  }
+}
+
+h2 {
+  font-family: 'Mont', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 41px;
+  letter-spacing: -0.01em;
+
+  @media (max-width: 767px) {
+    font-size: 22px;
+    line-height: 140%;
+    letter-spacing: 0;
+  }
+}
+
 h3 {
   font-family: 'Mont', sans-serif;
   font-weight: 800;
@@ -122,6 +89,7 @@ h3 {
     font-weight: 700;
   }
 }
+
 h4 {
   font-family: 'Mont', sans-serif;
   font-weight: 700;
@@ -132,5 +100,42 @@ h4 {
   @media (max-width: 767px) {
     font-size: 16px;
     line-height: 20px;
+  }
+}
+
+.small-text {
+  font-family: 'Mont', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.body-text {
+  font-family: 'Mont', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0;
+  color: #313237;
+}
+
+.button-text {
+  font-family: 'Mont', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.uppercase-text {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 11px;
+  letter-spacing: 0;
+
+  @media (max-width: 767px) {
+    font-size: 12px;
   }
 }
