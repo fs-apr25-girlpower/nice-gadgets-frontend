@@ -31,7 +31,7 @@ export const ProductGallery: React.FC = () => {
           >
             <img
               src={img}
-              alt={`Thumbnail ${index + 1}`}
+              alt={`Miniature ${index + 1}`}
               className={clsx(
                 'object-cover',
                 'w-[50px] h-[50px] tablet:w-9 tablet:h-9 desktop:w-20 desktop:h-20 border border-[#E2E6E9]',
@@ -45,7 +45,7 @@ export const ProductGallery: React.FC = () => {
         <img
           src={images[selectedIndex]}
           alt={`Image ${selectedIndex + 1}`}
-          className="w-[288px] h-[288px] object-contain rounded desktop:w-116 desktop:h-116"
+          className="w-[288px] h-[288px] object-contain desktop:w-116 desktop:h-116"
         />
       </div>
     </div>
