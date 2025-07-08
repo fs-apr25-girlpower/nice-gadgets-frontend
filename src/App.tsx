@@ -5,6 +5,7 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer';
 
 import { ShopByCategory } from './components/ShopByCategory';
+import { ProductCard } from './components/ProductCard';
 import { ProductSlider } from './components/ProductsSlider';
 
 export const App = () => {
@@ -28,14 +29,13 @@ export const App = () => {
   return (
     <div className="App">
       <Header />
-      {/* для перевірки */}
       <p className="mt-4 text-lg text-gray-800">tailwind</p>
 
-      {/* для перевірки */}
       <TopSlider />
       <ProductSlider sliderConfig={productsSliderConfig} />
       <ShopByCategory />
       <ProductSlider sliderConfig={hotPricesSliderConfig} />
+      <ProductCard />
       <Footer />
     </div>
   );
