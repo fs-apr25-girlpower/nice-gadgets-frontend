@@ -5,7 +5,6 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer';
 
 import { ShopByCategory } from './components/ShopByCategory';
-import { ProductCard } from './components/ProductCard';
 
 export const App = () => {
   useEffect(() => {
@@ -17,11 +16,11 @@ export const App = () => {
   return (
     <div className="App">
       <Header />
+
       <p className="mt-4 text-lg text-gray-800">tailwind</p>
 
       <TopSlider />
       <ShopByCategory />
-      <ProductCard />
       <Footer />
     </div>
   );

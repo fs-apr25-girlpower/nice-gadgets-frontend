@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import clsx from 'clsx';
 
 export const ButtonMain: React.FC = () => {
   const [isSelected, setIsSelected] = useState(true);
@@ -6,12 +7,13 @@ export const ButtonMain: React.FC = () => {
   return (
     <button
       type="button"
-      className={`w-[100%] h-[40px] cursor-pointer border-[1px] hover:shadow-md transition duration-300 ease-in-out text-[14px] leading-[21px] border ${
+      onClick={() => setIsSelected(!isSelected)}
+      className={clsx(
+        'w-full h-[40px] cursor-pointer border border-[1px] hover:shadow-md transition duration-300 ease-in-out text-[14px] leading-[21px]',
         isSelected
           ? 'border-[#E2E6E9] bg-white text-[#27AE60]'
-          : 'bg-[#313237] text-white'
-      }`}
-      onClick={() => setIsSelected(!isSelected)}
+          : 'bg-[#313237] text-white',
+      )}
     >
       Add to cart
     </button>
