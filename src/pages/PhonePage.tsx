@@ -1,5 +1,9 @@
-// type Props = {}
+import { DropDown } from '../components/DropDown/DropDown';
 
 export const PhonesPage = () => {
-  return <div className="bg-teal-600 w-full h-full">PhonePage</div>;
+  return (
+    <div className="   w-full min-h-20 flex items-center justify-center ">
+      <DropDown />
+    </div>
+  );
 };
