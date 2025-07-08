@@ -4,21 +4,27 @@ import { ArrowLeftButton } from '../../images/icons/ArrowLeftButton';
 import { ArrowRightButton } from '../../images/icons/ArrowRightButton';
 
 export type ProductSliderProps = {
-  title: string;
+  sliderConfig: {
+    titleForBrand: string;
+    classNameForButtonPrev: string;
+    classNameForButtonNext: string;
+  };
 };
 
-export const ProductSlider = ({ title }: ProductSliderProps) => {
+export const ProductSlider = ({ sliderConfig }: ProductSliderProps) => {
+  const { titleForBrand, classNameForButtonPrev, classNameForButtonNext } =
+    sliderConfig;
+
   return (
     <>
       <div className="relative mb-5">
-        <h2 className="h2">{title}</h2>
+        <h2 className="h2">{titleForBrand}</h2>
         <div className="absolute right-0 top-1 flex gap-4">
-          <button className="swiper-button-prev-cust group cursor-pointer">
+          <button className={`${classNameForButtonPrev} group cursor-pointer`}>
             <ArrowLeftButton />
           </button>
-          <button className="swiper-button-next-cust group cursor-pointer">
-            {' '}
-            <ArrowRightButton />{' '}
+          <button className={`${classNameForButtonNext} group cursor-pointer`}>
+            <ArrowRightButton />
           </button>
         </div>
       </div>
@@ -26,8 +32,8 @@ export const ProductSlider = ({ title }: ProductSliderProps) => {
       <Swiper
         modules={[Navigation]}
         navigation={{
-          prevEl: '.swiper-button-prev-cust',
-          nextEl: '.swiper-button-next-cust',
+          prevEl: `.${classNameForButtonPrev}`,
+          nextEl: `.${classNameForButtonNext}`,
         }}
         loop={true}
         spaceBetween={16}

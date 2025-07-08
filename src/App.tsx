@@ -14,8 +14,16 @@ export const App = () => {
       .catch(error => console.error(error));
   }, []); // test
 
-  const titleForBrand = 'Brand new models';
-  const titleForPrice = 'Hot prices';
+  const productsSliderConfig = {
+    titleForBrand: 'Brand new models',
+    classNameForButtonPrev: 'swiper-button-prev-cust',
+    classNameForButtonNext: 'swiper-button-next-cust',
+  };
+  const hotPricesSliderConfig = {
+    titleForBrand: 'Hot prices',
+    classNameForButtonPrev: 'swiper-button-prev-cust-price',
+    classNameForButtonNext: 'swiper-button-next-cust-price',
+  };
 
   return (
     <div className="App">
@@ -25,9 +33,9 @@ export const App = () => {
 
       {/* для перевірки */}
       <TopSlider />
-      <ProductSlider title={titleForBrand} />
+      <ProductSlider sliderConfig={productsSliderConfig} />
       <ShopByCategory />
-      <ProductSlider title={titleForPrice} />
+      <ProductSlider sliderConfig={hotPricesSliderConfig} />
       <Footer />
     </div>
   );
