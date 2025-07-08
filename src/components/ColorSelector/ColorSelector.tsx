@@ -1,5 +1,6 @@
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import clsx from 'clsx';
+import { useState } from 'react';
 
 const COLORS = [
   { id: 'peach', value: '#FDDDC6' },
@@ -9,11 +10,14 @@ const COLORS = [
 ];
 
 export const ColorSelector = () => {
+  const [selectedColor, setSelectedColor] = useState('peach');
+
   return (
     <div>
       <RadioGroup.Root
         className="flex gap-4"
-        defaultValue="peach"
+        value={selectedColor}
+        onValueChange={setSelectedColor}
         aria-label="Available colors"
       >
         {COLORS.map(color => (
@@ -24,7 +28,7 @@ export const ColorSelector = () => {
               'w-7 h-7 rounded-full bg-white',
               'flex items-center justify-center',
               'transition-all duration-200',
-              'outline-none',
+              'outline-none cursor-pointer',
               'border',
               'data-[state=checked]:border-black',
               'data-[state=unchecked]:border-[#E3E5E5]',
