@@ -5,6 +5,7 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer';
 
 import { ShopByCategory } from './components/ShopByCategory';
+import { ProductSlider } from './components/ProductsSlider';
 
 export const App = () => {
   useEffect(() => {
@@ -12,6 +13,9 @@ export const App = () => {
       .then(data => console.log(data))
       .catch(error => console.error(error));
   }, []); // test
+
+  const titleForBrand = 'Brand new models';
+  const titleForPrice = 'Hot prices';
 
   return (
     <div className="App">
@@ -21,7 +25,9 @@ export const App = () => {
 
       {/* для перевірки */}
       <TopSlider />
+      <ProductSlider title={titleForBrand} />
       <ShopByCategory />
+      <ProductSlider title={titleForPrice} />
       <Footer />
     </div>
   );
