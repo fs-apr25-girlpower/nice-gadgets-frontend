@@ -5,6 +5,7 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer';
 
 import { ShopByCategory } from './components/ShopByCategory';
+import { ProductCard } from './components/ProductCard';
 
 export const App = () => {
   useEffect(() => {
@@ -20,6 +21,7 @@ export const App = () => {
 
       <TopSlider />
       <ShopByCategory />
+      <ProductCard />
       <Footer />
     </div>
   );
