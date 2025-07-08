@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const ButtonMain: React.FC = () => {
-  const [isSelected, setIsSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(true);
 
   return (
     <button
