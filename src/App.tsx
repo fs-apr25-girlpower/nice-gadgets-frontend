@@ -16,10 +16,8 @@ export const App = () => {
   return (
     <div className="App">
       <Header />
-      {/* для перевірки */}
       <p className="mt-4 text-lg text-gray-800">tailwind</p>
 
-      {/* для перевірки */}
       <TopSlider />
       <ShopByCategory />
       <Footer />
