@@ -1,5 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { DropdownArrowDown } from '../../images/icons/dropdownArrowDown';
+import { DropdownArrowDown } from '../../images/icons/DropdownArrowDown';
 import { DropdownArrowUp } from '../../images/icons/DropdownArrowUp';
 import { AnimatePresence, motion } from 'motion/react';
 import { useState } from 'react';
