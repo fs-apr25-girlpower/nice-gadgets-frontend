@@ -16,6 +16,7 @@ export const App = () => {
   return (
     <div className="App">
       <Header />
+
       <p className="mt-4 text-lg text-gray-800">tailwind</p>
 
       <TopSlider />
