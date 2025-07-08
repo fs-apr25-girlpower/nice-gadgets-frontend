@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { Logo } from '../../images/logos/Logo';
+import { BackToTopButton } from '../BackToTopButton';
 
 export const Footer = () => {
   return (
-    <footer className="absolute bottom-0 w-full  border-t border-t-gray-400 py-8 min-w-[288px] sm:min-w-[192px]">
+    <footer className="border-t border-t-gray-400 py-8 min-w-[288px] sm:min-w-[192px]">
       <div
         className="
         max-w-[1440px] mx-auto
@@ -59,9 +60,7 @@ export const Footer = () => {
         {/* Back to top */}
         <div className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-end">
           <span className="text-gray-400 text-base">Back to top</span>
-          <button className="border border-gray-300 rounded w-8 h-8 flex items-center justify-center hover:bg-gray-100 transition">
-            <span className="text-xl">↑</span>
-          </button>
+          <BackToTopButton />
         </div>
       </div>
     </footer>

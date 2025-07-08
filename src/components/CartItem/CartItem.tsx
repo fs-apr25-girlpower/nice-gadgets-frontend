@@ -1,6 +1,6 @@
 export const CartItem = () => {
   return (
-    <div className="w-full max-w-[752px] min-w-[288px] bg-white border border-gray-200 shadow-sm p-4 relative">
+    <div className="w-full min-w-[288px] bg-white border border-gray-200 shadow-sm p-4 relative">
       <div className="sm:hidden">
         <div className="flex gap-4">
           <div className="flex flex-col gap-3">
