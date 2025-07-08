@@ -6,7 +6,6 @@ import { Footer } from './components/Footer';
 
 import { ShopByCategory } from './components/ShopByCategory';
 import { ProductCard } from './components/ProductCard';
-import { Breadcrumbs } from './components/Breadcrumbs';
 
 export const App = () => {
   useEffect(() => {
@@ -18,7 +17,6 @@ export const App = () => {
   return (
     <div className="App">
       <Header />
-      <Breadcrumbs />
       <p className="mt-4 text-lg text-gray-800">tailwind</p>
 
       <TopSlider />
