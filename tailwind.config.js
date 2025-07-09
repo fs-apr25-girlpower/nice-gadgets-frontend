@@ -8,7 +8,28 @@ module.exports = {
       desktop: '1200px',
     },
     extend: {
-      //  додаткові кастомні стилі туть писать
+      colors: {
+        primary: '#313237',
+        secondary: '#89939a',
+        icons: '#b4bdc3',
+        elements: '#e2e6e9',
+        hoverAndBg: '#fafbfc',
+        green: '#27ae60',
+        red: '#eb5757',
+      },
+
+      fontFamily: {
+        mont: ['Mont', 'sans-serif'],
+      },
+
+      fontSize: {
+        nav: [
+          '12px',
+          { lineHeight: '11px', fontWeight: '800', letterSpacing: '0.04em' },
+        ],
+        default: ['14px', { lineHeight: '21px' }],
+        small: ['12px', { lineHeight: '1', fontWeight: '700' }],
+      },
     },
   },
   plugins: [],
