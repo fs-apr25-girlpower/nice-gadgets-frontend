@@ -5,8 +5,25 @@ import { CapacitySelector } from '../components/CapacitySelector/CapacitySelecto
 import { FavoriteButton } from '../components/FavoriteButton/FavoriteButton';
 import { ProductSlider } from '../components/ProductsSlider/ProductsSlider';
 import { ButtonMain } from '../components/ButtonMain';
+import { useProducts } from '../context/ProductsContext';
+import { Loader } from '../components/Loader';
 
 export const ItemCartPage = () => {
+  const allProducts = useProducts();
+
+  if (!allProducts || !Array.isArray(allProducts)) {
+    <div className="min-w-[320px] max-w-[1136px] mx-auto">
+      <p>
+        <Loader />
+      </p>
+    </div>;
+  }
+
+  const currentProductName = 'Apple iPhone 11 Pro Max';
+  const recommendedProducts = allProducts
+    .filter(product => product.name !== currentProductName)
+    .slice(0, 10);
+
   const sliderConfig = {
     titleForBrand: 'You may also like',
     classNameForButtonPrev: 'slider-prev-btn',
@@ -194,7 +211,10 @@ export const ItemCartPage = () => {
         </div>
       </div>
 
-      <ProductSlider sliderConfig={sliderConfig} />
+      <ProductSlider
+        sliderConfig={sliderConfig}
+        products={recommendedProducts}
+      />
     </div>
   );
 };
