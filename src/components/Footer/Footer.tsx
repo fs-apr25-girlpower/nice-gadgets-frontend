@@ -4,7 +4,7 @@ import { BackToTopButton } from '../BackToTopButton';
 
 export const Footer = () => {
   return (
-    <footer className="test border-t border-t-gray-400 py-8 min-w-[288px] sm:min-w-[192px]">
+    <footer className="border-t border-t-gray-400 py-8 min-w-[288px] sm:min-w-[192px]">
       <div
         className="
         max-w-[1440px] mx-auto

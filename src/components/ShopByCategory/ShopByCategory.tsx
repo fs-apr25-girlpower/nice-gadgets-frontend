@@ -5,20 +5,22 @@ import phones from '/img/categories/category-accessories.webp';
 
 export const ShopByCategory = () => {
   return (
-    <section className="w-full">
-      <div className="flex flex-col w-72 sm:w-148 lg:w-284 mx-auto">
+    <section className="mt-14 tablet:mt-16 desktop:mt-20">
+      <div className="flex flex-col">
         <h2 className="h2 color-primary mb-5 self-start">Shop by category</h2>
 
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col tablet:flex-row gap-4">
           <NavLink
             to="/phones"
-            className="w-72 sm:w-46 lg:w-92"
+            className="flex flex-col w-full tablet:w-1/3 desktop:w-1/3"
           >
-            <img
-              src={phone}
-              alt="Phone"
-              className="w-72 h-72 overflow-hidden mb-5 sm:w-46 sm:h-46 lg:w-92 lg:h-92 transition-transform duration-300 hover:scale-110"
-            />
+            <div className="w-full aspect-square mb-4 transition-transform duration-300 hover:scale-110">
+              <img
+                src={phone}
+                alt="Phone"
+                className="w-full h-full object-cover"
+              />
+            </div>
             <h4 className="h4 color-primary mb-1 hover:underline transition-all duration-200">
               Mobile phones
             </h4>
@@ -29,13 +31,15 @@ export const ShopByCategory = () => {
 
           <NavLink
             to="/tablets"
-            className="w-72 sm:w-46 lg:w-92"
+            className="flex flex-col w-full tablet:w-1/3 desktop:w-1/3 "
           >
-            <img
-              src={tablet}
-              alt="Tablets"
-              className="w-72 h-72 overflow-hidden mb-5 sm:w-46 sm:h-46 lg:w-92 lg:h-92 transition-transform duration-300 hover:scale-110"
-            />
+            <div className="w-full aspect-square mb-4 transition-transform duration-300 hover:scale-110">
+              <img
+                src={tablet}
+                alt="Tablets"
+                className="w-full h-full object-cover"
+              />
+            </div>
             <h4 className="h4 color-primary mb-1 hover:underline transition-all duration-200">
               Tablets
             </h4>
@@ -46,13 +50,15 @@ export const ShopByCategory = () => {
 
           <NavLink
             to="/accessories"
-            className="w-72 sm:w-46 lg:w-92"
+            className="flex flex-col w-full tablet:w-1/3 desktop:w-1/3"
           >
-            <img
-              src={phones}
-              alt="Phone"
-              className="w-72 h-72 overflow-hidden mb-5 sm:w-46 sm:h-46 lg:w-92 lg:h-92 transition-transform duration-300 hover:scale-110"
-            />
+            <div className="w-full aspect-square mb-4 transition-transform duration-300 hover:scale-110">
+              <img
+                src={phones}
+                alt="Phone"
+                className="w-full h-full object-cover"
+              />
+            </div>
             <h4 className="h4 color-primary mb-1 hover:underline transition-all duration-200">
               Accessories
             </h4>

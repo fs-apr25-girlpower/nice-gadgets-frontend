@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 type Props = {
   isEmpty: boolean;
   count: number;
