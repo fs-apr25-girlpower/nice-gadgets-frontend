@@ -35,7 +35,7 @@ export const ProductSlider = ({ sliderConfig }: ProductSliderProps) => {
         </div>
       </div>
 
-      <div className="-mr-4 sm:-mr-6 lg:mr-0">
+      <div className="-mr-4 tablet:-mr-6 desktop:mr-0">
         <Swiper
           modules={[Navigation]}
           navigation={{
@@ -48,7 +48,6 @@ export const ProductSlider = ({ sliderConfig }: ProductSliderProps) => {
           breakpoints={{
             1200: {
               slidesPerView: 4,
-              spaceBetween: 16,
             },
           }}
         >
