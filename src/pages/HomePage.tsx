@@ -1,8 +1,30 @@
+import { Loader } from '../components/Loader';
 import { ProductSlider } from '../components/ProductsSlider';
 import { ShopByCategory } from '../components/ShopByCategory';
 import { TopSlider } from '../components/TopSlider';
+import { useProducts } from '../context/ProductsContext';
 
 export const HomePage = () => {
+  //hook Context
+  const products = useProducts();
+
+  const isLoading = !products || !Array.isArray(products);
+  if (isLoading) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    ); // add loader?
+  }
+
+  const brandNewProducts = products
+    .filter(product => product.year >= 2021)
+    .sort((a, b) => b.year - a.year);
+
+  const hotPriceProducts = products
+    .filter(p => p.fullPrice - p.price > 100)
+    .sort((a, b) => b.fullPrice - b.price - (a.fullPrice - a.price));
+
   const productsSliderConfig = {
     titleForBrand: 'Brand new models',
     classNameForButtonPrev: 'swiper-button-prev-cust',
@@ -23,9 +45,18 @@ export const HomePage = () => {
         Welcome to Nice Gadgets store!
       </h1>
       <TopSlider />
-      <ProductSlider sliderConfig={productsSliderConfig} />
+
+      <ProductSlider
+        sliderConfig={productsSliderConfig}
+        products={brandNewProducts.slice(0, 10)}
+      />
+
       <ShopByCategory />
-      <ProductSlider sliderConfig={hotPricesSliderConfig} />
+
+      <ProductSlider
+        sliderConfig={hotPricesSliderConfig}
+        products={hotPriceProducts.slice(0, 10)}
+      />
     </div>
   );
 };

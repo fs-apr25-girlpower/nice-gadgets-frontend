@@ -2,7 +2,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 
 export const ButtonMain: React.FC = () => {
-  const [isSelected, setIsSelected] = useState(true);
+  const [isSelected, setIsSelected] = useState(false);
 
   return (
     <button

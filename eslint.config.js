@@ -41,6 +41,7 @@ export default tseslint.config([
         { allowConstantExport: true },
       ],
       // Ваші власні, додаткові правила або перевизначення
+      'react/prop-types': 'off',
     },
     settings: {
       react: {
