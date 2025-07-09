@@ -4,7 +4,7 @@ import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
 import './Header.css';
 export const Header = () => {
   const headerClass =
-    'header flex w-full mobile:h-12 desktop:h-16 flex flex-row items-center gap-12 justify-between pl-[18px] border-b border-[#E2E6E9] font-bold text-[12px]';
+    'header flex flex-row sticky top-0 justify-between items-center w-full gap-12 bg-white z-10000 mobile:h-12 desktop:h-16 pl-[18px] border-b border-[#E2E6E9] font-bold text-[12px]';
   const navItemClass =
     "flex items-center h-full relative before:content-[''] before:absolute before:bottom-[0] before:left-0 before:h-[3px] before:w-0 before:bg-black before:transition-all hover:before:w-full hover:text-[#313237] ";
 
@@ -14,7 +14,7 @@ export const Header = () => {
   return (
     <>
       <header className={headerClass}>
-        <nav className="h-full flex flex-row items-center text-center gap-11">
+        <nav className="h-full flex flex-row items-center text-center gap-11 sticky top-0 bg-white z-10000">
           <NavLink
             to={'/'}
             className="w-16 md:w-20 h-7 m:h-[22px]"
