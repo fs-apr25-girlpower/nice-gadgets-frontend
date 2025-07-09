@@ -5,7 +5,7 @@
 @import './colors.css';
 @import './typography.css';
 @import './breakpoints.css';
-@config "../../tailwind.config.js";
+@config '../../tailwind.config.js';
 
 * {
   box-sizing: border-box;
