@@ -4,7 +4,7 @@ import { FavoriteButton } from '../FavoriteButton';
 
 export const ProductCard: React.FC = () => {
   return (
-    <article className="w-[212px] h-[439px] px-[32px] pt-[32px] border border-[#E2E6E9] tablet:w-[232px] tablet:h-[520px] desktop:w-[272px] desktop:h-[515px] ml-[50px]">
+    <article className="w-[212px] h-[439px] px-[32px] pt-[32px] border border-[#E2E6E9] tablet:w-[232px] tablet:h-[520px] desktop:w-[272px] desktop:h-[515px]">
       <div className="flex items-center justify-center">
         <img
           className="w-[148px] h-[128px] object-contain tablet:w-[173px] tablet:h-[202px] desktop:w-[208px] desktop:h-[196px]"
