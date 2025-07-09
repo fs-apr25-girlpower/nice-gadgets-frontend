@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { getTablets } from './api/getTablets';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer';
+// import { ShopByCategory } from './components/ShopByCategory';
 import { Outlet } from 'react-router-dom';
+// import { ProductSlider } from './components/ProductsSlider';
 
 export const App = () => {
   useEffect(() => {
