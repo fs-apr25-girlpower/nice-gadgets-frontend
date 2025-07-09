@@ -43,7 +43,7 @@ export const DropDown = ({
     'dropdown-wrapper flex flex-col items-start justify-center text-start h-15 mobile:w-34 tablet:w-44';
   const baseLabel = 'block text-[12px] leading-[12px] text-[#89939A] mb-1';
   const baseTriggerBtn =
-    'w-full h-10 px-3 bg-white border-1 border-[#B4BDC3] hover:border hover:border-[#313237] flex items-center justify-between text-left focus:outline-none';
+    'w-full h-10 leading-5 text-3 px-3 bg-white border-1 border-[#B4BDC3] hover:border hover:border-[#313237] flex items-center justify-between   ';
   const baseDropdownContent =
     'bg-white shadow-lg border border-[#B4BDC3] z-50 overflow-hidden mobile:w-34 tablet:w-44 text-2';
   const baseDropdownItem =
@@ -59,11 +59,13 @@ export const DropDown = ({
           onOpenChange={setDropDownIsOpened}
           modal={false}
         >
-          <DropdownMenu.Trigger asChild>
-            <button className={clsx(baseTriggerBtn, triggerButtonClassName)}>
-              <span className="text-[14px]">{selectedLabel}</span>
-              {dropDownIsOpened ? <DropdownArrowUp /> : <DropdownArrowDown />}
-            </button>
+          <DropdownMenu.Trigger
+            className={clsx(baseTriggerBtn, triggerButtonClassName)}
+          >
+            <span className="mobile:text-[0.9em] tablet:text-[14px]">
+              {selectedLabel}
+            </span>
+            {dropDownIsOpened ? <DropdownArrowUp /> : <DropdownArrowDown />}
           </DropdownMenu.Trigger>
 
           <DropdownMenu.Portal>
