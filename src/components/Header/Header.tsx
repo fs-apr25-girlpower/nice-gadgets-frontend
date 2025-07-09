@@ -1,5 +1,5 @@
 import { Logo } from '../../images/logos/Logo';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
 import './Header.css';
 export const Header = () => {
@@ -67,7 +67,6 @@ export const Header = () => {
 
         <CustomerBar />
       </header>
-      <Outlet />
     </>
   );
 };
