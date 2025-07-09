@@ -3,8 +3,8 @@ import { getTablets } from './api/getTablets';
 import { TopSlider } from './components/TopSlider/TopSlider';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer';
-
 import { ShopByCategory } from './components/ShopByCategory';
+import { Outlet } from 'react-router-dom';
 import { ProductSlider } from './components/ProductsSlider';
 
 export const App = () => {
@@ -29,9 +29,7 @@ export const App = () => {
   return (
     <div className="App">
       <Header />
-
-      <p className="mt-4 text-lg text-gray-800">tailwind</p>
-
+      <Outlet />
       <TopSlider />
       <ShopByCategory />
       <ProductSlider sliderConfig={productsSliderConfig} />
