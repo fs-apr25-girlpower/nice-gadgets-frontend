@@ -12,7 +12,7 @@ export const ProductGallery: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <div className="flex flex-col tablet:flex-row gap-4 items-start">
+    <div className="flex flex-col tablet:flex-row gap-4 items-center tablet:items-start w-full">
       <div
         className={clsx(
           'flex gap-[13px] overflow-auto',
@@ -25,27 +25,31 @@ export const ProductGallery: React.FC = () => {
             key={img}
             onClick={() => setSelectedIndex(index)}
             className={clsx(
-              'border overflow-hidden flex-shrink-0',
+              'border overflow-hidden flex-shrink-0 tablet:w-14 tablet:h-14 desktop:w-20 desktop:h-20',
               index === selectedIndex ? 'border-black' : 'border-transparent',
             )}
+            style={{
+              width: 'clamp(50px, 4.6875vw + 35px, 65px)',
+              height: 'clamp(50px, 4.6875vw + 35px, 65px)',
+            }}
           >
             <img
               src={img}
               alt={`Miniature ${index + 1}`}
               className={clsx(
                 'object-cover',
-                'w-[50px] h-[50px] tablet:w-9 tablet:h-9 desktop:w-20 desktop:h-20 border border-[#E2E6E9]',
+                'w-full h-full aspect-square border border-[#E2E6E9] overflow-hidden',
               )}
             />
           </button>
         ))}
       </div>
 
-      <div className="flex-shrink-0 order-1 tablet:order-2 self-start">
+      <div className="w-full max-w-[350px] mx-auto order-1 tablet:order-2 tablet:self-start">
         <img
           src={images[selectedIndex]}
           alt={`Image ${selectedIndex + 1}`}
-          className="w-[288px] h-[288px] object-contain desktop:w-116 desktop:h-116"
+          className="w-full h-auto object-contain"
         />
       </div>
     </div>
