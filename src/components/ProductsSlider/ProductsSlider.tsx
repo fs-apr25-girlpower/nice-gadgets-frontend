@@ -4,14 +4,12 @@ import { ArrowLeftButton } from '../../images/icons/ArrowLeftButton';
 import { ArrowRightButton } from '../../images/icons/ArrowRightButton';
 import { ProductCard } from '../ProductCard';
 import type { Product } from '../../types/Product';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Swiper as SwiperInstance } from 'swiper';
 
 export type ProductSliderProps = {
   sliderConfig: {
     titleForBrand: string;
-    classNameForButtonPrev: string;
-    classNameForButtonNext: string;
     marginTop: string;
   };
   products: Product[];
@@ -21,18 +19,16 @@ export const ProductSlider = ({
   sliderConfig,
   products,
 }: ProductSliderProps) => {
-  const {
-    titleForBrand,
-    classNameForButtonPrev,
-    classNameForButtonNext,
-    marginTop,
-  } = sliderConfig;
+  const { titleForBrand, marginTop } = sliderConfig;
 
   // рефи для кнопок
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   // для swiper
   const swiperRef = useRef<SwiperInstance | null>(null);
+
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
     if (swiperRef.current && prevRef.current && nextRef.current) {
@@ -52,18 +48,22 @@ export const ProductSlider = ({
     <div className={marginTop}>
       <div className="relative mb-5">
         <h2 className="h2">{titleForBrand}</h2>
+
         <div className="absolute right-0 top-1 flex gap-4">
           <button
             ref={prevRef}
-            className={`${classNameForButtonPrev} group cursor-pointer`}
+            disabled={isBeginning}
+            className={`group ${!isBeginning && 'cursor-pointer'}`}
           >
-            <ArrowLeftButton />
+            <ArrowLeftButton isDisabled={isBeginning} />
           </button>
+
           <button
             ref={nextRef}
-            className={`${classNameForButtonNext} group cursor-pointer`}
+            disabled={isEnd}
+            className={`group ${!isEnd && 'cursor-pointer'}`}
           >
-            <ArrowRightButton />
+            <ArrowRightButton isDisabled={isEnd} />
           </button>
         </div>
       </div>
@@ -75,22 +75,22 @@ export const ProductSlider = ({
             prevEl: prevRef.current,
             nextEl: nextRef.current,
           }}
-          loop={true}
-          spaceBetween={16}
           onSwiper={swiper => {
             swiperRef.current = swiper;
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(false);
           }}
+          onSlideChange={swiper => {
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(swiper.isEnd);
+          }}
+          spaceBetween={16}
           slidesPerView="auto"
-          breakpoints={{
-            1200: {
-              slidesPerView: 4,
-            },
-          }}
         >
           {products.map(product => (
             <SwiperSlide
               key={product.id}
-              className="!shrink"
+              className="max-w-53 tablet:max-w-60 desktop:max-w-68"
             >
               <ProductCard product={product} />
             </SwiperSlide>
