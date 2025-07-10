@@ -1,12 +1,23 @@
 import { Heart } from '../../images/icons/Heart';
 import { FilledHeart } from '../../images/icons/FilledHeart';
-import { useState } from 'react';
+import { useCart } from '../../hooks/useCart';
+import type { Product } from '../../types/Product';
 
-export const FavoriteButton: React.FC = () => {
-  const [isFavorite, setIsFavorite] = useState(false);
+interface Props {
+  product: Product;
+}
+
+export const FavoriteButton: React.FC<Props> = ({ product }) => {
+  const { addToFavorites, removeFromFavorites, isInFavorites } = useCart();
+
+  const isFavorite = isInFavorites(product);
 
   const handleToggle = () => {
-    setIsFavorite(prev => !prev);
+    if (isFavorite) {
+      removeFromFavorites(product);
+    } else {
+      addToFavorites(product);
+    }
   };
 
   return (

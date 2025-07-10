@@ -20,6 +20,10 @@ body,
   width: 100%;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   display: block;
   background-color: white;
