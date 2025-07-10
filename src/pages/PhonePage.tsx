@@ -85,6 +85,8 @@ export const PhonesPage = () => {
 
       <h2 className="mt-6 mb-2 tablet:mt-10">Mobile phones</h2>
 
+      {isLoading && <Loader />}
+
       {phones.length === 0 ? (
         <p>There are no phones yet</p>
       ) : (
