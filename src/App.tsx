@@ -16,14 +16,21 @@ import { TabletsContext } from './context/TabletsContext';
 import { getAccessories } from './api/getAccessories';
 import { AccessoriesContext } from './context/AccessoriesContext';
 import { CartProvider } from './context/CartContext';
+import type { ProductWithDetails } from './types';
+import { getProductsWithDetails } from './api/getProductsWithDetails';
+import { ProductsWithDetailsContext } from './context/ProductsWithDetailsContext';
 
 export const App = () => {
+  const [productsWithDetails, setProductsWithDetails] = useState<
+    ProductWithDetails[]
+  >([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [phones, setPhones] = useState<Phone[]>([]);
   const [tablets, setTablets] = useState<Tablet[]>([]);
   const [accessories, setAccessories] = useState<Accessory[]>([]);
 
   useEffect(() => {
+    getProductsWithDetails().then(setProductsWithDetails);
     getProducts().then(setProducts);
     getPhones().then(setPhones);
     getTablets().then(setTablets);
@@ -32,23 +39,25 @@ export const App = () => {
 
   return (
     <CartProvider>
-      <ProductsContext.Provider value={products}>
-        <PhonesContext.Provider value={phones}>
-          <TabletsContext.Provider value={tablets}>
-            <AccessoriesContext.Provider value={accessories}>
-              <div className="App">
-                <div className="wrapper min-h-screen flex flex-col">
-                  <Header />
-                  <main className="grow px-4 tablet:px-6 desktop:px-8 pb-16 tablet:pb-16 desktop:pb-20 pt-6">
-                    <Outlet />
-                  </main>
-                  <Footer />
+      <ProductsWithDetailsContext.Provider value={productsWithDetails}>
+        <ProductsContext.Provider value={products}>
+          <PhonesContext.Provider value={phones}>
+            <TabletsContext.Provider value={tablets}>
+              <AccessoriesContext.Provider value={accessories}>
+                <div className="App">
+                  <div className="wrapper min-h-screen flex flex-col">
+                    <Header />
+                    <main className="grow px-4 tablet:px-6 desktop:px-8 pb-16 tablet:pb-16 desktop:pb-20 pt-6">
+                      <Outlet />
+                    </main>
+                    <Footer />
+                  </div>
                 </div>
-              </div>
-            </AccessoriesContext.Provider>
-          </TabletsContext.Provider>
-        </PhonesContext.Provider>
-      </ProductsContext.Provider>
+              </AccessoriesContext.Provider>
+            </TabletsContext.Provider>
+          </PhonesContext.Provider>
+        </ProductsContext.Provider>
+      </ProductsWithDetailsContext.Provider>
     </CartProvider>
   );
 };
