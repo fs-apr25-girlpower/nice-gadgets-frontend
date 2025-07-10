@@ -17,7 +17,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
         />
       </div>
 
-      <h3 className="body-text mb-2">{product.name}</h3>
+      <p className="body-text mb-2">{product.name}</p>
 
       <div className="py-2 border-b border-gray-200 font-mont text-[22px] font-extrabold leading-[140%] mb-4">
         ${product.price}
