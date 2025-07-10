@@ -19,7 +19,15 @@
   font-family: 'Mont';
   src: url('/fonts/Mont-Bold.otf') format('opentype');
   font-weight: 700;
-  font-style: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mont';
+  src: url('/fonts/Mont-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
   font-display: swap;
 }
 
