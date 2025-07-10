@@ -16,14 +16,11 @@ export function Pagination<T>({
   currentPage,
   onPageChange,
 }: PaginationProps<T>) {
-  // Тепер currentPage і onPageChange приходять зверху — без локального useState
-
   const totalPages = Math.ceil(items.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = items.slice(startIndex, endIndex);
 
-  // Замість setCurrentPage викликаємо onPageChange
   const handlePageClick = (page: number) => {
     if (page !== currentPage) {
       onPageChange(page);

@@ -66,7 +66,6 @@ export const PhonesPage = () => {
       }
     });
 
-    // reversed ? result : - result
     return result;
   };
   const sortedProducts = toSortProducts(phones, sortTypeSelected);
