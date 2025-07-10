@@ -8,43 +8,43 @@ type Props = {
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
   return (
-    <article className="w-[212px] h-[439px] px-[32px] pt-[32px] border border-[#E2E6E9] tablet:w-[232px] tablet:h-[520px] desktop:w-[272px] desktop:h-[515px]">
-      <div className="flex items-center justify-center">
+    <article className="min-w-[229px] min-h-[440px] max-h-[506px] w-full flex flex-col p-4 tablet:p-6 desktop:p-8 border border-gray-200">
+      <div className="flex items-center justify-center mb-4 tablet:mb-6">
         <img
-          className="w-[148px] h-[128px] object-contain tablet:w-[173px] tablet:h-[202px] desktop:w-[208px] desktop:h-[196px]"
+          className="w-full max-w-[148px] h-auto max-h-[128px] object-contain tablet:max-w-[173px] tablet:max-h-[202px] desktop:max-w-[208px] desktop:max-h-[196px]"
           src={`${import.meta.env.BASE_URL}${product.image}`}
           alt={product.name}
         />
       </div>
 
-      <p className="body-text pt-6">{product.name}</p>
+      <h3 className="body-text mb-2">{product.name}</h3>
 
-      <div className="py-2 border-b border-[#E2E6E9] font-mont text-[22px] font-extrabold leading-[140%]">
-        {product.price}
+      <div className="py-2 border-b border-gray-200 font-mont text-[22px] font-extrabold leading-[140%] mb-4">
+        ${product.price}
       </div>
 
-      <div className="pb-2">
-        <div className="flex justify-between pt-2">
+      <div className="flex-grow space-y-2 mb-4">
+        <div className="flex justify-between">
           <p className="small-text text-[#89939A]">Screen</p>
           <p className="text-[12px] text-[#313237] font-bold">
             {product.screen}
           </p>
         </div>
 
-        <div className="flex justify-between pt-2">
+        <div className="flex justify-between">
           <p className="small-text text-[#89939A]">Capacity</p>
           <p className="text-[12px] text-[#313237] font-bold">
             {product.capacity}
           </p>
         </div>
 
-        <div className="flex justify-between pt-2">
+        <div className="flex justify-between">
           <p className="small-text text-[#89939A]">RAM</p>
           <p className="text-[12px] text-[#313237] font-bold">{product.ram}</p>
         </div>
       </div>
 
-      <div className="flex gap-[8px] w-[100%] h-[40px] mb-8">
+      <div className="flex gap-2 w-full h-10 mt-auto">
         <ButtonMain />
         <FavoriteButton />
       </div>
