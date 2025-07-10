@@ -1,7 +1,9 @@
 import type { Accessory } from '../types/Accessory';
 
 export const getAccessories = async (): Promise<Accessory[]> => {
-  const response = await fetch(`${import.meta.env.BASE_URL}api/accessory.json`);
+  const response = await fetch(
+    `${import.meta.env.BASE_URL}api/accessories.json`,
+  );
 
   if (!response.ok) {
     throw new Error('Failed to fetch accessory');
