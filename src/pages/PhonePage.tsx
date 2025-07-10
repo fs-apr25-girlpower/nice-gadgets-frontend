@@ -115,12 +115,10 @@ export const PhonesPage = () => {
             currentPage={page}
             onPageChange={newPage => refreshParams({ page: newPage })}
             renderItem={(phone: Product) => (
-              <div
+              <ProductCard
                 key={phone.id}
-                className="tesw-full h-full flex justify-center bg-amber-400"
-              >
-                <ProductCard product={phone} />
-              </div>
+                product={phone}
+              />
             )}
           />
         </>
