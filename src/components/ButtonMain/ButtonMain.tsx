@@ -15,7 +15,7 @@ export const ButtonMain: React.FC = () => {
           : 'bg-[#313237] text-white',
       )}
     >
-      Add to cart
+      {isSelected ? 'Added' : 'Add to cart'}
     </button>
   );
 };
