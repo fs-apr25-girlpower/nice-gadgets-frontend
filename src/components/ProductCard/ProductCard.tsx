@@ -2,16 +2,16 @@ import type { Product } from '../../types/Product';
 import { ButtonMain } from '../ButtonMain';
 import { FavoriteButton } from '../FavoriteButton';
 
-type Props = {
+interface Props {
   product: Product;
-};
+}
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
   return (
     <article className="min-w-[229px] min-h-[440px] max-h-[530px] w-full flex flex-col p-4 tablet:p-6 desktop:p-8 border border-elements">
       <div className="flex items-center justify-center mb-4 tablet:mb-6">
         <img
-          className="w-full max-w-[148px] h-auto max-h-[128px] object-contain tablet:max-w-[173px] tablet:max-h-[202px] desktop:max-w-[208px] desktop:max-h-[196px]"
+          className="w-[148px] h-[128px] object-contain tablet:w-[173px] tablet:h-[202px] desktop:w-[208px] desktop:h-[196px]"
           src={`${import.meta.env.BASE_URL}${product.image}`}
           alt={product.name}
         />
@@ -47,9 +47,9 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
         </div>
       </div>
 
-      <div className="flex gap-2 w-full h-10 mt-auto">
-        <ButtonMain />
-        <FavoriteButton />
+      <div className="flex gap-[8px] w-[100%] h-[40px] mb-8">
+        <ButtonMain product={product} />
+        <FavoriteButton product={product} />
       </div>
     </article>
   );

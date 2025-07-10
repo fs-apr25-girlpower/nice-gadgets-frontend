@@ -7,21 +7,92 @@ import { ProductSlider } from '../components/ProductsSlider/ProductsSlider';
 import { ButtonMain } from '../components/ButtonMain';
 import { useProducts } from '../context/ProductsContext';
 import { Loader } from '../components/Loader';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getProductsWithDetails } from '../api/getProductsWithDetails';
+import type { ProductWithDetails } from '../types/ProductWithDetails';
 
 export const ItemCartPage = () => {
   const allProducts = useProducts();
+  const { productId } = useParams<{ productId: string }>();
+  const [productWithDetails, setProductWithDetails] =
+    useState<ProductWithDetails | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!allProducts || !Array.isArray(allProducts)) {
-    <div className="min-w-[320px] max-w-[1136px] mx-auto">
-      <p>
-        <Loader />
-      </p>
-    </div>;
+  useEffect(() => {
+    const loadProductDetails = async () => {
+      if (!allProducts || !Array.isArray(allProducts)) {
+        return;
+      }
+
+      const currentProduct = allProducts.find(
+        product =>
+          product.id.toString() === productId || product.itemId === productId,
+      );
+
+      if (!currentProduct) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const productsWithDetails = await getProductsWithDetails();
+        const detailedProduct = productsWithDetails.find(
+          product =>
+            product.id === currentProduct.id ||
+            product.itemId === currentProduct.itemId,
+        );
+
+        setProductWithDetails(
+          detailedProduct || { ...currentProduct, details: null },
+        );
+      } catch (error) {
+        console.error('Error loading product details:', error);
+        setProductWithDetails({ ...currentProduct, details: null });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProductDetails();
+  }, [allProducts, productId]);
+
+  if (!allProducts || !Array.isArray(allProducts) || loading) {
+    return (
+      <div className="min-w-[320px] max-w-[1136px] mx-auto">
+        <p>
+          <Loader />
+        </p>
+      </div>
+    );
   }
 
-  const currentProductName = 'Apple iPhone 11 Pro Max';
+  if (!productWithDetails) {
+    return (
+      <div className="min-w-[320px] max-w-[1136px] mx-auto">
+        <div className="flex flex-col items-center justify-center py-16">
+          <h1 className="text-2xl font-bold text-primary mb-4">
+            Product not found
+          </h1>
+          <p className="text-secondary mb-6">
+            The product you&apos;re looking for doesn&apos;t exist.
+          </p>
+          <button
+            onClick={() => window.history.back()}
+            className="px-6 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-colors"
+          >
+            Go Back
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const currentProduct = productWithDetails;
+  const details = productWithDetails.details;
+
   const recommendedProducts = allProducts
-    .filter(product => product.name !== currentProductName)
+    .filter(product => product.id !== currentProduct.id)
     .slice(0, 10);
 
   const sliderConfig = {
@@ -48,7 +119,7 @@ export const ItemCartPage = () => {
       </div>
 
       <h1 className="text-xl tablet:text-2xl desktop:text-[28px] font-bold text-primary mb-8 tablet:mb-10 desktop:mb-12">
-        Apple iPhone 11 Pro Max 64GB Gold (iMT9G2FS/A)
+        {currentProduct.name}
       </h1>
 
       <div className="flex flex-col tablet:flex-row gap-6 tablet:gap-8 desktop:gap-16 mb-12 tablet:mb-16 desktop:mb-20 min-w-0">
@@ -61,7 +132,7 @@ export const ItemCartPage = () => {
               Available colors
             </p>
             <div className="text-xs tablet:text-sm text-primary">
-              ID: 802390
+              ID: {currentProduct.itemId}
             </div>
           </div>
           <ColorSelector />
@@ -75,37 +146,47 @@ export const ItemCartPage = () => {
 
           <div className="flex items-baseline gap-3 py-4">
             <span className="text-2xl tablet:text-3xl desktop:text-[32px] font-bold text-primary">
-              $799
+              ${currentProduct.price}
             </span>
             <span className="text-lg tablet:text-xl desktop:text-[22px] text-secondary line-through">
-              $1199
+              ${currentProduct.fullPrice}
             </span>
           </div>
 
           <div className="flex gap-2 tablet:gap-4">
-            <ButtonMain />
-            <FavoriteButton />
+            <ButtonMain product={currentProduct} />
+            <FavoriteButton product={currentProduct} />
           </div>
 
           <div className="space-y-2 pt-6 border-t border-elements">
             <div className="flex flex-col gap-y-2 text-xs tablet:text-sm">
               <div className="flex justify-between">
                 <span className="text-secondary">Screen</span>
-                <span className="text-primary font-medium">6.5&quot; OLED</span>
+                <span className="text-primary font-medium">
+                  {currentProduct.screen}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-secondary">Resolution</span>
-                <span className="text-primary font-medium">2688x1242</span>
+                <span className="text-primary font-medium">
+                  {details && 'resolution' in details
+                    ? details.resolution
+                    : 'N/A'}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-secondary">Processor</span>
                 <span className="text-primary font-medium">
-                  Apple A12 Bionic
+                  {details && 'processor' in details
+                    ? details.processor
+                    : 'N/A'}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-secondary">RAM</span>
-                <span className="text-primary font-medium">4 GB</span>
+                <span className="text-primary font-medium">
+                  {currentProduct.ram}
+                </span>
               </div>
             </div>
           </div>
@@ -118,43 +199,33 @@ export const ItemCartPage = () => {
             About
           </h2>
           <div className="space-y-6 text-secondary text-sm tablet:text-base">
-            <div>
-              <h3 className="font-semibold mb-3 text-primary">
-                And then there was Pro
-              </h3>
-              <p className="leading-relaxed">
-                A transformative triple-camera system that adds tons of
-                capability without complexity. An unprecedented leap in battery
-                life. And a mind-blowing chip that doubles down on machine
-                learning and pushes the boundaries of what a smartphone can do.
-                Welcome to the first iPhone powerful enough to be called Pro.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-3 text-primary">Camera</h3>
-              <p className="leading-relaxed">
-                Meet the first triple-camera system to combine cutting-edge
-                technology with the legendary simplicity of iPhone. Capture up
-                to four times more scene. Get beautiful portraits with sharp
-                focus on your subject and artfully blurred backgrounds. And take
-                macro photos of tiny subjects that would be impossible to
-                photograph with traditional smartphone cameras.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-3 text-primary">
-                Shoot it. Flip it. Zoom it. Crop it. Cut it. Light it. Tweak it.
-                Love it.
-              </h3>
-              <p className="leading-relaxed">
-                iPhone 11 Pro lets you capture videos that are beautifully true
-                to life, with greater detail and smoother motion. Epic
-                processing power means it can shoot 4K video with extended
-                dynamic range and cinematic video stabilization — all out of the
-                box. You get more creative control, too, with four times more
-                scene and powerful new editing tools to play with.
-              </p>
-            </div>
+            {details?.description && details.description.length > 0 ? (
+              details.description.map((section, index) => (
+                <div key={index}>
+                  <h3 className="font-semibold mb-3 text-primary">
+                    {section.title}
+                  </h3>
+                  {section.text.map((paragraph, pIndex) => (
+                    <p
+                      key={pIndex}
+                      className="leading-relaxed mb-3"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              ))
+            ) : (
+              <div>
+                <h3 className="font-semibold mb-3 text-primary">
+                  About {currentProduct.name}
+                </h3>
+                <p className="leading-relaxed">
+                  Detailed information about this product is not available at
+                  the moment.
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -166,45 +237,49 @@ export const ItemCartPage = () => {
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Screen</span>
               <span className="text-primary text-sm font-medium">
-                6.5&quot; OLED
+                {currentProduct.screen}
               </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Resolution</span>
               <span className="text-primary text-sm font-medium">
-                2688x1242
+                {details?.resolution || 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Processor</span>
               <span className="text-primary text-sm font-medium">
-                Apple A12 Bionic
+                {details?.processor || 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">RAM</span>
-              <span className="text-primary text-sm font-medium">4 GB</span>
+              <span className="text-primary text-sm font-medium">
+                {currentProduct.ram}
+              </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Built in memory</span>
-              <span className="text-primary text-sm font-medium">64 GB</span>
+              <span className="text-primary text-sm font-medium">
+                {currentProduct.capacity}
+              </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Camera</span>
               <span className="text-primary text-sm font-medium">
-                12 Mp + 12 Mp + 12 Mp (Triple)
+                {details && 'camera' in details ? details.camera : 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Zoom</span>
               <span className="text-primary text-sm font-medium">
-                Optical, 2x
+                {details && 'zoom' in details ? details.zoom : 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">Cell</span>
               <span className="text-primary text-sm font-medium">
-                GSM, LTE, UMTS
+                {details && 'cell' in details ? details.cell.join(', ') : 'N/A'}
               </span>
             </div>
           </div>
