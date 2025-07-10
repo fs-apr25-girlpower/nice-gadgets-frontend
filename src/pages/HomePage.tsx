@@ -19,11 +19,13 @@ export const HomePage = () => {
 
   const brandNewProducts = products
     .filter(product => product.year >= 2021)
-    .sort((a, b) => b.year - a.year);
+    .sort((a, b) => b.year - a.year)
+    .slice(0, 10);
 
   const hotPriceProducts = products
-    .filter(p => p.fullPrice - p.price > 100)
-    .sort((a, b) => b.fullPrice - b.price - (a.fullPrice - a.price));
+    .filter(p => p.year < 2020)
+    .sort((a, b) => b.fullPrice - b.price - (a.fullPrice - a.price))
+    .slice(0, 10);
 
   const productsSliderConfig = {
     titleForBrand: 'Brand new models',
@@ -44,14 +46,14 @@ export const HomePage = () => {
 
       <ProductSlider
         sliderConfig={productsSliderConfig}
-        products={brandNewProducts.slice(0, 10)}
+        products={brandNewProducts}
       />
 
       <ShopByCategory />
 
       <ProductSlider
         sliderConfig={hotPricesSliderConfig}
-        products={hotPriceProducts.slice(0, 10)}
+        products={hotPriceProducts}
       />
     </>
   );
