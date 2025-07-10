@@ -9,6 +9,8 @@ import { FavouritesPage } from './pages/FavouritesPage';
 import { CartPage } from './pages/CartPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { MobileMenuPage } from './pages/MobileMenuPage';
+import { ContactsUsPage } from './pages/ContactsUsPage';
+import { RightsPage } from './pages/RightsPage';
 
 const routeConfig: RouteConfig[] = [
   { index: true, element: <HomePage /> },
@@ -18,6 +20,8 @@ const routeConfig: RouteConfig[] = [
   { path: 'favourites', element: <FavouritesPage /> },
   { path: 'cart', element: <CartPage /> },
   { path: 'mobileMenu', element: <MobileMenuPage /> },
+  { path: 'contacts', element: <ContactsUsPage /> },
+  { path: 'rights', element: <RightsPage /> },
   { path: '*', element: <NotFoundPage /> },
 ];
 export const Root = () => {

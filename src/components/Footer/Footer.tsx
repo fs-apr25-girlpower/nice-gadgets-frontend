@@ -39,20 +39,20 @@ export const Footer = () => {
               </a>
             </li>
             <li>
-              <a
-                href="#"
+              <NavLink
+                to="contacts"
                 className="hover:text-black"
               >
                 Contacts
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="#"
+              <NavLink
+                to="rights"
                 className="hover:text-black"
               >
                 Rights
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>

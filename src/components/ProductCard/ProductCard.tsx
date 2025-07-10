@@ -8,8 +8,8 @@ interface Props {
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
   return (
-    <article className="w-[212px] h-[439px] px-[32px] pt-[32px] border border-[#E2E6E9] tablet:w-[232px] tablet:h-[520px] desktop:w-[272px] desktop:h-[515px] ml-[50px]">
-      <div className="flex items-center justify-center">
+    <article className="min-w-[229px] min-h-[440px] max-h-[530px] w-full flex flex-col p-4 tablet:p-6 desktop:p-8 border border-elements">
+      <div className="flex items-center justify-center mb-4 tablet:mb-6">
         <img
           className="w-[148px] h-[128px] object-contain tablet:w-[173px] tablet:h-[202px] desktop:w-[208px] desktop:h-[196px]"
           src={`${import.meta.env.BASE_URL}${product.image}`}
@@ -17,30 +17,33 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
         />
       </div>
 
-      <p className="body-text pt-6">{product.name}</p>
+      <div className="body-text min-h-[42px]">{product.name}</div>
 
-      <div className="py-2 border-b border-[#E2E6E9] font-mont text-[22px] font-extrabold leading-[140%]">
-        ${product.price}
+      <div className="py-3 border-b border-elements flex items-center gap-x-2 mb-4">
+        <div className="font-mont text-primary text-price font-bold">
+          ${product.price}
+        </div>
+        <div className="font-mont text-secondary text-price font-light line-through">
+          ${product.fullPrice}
+        </div>
       </div>
 
-      <div className="pb-2">
-        <div className="flex justify-between pt-2">
-          <p className="small-text text-[#89939A]">Screen</p>
-          <p className="text-[12px] text-[#313237] font-bold">
-            {product.screen}
-          </p>
+      <div className="flex-grow space-y-2 mb-4">
+        <div className="flex justify-between">
+          <p className="small-text text-secondary">Screen</p>
+          <p className="text-[12px] text-primary font-bold">{product.screen}</p>
         </div>
 
-        <div className="flex justify-between pt-2">
-          <p className="small-text text-[#89939A]">Capacity</p>
-          <p className="text-[12px] text-[#313237] font-bold">
+        <div className="flex justify-between">
+          <p className="small-text text-secondary">Capacity</p>
+          <p className="text-[12px] text-primary font-bold">
             {product.capacity}
           </p>
         </div>
 
-        <div className="flex justify-between pt-2">
-          <p className="small-text text-[#89939A]">RAM</p>
-          <p className="text-[12px] text-[#313237] font-bold">{product.ram}</p>
+        <div className="flex justify-between">
+          <p className="small-text text-secondary">RAM</p>
+          <p className="text-[12px] text-primary font-bold">{product.ram}</p>
         </div>
       </div>
 
