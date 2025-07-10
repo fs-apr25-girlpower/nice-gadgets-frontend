@@ -5,7 +5,7 @@ export interface DescriptionItem {
 
 export interface Phone {
   id: string;
-  category: string; // наприклад, "phones"
+  category: string;
   namespaceId: string;
   name: string;
   capacityAvailable: string[];

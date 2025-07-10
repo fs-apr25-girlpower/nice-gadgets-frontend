@@ -23,12 +23,10 @@ module.exports = {
       },
 
       fontSize: {
-        nav: [
-          '12px',
-          { lineHeight: '11px', fontWeight: '800', letterSpacing: '0.04em' },
-        ],
+        nav: ['12px', { lineHeight: '11px', letterSpacing: '0.04em' }],
         default: ['14px', { lineHeight: '21px' }],
-        small: ['12px', { lineHeight: '1', fontWeight: '700' }],
+        small: ['12px', { lineHeight: '1' }],
+        price: ['22px', { lineHeight: '1' }],
       },
     },
   },
