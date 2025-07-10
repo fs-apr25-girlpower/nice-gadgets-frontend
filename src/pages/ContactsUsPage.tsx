@@ -1,3 +1,7 @@
+import { FacebookIcon } from '../images/icons/FacebookIcon';
+import { GithubIcon } from '../images/icons/GithubIcon';
+import { InstagramIcon } from '../images/icons/InstagramIcon';
+import { WhatsUpIcon } from '../images/icons/WhatsUpIcon';
 export const ContactsUsPage = () => {
   return (
     <div className="flex flex-col items-center bg-white">
@@ -23,13 +27,35 @@ export const ContactsUsPage = () => {
 
           <div className="flex flex-col md:flex-row gap-12 w-full">
             <div className="flex-1 flex flex-col items-start gap-4">
-              <div className="flex gap-3 text-xl">
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
+              <div className="flex gap-5 text-xl">
+                <a href="#">
+                  <FacebookIcon
+                    width={'20px'}
+                    height={'20px'}
+                    color={'black'}
+                  />
+                </a>
+                <a href="#">
+                  <InstagramIcon
+                    width={'20px'}
+                    height={'20px'}
+                    color={'black'}
+                  />
+                </a>
+                <a href="#">
+                  <WhatsUpIcon
+                    width={'20px'}
+                    height={'20px'}
+                    color={'black'}
+                  />
+                </a>
+                <a href="#">
+                  <GithubIcon
+                    width={'20px'}
+                    height={'20px'}
+                    color={'black'}
+                  />
+                </a>
               </div>
               <p className="text-gray-600 text-sm">
                 Vexillologist vape microdosing freegan pork belly deep v direct

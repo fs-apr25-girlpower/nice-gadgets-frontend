@@ -57,7 +57,6 @@ export const Footer = () => {
           </ul>
         </nav>
 
-        {/* Back to top */}
         <div className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-end">
           <span className="text-gray-400 text-base">Back to top</span>
           <BackToTopButton />

@@ -16,14 +16,11 @@ export function Pagination<T>({
   currentPage,
   onPageChange,
 }: PaginationProps<T>) {
-  // Тепер currentPage і onPageChange приходять зверху — без локального useState
-
   const totalPages = Math.ceil(items.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = items.slice(startIndex, endIndex);
 
-  // Замість setCurrentPage викликаємо onPageChange
   const handlePageClick = (page: number) => {
     if (page !== currentPage) {
       onPageChange(page);
@@ -39,7 +36,7 @@ export function Pagination<T>({
   };
 
   return (
-    <div>
+    <>
       <div className="grid gap-4  grid-cols-[repeat(auto-fill,_minmax(230px,288px))] mt-6 mb-6 tablet:mb-10">
         {currentItems.map(renderItem)}
       </div>
@@ -67,6 +64,6 @@ export function Pagination<T>({
           <ArrowRightButton />
         </button>
       </div>
-    </div>
+    </>
   );
 }
