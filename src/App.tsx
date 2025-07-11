@@ -1,41 +1,28 @@
-import { useEffect, useState } from 'react';
-
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer';
+import { Loader } from './components/Loader';
 import { Outlet } from 'react-router-dom';
-import type { Product } from './types/Product';
-import type { Phone } from './types/Phone';
-import type { Tablet } from './types/Tablet';
-import type { Accessory } from './types/Accessory';
-import { getProducts } from './api/getProducts';
 import { ProductsContext } from './context/ProductsContext';
 import { PhonesContext } from './context/PhonesContext';
-import { getPhones } from './api/getPhones';
-import { getTablets } from './api/getTablets';
 import { TabletsContext } from './context/TabletsContext';
-import { getAccessories } from './api/getAccessories';
 import { AccessoriesContext } from './context/AccessoriesContext';
 import { CartProvider } from './context/CartContext';
-import type { ProductWithDetails } from './types';
-import { getProductsWithDetails } from './api/getProductsWithDetails';
 import { ProductsWithDetailsContext } from './context/ProductsWithDetailsContext';
+import { useLoading } from './hooks/useLoading';
 
 export const App = () => {
-  const [productsWithDetails, setProductsWithDetails] = useState<
-    ProductWithDetails[]
-  >([]);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [phones, setPhones] = useState<Phone[]>([]);
-  const [tablets, setTablets] = useState<Tablet[]>([]);
-  const [accessories, setAccessories] = useState<Accessory[]>([]);
+  const {
+    isLoading,
+    products,
+    phones,
+    tablets,
+    accessories,
+    productsWithDetails,
+  } = useLoading();
 
-  useEffect(() => {
-    getProductsWithDetails().then(setProductsWithDetails);
-    getProducts().then(setProducts);
-    getPhones().then(setPhones);
-    getTablets().then(setTablets);
-    getAccessories().then(setAccessories);
-  }, []);
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <CartProvider>
