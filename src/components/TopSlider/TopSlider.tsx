@@ -1,6 +1,5 @@
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import './style.css';
 
 export const TopSlider = () => {
   return (
@@ -32,7 +31,7 @@ export const TopSlider = () => {
           swiper-button-prev-custom absolute -left-15 top-1/2 -translate-y-1/2
           h-full max-h-[432px] w-[32px] items-center justify-center
           bg-white/90 hover:bg-gray-200 transition z-10
-          text-3xl border-1 border-gray-300 hidden sm:flex
+          text-3xl border-1 border-gray-300 hidden sm:flex cursor-pointer
         "
         >
           ‹
@@ -43,7 +42,7 @@ export const TopSlider = () => {
           swiper-button-next-custom absolute -right-15 top-1/2 -translate-y-1/2
           h-full max-h-[432px] w-[32px] items-center justify-center
           bg-white/90 hover:bg-gray-200 transition z-10
-          text-3xl border-1 border-gray-300 hidden sm:flex
+          text-3xl border-1 border-gray-300 hidden sm:flex cursor-pointer
         "
         >
           ›
@@ -60,8 +59,9 @@ export const TopSlider = () => {
           pagination={{
             clickable: true,
             el: '.swiper-pagination-custom',
-            bulletClass: 'customBullet',
-            bulletActiveClass: 'customBulletActive',
+            bulletClass:
+              'bg-gray-500 opacity-70 w-[14px] h-[4px] ml-[14px] transition-colors transition-transform duration-200 cursor-pointer',
+            bulletActiveClass: '!bg-black !opacity-100 !scale-110',
           }}
           className="overflow-hidden h-full"
         >
