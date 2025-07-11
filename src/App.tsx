@@ -2,8 +2,17 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer';
 import { Outlet } from 'react-router-dom';
 import { Providers } from './components/Providers';
+import { UnicornAssistant } from './components/UnicornAssistant';
 
 export const App = () => {
+  const unicornMessages = [
+    'Не зволікай, обирай!',
+    'Кращі пропозиції чекають!',
+    'Зазирни до нашого каталогу!',
+    'Знайди свою мрію!',
+    'Ми тут, щоб допомогти!',
+  ];
+
   return (
     <Providers>
       <div className="App">
@@ -14,6 +23,11 @@ export const App = () => {
           </main>
           <Footer />
         </div>
+
+        <UnicornAssistant
+          messages={unicornMessages}
+          interval={5000}
+        />
       </div>
     </Providers>
   );
