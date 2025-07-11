@@ -1,6 +1,7 @@
 import { CartItem } from '../components/CartItem';
 import { useCart } from '../hooks/useCart';
 import type { Product } from '../types/Product';
+import unicornWithBusket from '../images/unicorn/unicornWithBusket.png';
 
 export const CartPage = () => {
   const { cartItems, getTotalPrice, getTotalItems } = useCart();
@@ -13,6 +14,11 @@ export const CartPage = () => {
       <div className="max-w-7xl mx-auto px-4 py-6">
         <h2 className="text-2xl font-bold mb-6">Cart</h2>
         <div className="text-center py-12">
+          <img
+            src={unicornWithBusket}
+            alt="unicorn"
+            className="mx-auto mb-4 w-[400px] h-[300px]"
+          />
           <p className="text-gray-500 text-lg">Your cart is empty</p>
         </div>
       </div>
