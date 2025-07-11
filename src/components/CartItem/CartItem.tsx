@@ -32,7 +32,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
             <div className="flex items-center justify-between">
               <button
                 onClick={handleRemove}
-                className="text-gray-400 hover:text-red-500 transition-colors"
+                className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors text-xl font-bold cursor-pointer"
               >
                 ×
               </button>
@@ -50,7 +50,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleDecrease}
-                className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50"
+                className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50 cursor-pointer"
               >
                 −
               </button>
@@ -59,7 +59,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
               </span>
               <button
                 onClick={handleIncrease}
-                className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50"
+                className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50 cursor-pointer"
               >
                 +
               </button>
@@ -72,7 +72,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
               </h3>
             </Link>
             <div className="text-right self-end">
-              <div className="text-lg font-bold text-gray-900">
+              <div className="text-lg font-bold text-gray-900 w-16 text-right">
                 ${product.price * quantity}
               </div>
             </div>
@@ -82,7 +82,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
       <div className="hidden sm:flex items-center gap-4">
         <button
           onClick={handleRemove}
-          className="text-gray-400 hover:text-red-500 transition-colors"
+          className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors text-xl font-bold cursor-pointer"
         >
           ×
         </button>
@@ -102,7 +102,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
           <div className="flex items-center gap-2">
             <button
               onClick={handleDecrease}
-              className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50"
+              className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50 cursor-pointer"
             >
               −
             </button>
@@ -111,13 +111,13 @@ export const CartItem: React.FC<Props> = ({ product }) => {
             </span>
             <button
               onClick={handleIncrease}
-              className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50"
+              className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50 cursor-pointer"
             >
               +
             </button>
           </div>
           <div className="text-right">
-            <div className="text-lg font-bold text-gray-900">
+            <div className="text-lg font-bold text-gray-900 w-16 text-right">
               ${product.price * quantity}
             </div>
           </div>
