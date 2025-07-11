@@ -23,7 +23,8 @@ const routeConfig: RouteConfig[] = [
   { path: 'mobileMenu', element: <MobileMenuPage /> },
   { path: 'contacts', element: <ContactsUsPage /> },
   { path: 'rights', element: <RightsPage /> },
-  { path: 'product/:productId', element: <ProductDetailsPage /> },
+  //{ path: 'product/:productId', element: <ProductDetailsPage /> },
+  { path: ':category/:itemId', element: <ProductDetailsPage /> },
   { path: '*', element: <NotFoundPage /> },
 ];
 export const Root = () => {

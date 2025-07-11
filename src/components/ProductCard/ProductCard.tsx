@@ -13,7 +13,14 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
   return (
     <article className="min-w-[229px] min-h-[440px] max-h-[530px] w-full flex flex-col p-4 tablet:p-6 desktop:p-8 border border-elements">
       <div className="flex items-center justify-center mb-4 tablet:mb-6">
-        <Link to={`/product/${product.id}`}>
+        {/* <Link to={`/product/${product.id}`}>
+          <img
+            className="w-[148px] h-[128px] object-contain tablet:w-[173px] tablet:h-[202px] desktop:w-[208px] desktop:h-[196px]"
+            src={`${import.meta.env.BASE_URL}${product.image}`}
+            alt={product.name}
+          />
+        </Link> */}
+        <Link to={`/${product.category}/${product.itemId}`}>
           <img
             className="w-[148px] h-[128px] object-contain tablet:w-[173px] tablet:h-[202px] desktop:w-[208px] desktop:h-[196px]"
             src={`${import.meta.env.BASE_URL}${product.image}`}
@@ -22,8 +29,16 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
         </Link>
       </div>
 
-      <NavLink
+      {/* <NavLink
         to={`/product/${product.id}`}
+        className={({ isActive }) =>
+          isActive ? 'body-text text-blue-500' : 'body-text text-black'
+        }
+      >
+        <div className="body-text min-h-[42px]">{product.name}</div>
+      </NavLink> */}
+      <NavLink
+        to={`/${product.category}/${product.itemId}`}
         className={({ isActive }) =>
           isActive ? 'body-text text-blue-500' : 'body-text text-black'
         }
