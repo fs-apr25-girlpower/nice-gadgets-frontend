@@ -15,7 +15,7 @@ import { useProductsWithDetails } from '../context/ProductsWithDetailsContext';
 
 export const ProductDetailsPage = () => {
   const allProducts = useProductsWithDetails();
-  const { productId } = useParams<{ productId: string }>();
+  const { itemId } = useParams<{ itemId: string }>();
   const navigate = useNavigate();
 
   // Стан для конкретного продукту, який ми знайдемо
@@ -43,7 +43,7 @@ export const ProductDetailsPage = () => {
 
     // Шукаємо продукт у вже завантаженому контексті
     const foundProduct = allProducts.find(
-      p => `${p.id}` === productId,
+      p => `${p.itemId}` === itemId,
       //p => `${p.id}` === productId || p.itemId === productId,
     );
 
@@ -75,7 +75,7 @@ export const ProductDetailsPage = () => {
     }
 
     setLoading(false); // Завантаження завершено
-  }, [allProducts, productId, setLoading]);
+  }, [allProducts, itemId, setLoading]);
 
   // --- Умовний рендеринг: Loader, Product Not Found ---
   if (loading) {
@@ -181,7 +181,7 @@ export const ProductDetailsPage = () => {
   // const details = productWithDetails.details;
 
   const recommendedProducts = allProducts
-    .filter(p => p.id !== product.id && p.category === product.category)
+    .filter(p => p.itemId !== product.itemId && p.category === product.category)
     .slice(0, 10);
 
   const sliderConfig = {
