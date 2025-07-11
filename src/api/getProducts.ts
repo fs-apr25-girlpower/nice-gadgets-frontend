@@ -2,7 +2,7 @@ import type { Product } from '../types/Product';
 import { wait } from './wait';
 
 export const getProducts = async (): Promise<Product[]> => {
-  await wait(2000);
+  await wait(1000);
 
   const response = await fetch(`${import.meta.env.BASE_URL}api/products.json`);
 
