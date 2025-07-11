@@ -1,42 +1,39 @@
-import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Like } from '../../images/icons/LikeIcon';
-import { Cart } from '../../images/icons/ShopCart';
+import { LikeIcon } from '../../images/icons/LikeIcon';
+import { CartIcon } from '../../images/icons/CartIcon';
 import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
-
+import { CartContext } from '../../context/CartContext';
+import { useContext } from 'react';
 export const CustomerBar = () => {
-  const [isEmpty, setIsEmpty] = useState<boolean>(true);
-  const [favouriteCount] = useState<number>(7);
-  const [cartCount] = useState<number>(7);
-  const onHandleClick = () => {
-    setIsEmpty(prev => !prev);
-  };
+  const cartContext = useContext(CartContext);
+
+  if (!cartContext) {
+    throw new Error('CustomerBar must be used inside CartProvider');
+  }
+
+  const favouritesCount = cartContext.favorites.length;
+  const cartCount = cartContext.getTotalItems();
 
   return (
     <div className="customerBar flex flex-row items-center  h-full  border-l border-r border-[#E2E6E9]">
       <NavLink
-        onClick={onHandleClick}
         to={'/favourites'}
         className="flex justify-center items-center w-12 h-full tablet:w-12 desktop:w-16  border-r border-[#E2E6E9] mobile:hidden tablet:flex"
       >
-        <Like
-          count={favouriteCount}
-          isEmpty={isEmpty}
-        />
+        <LikeIcon favouritesCount={favouritesCount} />
       </NavLink>
 
       <NavLink
-        onClick={onHandleClick}
         to={'/cart'}
         className="flex justify-center items-center w-12 h-full tablet:w-12  desktop:w-16   mobile:hidden tablet:flex"
       >
-        <Cart
-          count={cartCount}
-          isEmpty={isEmpty}
-        />
+        <CartIcon cartCount={cartCount} />
       </NavLink>
 
-      <BurgerMenu />
+      <BurgerMenu
+        favouritesCount={favouritesCount}
+        cartCount={cartCount}
+      />
     </div>
   );
 };
