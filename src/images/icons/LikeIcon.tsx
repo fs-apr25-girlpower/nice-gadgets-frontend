@@ -1,11 +1,11 @@
 type Props = {
-  isEmpty: boolean;
-  count: number;
+  favouritesCount: number;
   isMobile?: boolean;
 };
 
-export const Like: React.FC<Props> = ({ isEmpty, count = 0 }) => {
-  const displayCount = isEmpty ? 0 : count;
+export const LikeIcon: React.FC<Props> = ({ favouritesCount = 0 }) => {
+  const isFavEmpty = favouritesCount === 0;
+  const displayCount = isFavEmpty ? 0 : favouritesCount;
 
   return (
     <svg
