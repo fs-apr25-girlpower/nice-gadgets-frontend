@@ -10,6 +10,21 @@ const images = [Picture1, Picture2, Picture3, Picture4, Picture5];
 
 export const ProductGallery: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomOrigin, setZoomOrigin] = useState('center center');
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isZoomed) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomOrigin(`${x}% ${y}%`);
+  };
+
+  const handleImageClick = () => {
+    setIsZoomed(prev => !prev);
+  };
 
   return (
     <div className="flex flex-col tablet:flex-row gap-4 items-center tablet:items-start w-full">
@@ -23,7 +38,10 @@ export const ProductGallery: React.FC = () => {
         {images.map((img, index) => (
           <button
             key={img}
-            onClick={() => setSelectedIndex(index)}
+            onClick={() => {
+              setSelectedIndex(index);
+              setIsZoomed(false);
+            }}
             className={clsx(
               'border overflow-hidden flex-shrink-0 tablet:w-14 tablet:h-14 desktop:w-20 desktop:h-20',
               index === selectedIndex ? 'border-black' : 'border-transparent',
@@ -36,20 +54,28 @@ export const ProductGallery: React.FC = () => {
             <img
               src={img}
               alt={`Miniature ${index + 1}`}
-              className={clsx(
-                'object-cover',
-                'w-full h-full aspect-square border border-[#E2E6E9] overflow-hidden',
-              )}
+              className="object-cover w-full h-full aspect-square border border-[#E2E6E9]"
             />
           </button>
         ))}
       </div>
 
-      <div className="w-full max-w-[350px] mx-auto order-1 tablet:order-2 tablet:self-start">
+      <div
+        className="relative w-full max-w-[350px] mx-auto order-1 tablet:order-2 tablet:self-start overflow-hidden cursor-zoom-in"
+        onClick={handleImageClick}
+        onMouseMove={handleMouseMove}
+      >
         <img
           src={images[selectedIndex]}
           alt={`Image ${selectedIndex + 1}`}
-          className="w-full h-auto object-contain"
+          className={clsx(
+            'w-full h-auto object-contain transition-transform duration-200 ease-in-out',
+            isZoomed && 'cursor-zoom-out',
+          )}
+          style={{
+            transform: isZoomed ? 'scale(2)' : 'scale(1)',
+            transformOrigin: zoomOrigin,
+          }}
         />
       </div>
     </div>
