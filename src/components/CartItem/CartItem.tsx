@@ -1,6 +1,6 @@
 import type { Product } from '../../types/Product';
 import { useCart } from '../../hooks/useCart';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   product: Product;
@@ -9,8 +9,13 @@ interface Props {
 export const CartItem: React.FC<Props> = ({ product }) => {
   const { removeFromCart, getQuantity, increaseQuantity, decreaseQuantity } =
     useCart();
-
+  const navigate = useNavigate();
   const quantity = getQuantity(product);
+
+  const handleNavigateToProduct = () => {
+    const path = `/${product.category}/${product.itemId}`;
+    navigate(path);
+  };
 
   const handleRemove = () => {
     removeFromCart(product);
@@ -36,16 +41,16 @@ export const CartItem: React.FC<Props> = ({ product }) => {
               >
                 ×
               </button>
-              <Link
-                className="w-20 h-20 flex-shrink-0"
-                to={`/${product.category}/${product.itemId}`}
+              <div
+                className="w-20 h-20 flex-shrink-0 cursor-pointer"
+                onClick={handleNavigateToProduct}
               >
                 <img
                   src={`${import.meta.env.BASE_URL}${product.image}`}
                   alt={product.name}
                   className="w-full h-full object-contain"
                 />
-              </Link>
+              </div>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -66,11 +71,14 @@ export const CartItem: React.FC<Props> = ({ product }) => {
             </div>
           </div>
           <div className="flex-1 flex flex-col justify-between">
-            <Link to={`/${product.category}/${product.itemId}`}>
-              <h3 className="text-sm font-medium text-gray-900 leading-tight">
+            <div
+              onClick={handleNavigateToProduct}
+              className="cursor-pointer"
+            >
+              <h3 className="text-sm font-medium text-gray-900 leading-tight hover:text-blue-600 transition-colors">
                 {product.name}
               </h3>
-            </Link>
+            </div>
             <div className="text-right self-end">
               <div className="text-lg font-bold text-gray-900 w-16 text-right">
                 ${product.price * quantity}
@@ -87,16 +95,26 @@ export const CartItem: React.FC<Props> = ({ product }) => {
           ×
         </button>
         <div className="w-20 h-20 flex-shrink-0">
-          <img
-            src={`${import.meta.env.BASE_URL}${product.image}`}
-            alt={product.name}
-            className="w-full h-full object-contain"
-          />
+          <div
+            onClick={handleNavigateToProduct}
+            className="cursor-pointer"
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}${product.image}`}
+              alt={product.name}
+              className="w-full h-full object-contain"
+            />
+          </div>
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-medium text-gray-900 leading-tight">
-            {product.name}
-          </h3>
+          <div
+            onClick={handleNavigateToProduct}
+            className="cursor-pointer"
+          >
+            <h3 className="text-sm font-medium text-gray-900 leading-tight hover:text-blue-600 transition-colors">
+              {product.name}
+            </h3>
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
