@@ -220,19 +220,20 @@ export const ProductDetailsPage = () => {
           />
         </div>
         <div className="flex-1 min-w-0 space-y-4 tablet:space-y-6">
-          <div className="space-y-1">
-            <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider">
+          <div className="flex justify-between mb-2">
+            <p className="text-xs tablet:text-sm text-secondary font-semibold tracking-wider">
               Available colors
             </p>
-            <div className="text-xs tablet:text-sm text-primary">
-              ID: {product.itemId}
-            </div>
+            <p className="text-xs tablet:text-sm text-gray-400 font-semibold uppercase tracking-wider">
+              ID: {product.id}
+            </p>
           </div>
           <ColorSelector
           // colors={product.details.colorsAvailable || []}
           // selectedColor={selectedColor}
           // onSelectColor={setSelectedColor}
           />
+          <div className="h-px w-full bg-[#E2E6E9]"></div>
 
           <div className="space-y-1">
             <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider">
@@ -244,6 +245,7 @@ export const ProductDetailsPage = () => {
           // selectedCapacity={selectedCapacity}
           // onSelectCapacity={setSelectedCapacity}
           />
+          <div className="h-px w-full bg-[#E2E6E9]"></div>
 
           <div className="flex items-baseline gap-3 py-4">
             <span className="text-2xl tablet:text-3xl desktop:text-[32px] font-bold text-primary">
@@ -259,7 +261,7 @@ export const ProductDetailsPage = () => {
             <FavoriteButton product={product} />
           </div>
 
-          <div className="space-y-2 pt-6 border-t border-elements">
+          <div className="space-y-2 pt-6">
             <div className="flex flex-col gap-y-2 text-xs tablet:text-sm">
               <div className="flex justify-between">
                 <span className="text-secondary">Screen</span>
@@ -297,6 +299,7 @@ export const ProductDetailsPage = () => {
           <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary">
             About
           </h2>
+          <div className="h-px w-full bg-[#E2E6E9] mt-4 mb-8"></div>
           <div className="space-y-6 text-secondary text-sm tablet:text-base">
             {product.details?.description &&
             product.details.description.length > 0 ? (
@@ -333,38 +336,39 @@ export const ProductDetailsPage = () => {
           <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary">
             Tech specs
           </h2>
+          <div className="h-px w-full bg-[#E2E6E9] mb-7"></div>
           <div className="space-y-0">
-            <div className="flex justify-between py-3 border-b border-elements">
+            <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">Screen</span>
               <span className="text-primary text-sm font-medium">
                 {product.screen}
               </span>
             </div>
-            <div className="flex justify-between py-3 border-b border-elements">
+            <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">Resolution</span>
               <span className="text-primary text-sm font-medium">
                 {product.details?.resolution || 'N/A'}
               </span>
             </div>
-            <div className="flex justify-between py-3 border-b border-elements">
+            <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">Processor</span>
               <span className="text-primary text-sm font-medium">
                 {product.details?.processor || 'N/A'}
               </span>
             </div>
-            <div className="flex justify-between py-3 border-b border-elements">
+            <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">RAM</span>
               <span className="text-primary text-sm font-medium">
                 {product.ram}
               </span>
             </div>
-            <div className="flex justify-between py-3 border-b border-elements">
+            <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">Built in memory</span>
               <span className="text-primary text-sm font-medium">
                 {product.capacity}
               </span>
             </div>
-            <div className="flex justify-between py-3 border-b border-elements">
+            <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">Camera</span>
               <span className="text-primary text-sm font-medium">
                 {product.details && 'camera' in product.details
@@ -372,7 +376,7 @@ export const ProductDetailsPage = () => {
                   : 'N/A'}
               </span>
             </div>
-            <div className="flex justify-between py-3 border-b border-elements">
+            <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">Zoom</span>
               <span className="text-primary text-sm font-medium">
                 {product.details && 'zoom' in product.details
