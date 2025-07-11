@@ -219,75 +219,77 @@ export const ProductDetailsPage = () => {
           // setSelectedImage={setSelectedImage}
           />
         </div>
-        <div className="flex-1 min-w-0 space-y-4 tablet:space-y-6">
-          <div className="flex justify-between mb-2">
-            <p className="text-xs tablet:text-sm text-secondary font-semibold tracking-wider">
+        <div className="flex-1 min-w-0 justify-between relative">
+          <p className="text-xs tablet:text-sm text-gray-400 font-semibold uppercase tracking-wider absolute top-0 right-0 ">
+            ID: {product.id}
+          </p>
+          <div className="min-w-0 space-y-4 tablet:space-y-6 desktop:max-w-80">
+            <p className="text-xs tablet:text-sm text-secondary font-semibold tracking-wider mb-2">
               Available colors
             </p>
-            <p className="text-xs tablet:text-sm text-gray-400 font-semibold uppercase tracking-wider">
-              ID: {product.id}
-            </p>
-          </div>
-          <ColorSelector
-          // colors={product.details.colorsAvailable || []}
-          // selectedColor={selectedColor}
-          // onSelectColor={setSelectedColor}
-          />
-          <div className="h-px w-full bg-[#E2E6E9]"></div>
+            <ColorSelector
+            // colors={product.details.colorsAvailable || []}
+            // selectedColor={selectedColor}
+            // onSelectColor={setSelectedColor}
+            />
+            <div className="h-px w-full bg-[#E2E6E9]"></div>
 
-          <div className="space-y-1">
-            <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider">
-              Select capacity
-            </p>
-          </div>
-          <CapacitySelector
-          // capacities={product.details.capacityAvailable || []}
-          // selectedCapacity={selectedCapacity}
-          // onSelectCapacity={setSelectedCapacity}
-          />
-          <div className="h-px w-full bg-[#E2E6E9]"></div>
+            <div className="space-y-1">
+              <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider">
+                Select capacity
+              </p>
+            </div>
+            <CapacitySelector
+            // capacities={product.details.capacityAvailable || []}
+            // selectedCapacity={selectedCapacity}
+            // onSelectCapacity={setSelectedCapacity}
+            />
+            <div className="h-px w-full bg-[#E2E6E9]"></div>
 
-          <div className="flex items-baseline gap-3 py-4">
-            <span className="text-2xl tablet:text-3xl desktop:text-[32px] font-bold text-primary">
-              ${product.price}
-            </span>
-            <span className="text-lg tablet:text-xl desktop:text-[22px] text-secondary line-through">
-              ${product.fullPrice}
-            </span>
-          </div>
+            <div className="flex items-baseline gap-3 py-4">
+              <span className="text-2xl tablet:text-3xl desktop:text-[32px] font-bold text-primary">
+                ${product.price}
+              </span>
+              <span className="text-lg tablet:text-xl desktop:text-[22px] text-secondary line-through">
+                ${product.fullPrice}
+              </span>
+            </div>
 
-          <div className="flex gap-2 tablet:gap-4">
-            <ButtonMain product={product} />
-            <FavoriteButton product={product} />
-          </div>
+            <div className="flex gap-2 tablet:gap-4">
+              <ButtonMain product={product} />
+              <FavoriteButton product={product} />
+            </div>
 
-          <div className="space-y-2 pt-6">
-            <div className="flex flex-col gap-y-2 text-xs tablet:text-sm">
-              <div className="flex justify-between">
-                <span className="text-secondary">Screen</span>
-                <span className="text-primary font-medium">
-                  {product.screen}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-secondary">Resolution</span>
-                <span className="text-primary font-medium">
-                  {product.details && 'resolution' in product.details
-                    ? product.details.resolution
-                    : 'N/A'}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-secondary">Processor</span>
-                <span className="text-primary font-medium">
-                  {product.details && 'processor' in product.details
-                    ? product.details.processor
-                    : 'N/A'}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-secondary">RAM</span>
-                <span className="text-primary font-medium">{product.ram}</span>
+            <div className="space-y-2 pt-6">
+              <div className="flex flex-col gap-y-2 text-xs tablet:text-sm">
+                <div className="flex justify-between">
+                  <span className="text-secondary">Screen</span>
+                  <span className="text-primary font-medium">
+                    {product.screen}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-secondary">Resolution</span>
+                  <span className="text-primary font-medium">
+                    {product.details && 'resolution' in product.details
+                      ? product.details.resolution
+                      : 'N/A'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-secondary">Processor</span>
+                  <span className="text-primary font-medium">
+                    {product.details && 'processor' in product.details
+                      ? product.details.processor
+                      : 'N/A'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-secondary">RAM</span>
+                  <span className="text-primary font-medium">
+                    {product.ram}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
