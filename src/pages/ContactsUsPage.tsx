@@ -95,7 +95,7 @@ export const ContactsUsPage = () => {
               />
               <button
                 type="submit"
-                className="self-end bg-gray-800 text-white px-8 py-2 rounded hover:bg-gray-700 transition"
+                className="self-end bg-gray-800 text-white px-8 py-2 rounded hover:bg-gray-700 transition cursor-pointer"
               >
                 Send
               </button>

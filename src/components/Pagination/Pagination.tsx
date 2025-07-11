@@ -8,6 +8,8 @@ interface PaginationProps<T> {
   renderItem: (item: T) => React.ReactNode;
   currentPage: number;
   onPageChange: (page: number) => void;
+  pageRangeDisplayed?: number;
+  marginPagesDisplayed?: number;
 }
 
 export function Pagination<T>({
@@ -16,6 +18,8 @@ export function Pagination<T>({
   renderItem,
   currentPage,
   onPageChange,
+  pageRangeDisplayed = 3,
+  marginPagesDisplayed = 1,
 }: PaginationProps<T>) {
   const totalPages = Math.ceil(items.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -25,19 +29,79 @@ export function Pagination<T>({
   const handlePageClick = (page: number) => {
     if (page !== currentPage) {
       onPageChange(page);
+      setTimeout(() => {
+        const el = document.querySelector('.pagination-container');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
 
   const handlePrevPageClick = () => {
     if (currentPage > 1) onPageChange(currentPage - 1);
+    setTimeout(() => {
+      const el = document.querySelector('.pagination-container');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   const handleNextPageClick = () => {
     if (currentPage < totalPages) onPageChange(currentPage + 1);
+    setTimeout(() => {
+      const el = document.querySelector('.pagination-container');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   const isDisabledPrev = currentPage === 1;
   const isDisabledNext = currentPage === totalPages;
+
+  const getPagesToDisplay = () => {
+    const pages: (number | 'dots')[] = [];
+
+    const leftSide = Math.max(
+      currentPage - Math.floor(pageRangeDisplayed / 2),
+      marginPagesDisplayed + 1,
+    );
+    const rightSide = Math.min(
+      currentPage + Math.floor(pageRangeDisplayed / 2),
+      totalPages - marginPagesDisplayed,
+    );
+
+    if (totalPages <= pageRangeDisplayed + marginPagesDisplayed * 2) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    for (let i = 1; i <= marginPagesDisplayed; i++) {
+      pages.push(i);
+    }
+
+    if (leftSide > marginPagesDisplayed + 1) {
+      pages.push('dots');
+    }
+
+    for (let i = leftSide; i <= rightSide; i++) {
+      pages.push(i);
+    }
+
+    if (rightSide < totalPages - marginPagesDisplayed) {
+      pages.push('dots');
+    }
+
+    for (let i = totalPages - marginPagesDisplayed + 1; i <= totalPages; i++) {
+      if (i > marginPagesDisplayed && i > rightSide) {
+        pages.push(i);
+      }
+    }
+
+    return pages;
+  };
+
+  const pagesToDisplay = getPagesToDisplay();
 
   return (
     <>
@@ -45,31 +109,55 @@ export function Pagination<T>({
         {currentItems.map(renderItem)}
       </div>
 
-      <div className="flex justify-center items-center m-10 gap-2">
+      <div
+        className="pagination-container flex justify-center items-center m-10 gap-2 "
+        role="navigation"
+        aria-label="Pagination"
+      >
         <button
+          aria-label="Previous page"
+          aria-disabled={isDisabledPrev}
           onClick={handlePrevPageClick}
-          className={clsx({ 'cursor-pointer': !isDisabledPrev })}
+          className={clsx('cursor-not-allowed', {
+            'cursor-pointer': !isDisabledPrev,
+          })}
         >
           <ArrowLeftButton isDisabled={isDisabledPrev} />
         </button>
 
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-          <button
-            key={page}
-            onClick={() => handlePageClick(page)}
-            className={`w-8 h-8 cursor-pointer ${
-              page === currentPage
-                ? 'bg-primary border-1 border-secondary text-white'
-                : 'bg-white text-black'
-            }`}
-          >
-            {page}
-          </button>
-        ))}
+        {pagesToDisplay.map((page, index) =>
+          page === 'dots' ? (
+            <span
+              key={`dots-${index}`}
+              className="px-2 text-gray-500"
+              aria-hidden="true"
+            >
+              ...
+            </span>
+          ) : (
+            <button
+              key={page}
+              onClick={() => handlePageClick(page)}
+              className={`w-8 h-8 cursor-pointer hover:bg-primary hover:border-1 hover:border-secondary hover:text-white ${
+                page === currentPage
+                  ? 'bg-primary border-1 border-secondary text-white'
+                  : 'bg-white text-black'
+              }`}
+              aria-current={page === currentPage ? 'page' : undefined}
+              aria-label={`Page ${page}`}
+            >
+              {page}
+            </button>
+          ),
+        )}
 
         <button
           onClick={handleNextPageClick}
-          className={clsx({ 'cursor-pointer': !isDisabledNext })}
+          className={clsx('cursor-not-allowed', {
+            'cursor-pointer': !isDisabledNext,
+          })}
+          aria-label="Next page"
+          aria-disabled={isDisabledNext}
         >
           <ArrowRightButton isDisabled={isDisabledNext} />
         </button>
