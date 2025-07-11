@@ -5,69 +5,89 @@ import { CapacitySelector } from '../components/CapacitySelector/CapacitySelecto
 import { FavoriteButton } from '../components/FavoriteButton/FavoriteButton';
 import { ProductSlider } from '../components/ProductsSlider/ProductsSlider';
 import { ButtonMain } from '../components/ButtonMain';
-import { useProducts } from '../context/ProductsContext';
+//import { useProducts } from '../context/ProductsContext';
 import { Loader } from '../components/Loader';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getProductsWithDetails } from '../api/getProductsWithDetails';
+//import { getProductsWithDetails } from '../api/getProductsWithDetails';
 import type { ProductWithDetails } from '../types/ProductWithDetails';
+import { useProductsWithDetails } from '../context/ProductsWithDetailsContext';
 
-export const ItemCartPage = () => {
-  const allProducts = useProducts();
-  const { productId } = useParams<{ productId: string }>();
-  const [productWithDetails, setProductWithDetails] =
-    useState<ProductWithDetails | null>(null);
+export const ProductDetailsPage = () => {
+  const allProducts = useProductsWithDetails();
+  const { itemId } = useParams<{ itemId: string }>();
+  const navigate = useNavigate();
+
+  // Стан для конкретного продукту, який ми знайдемо
+  const [product, setProduct] = useState<ProductWithDetails | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false); // Додаємо стан для помилок
+
+  // Стани для вибору кольору, об'єму та зображення (якщо вони використовуються в дочірніх компонентах)
+  //const [selectedColor, setSelectedColor] = useState<string>('');
+  //const [selectedCapacity, setSelectedCapacity] = useState<string>('');
+  //const [selectedImage, setSelectedImage] = useState<string>('');
 
   useEffect(() => {
-    const loadProductDetails = async () => {
-      if (!allProducts || !Array.isArray(allProducts)) {
-        return;
+    if (
+      !allProducts ||
+      !Array.isArray(allProducts) ||
+      allProducts.length === 0
+    ) {
+      setLoading(true);
+      return;
+    }
+
+    setLoading(true);
+    setError(false);
+
+    // Шукаємо продукт у вже завантаженому контексті
+    const foundProduct = allProducts.find(
+      p => `${p.itemId}` === itemId,
+      //p => `${p.id}` === productId || p.itemId === productId,
+    );
+
+    if (foundProduct) {
+      setProduct(foundProduct);
+
+      if (
+        foundProduct.details?.colorsAvailable &&
+        foundProduct.details.colorsAvailable.length > 0
+      ) {
+        //setSelectedColor(foundProduct.details.colorsAvailable[0]);
       }
 
-      const currentProduct = allProducts.find(
-        product =>
-          product.id.toString() === productId || product.itemId === productId,
-      );
-
-      if (!currentProduct) {
-        setLoading(false);
-        return;
+      if (
+        foundProduct.details?.capacityAvailable &&
+        foundProduct.details.capacityAvailable.length > 0
+      ) {
+        //setSelectedCapacity(foundProduct.details.capacityAvailable[0]);
       }
 
-      try {
-        const productsWithDetails = await getProductsWithDetails();
-        const detailedProduct = productsWithDetails.find(
-          product =>
-            product.id === currentProduct.id ||
-            product.itemId === currentProduct.itemId,
-        );
-
-        setProductWithDetails(
-          detailedProduct || { ...currentProduct, details: null },
-        );
-      } catch (error) {
-        console.error('Error loading product details:', error);
-        setProductWithDetails({ ...currentProduct, details: null });
-      } finally {
-        setLoading(false);
+      if (
+        foundProduct.details?.images &&
+        foundProduct.details.images.length > 0
+      ) {
+        //setSelectedImage(foundProduct.details.images[0]);
       }
-    };
+    } else {
+      setError(true); // Продукт не знайдено
+    }
 
-    loadProductDetails();
-  }, [allProducts, productId]);
+    setLoading(false); // Завантаження завершено
+  }, [allProducts, itemId, setLoading]);
 
-  if (!allProducts || !Array.isArray(allProducts) || loading) {
+  // --- Умовний рендеринг: Loader, Product Not Found ---
+  if (loading) {
     return (
-      <div className="min-w-[320px] max-w-[1136px] mx-auto">
-        <p>
-          <Loader />
-        </p>
+      <div className="min-w-[320px] max-w-[1136px] mx-auto flex justify-center items-center h-64">
+        <Loader />
       </div>
     );
   }
 
-  if (!productWithDetails) {
+  // Якщо продукт не знайдено або він null після завантаження
+  if (error || !product) {
     return (
       <div className="min-w-[320px] max-w-[1136px] mx-auto">
         <div className="flex flex-col items-center justify-center py-16">
@@ -78,7 +98,7 @@ export const ItemCartPage = () => {
             The product you&apos;re looking for doesn&apos;t exist.
           </p>
           <button
-            onClick={() => window.history.back()}
+            onClick={() => navigate(-1)} // Використовуємо navigate(-1)
             className="px-6 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-colors"
           >
             Go Back
@@ -88,17 +108,84 @@ export const ItemCartPage = () => {
     );
   }
 
-  const currentProduct = productWithDetails;
-  const details = productWithDetails.details;
+  // useEffect(() => {
+  //   const loadProductDetails = async () => {
+  //     if (!allProducts || !Array.isArray(allProducts)) {
+  //       return;
+  //     }
+
+  //     const currentProduct = allProducts.find(
+  //       product =>
+  //         product.id.toString() === productId || product.itemId === productId,
+  //     );
+
+  //     if (!currentProduct) {
+  //       setLoading(false);
+  //       return;
+  //     }
+
+  //     try {
+  //       const productsWithDetails = await getProductsWithDetails();
+  //       const detailedProduct = productsWithDetails.find(
+  //         product =>
+  //           product.id === currentProduct.id ||
+  //           product.itemId === currentProduct.itemId,
+  //       );
+
+  //       setProductWithDetails(
+  //         detailedProduct || { ...currentProduct, details: null },
+  //       );
+  //     } catch (error) {
+  //       console.error('Error loading product details:', error);
+  //       setProductWithDetails({ ...currentProduct, details: null });
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   loadProductDetails();
+  // }, [allProducts, productId]);
+
+  // if (!allProducts || !Array.isArray(allProducts) || loading) {
+  //   return (
+  //     <div className="min-w-[320px] max-w-[1136px] mx-auto">
+  //       <p>
+  //         <Loader />
+  //       </p>
+  //     </div>
+  //   );
+  // }
+
+  // if (!productWithDetails) {
+  //   return (
+  //     <div className="min-w-[320px] max-w-[1136px] mx-auto">
+  //       <div className="flex flex-col items-center justify-center py-16">
+  //         <h1 className="text-2xl font-bold text-primary mb-4">
+  //           Product not found
+  //         </h1>
+  //         <p className="text-secondary mb-6">
+  //           The product you&apos;re looking for doesn&apos;t exist.
+  //         </p>
+  //         <button
+  //           onClick={() => window.history.back()}
+  //           className="px-6 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-colors"
+  //         >
+  //           Go Back
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  // const currentProduct = productWithDetails;
+  // const details = productWithDetails.details;
 
   const recommendedProducts = allProducts
-    .filter(product => product.id !== currentProduct.id)
+    .filter(p => p.itemId !== product.itemId && p.category === product.category)
     .slice(0, 10);
 
   const sliderConfig = {
     titleForBrand: 'You may also like',
-    classNameForButtonPrev: 'slider-prev-btn',
-    classNameForButtonNext: 'slider-next-btn',
     marginTop: 'mt-16',
   };
 
@@ -110,8 +197,10 @@ export const ItemCartPage = () => {
 
       <div className="mb-6 tablet:mb-8">
         <button
-          onClick={() => window.history.back()}
+          onClick={() => navigate(-1)} // Використовуємо useNavigate
           className="flex items-center gap-2 text-secondary hover:text-primary transition-colors"
+          // onClick={() => window.history.back()}
+          // className="flex items-center gap-2 text-secondary hover:text-primary transition-colors"
         >
           <span className="text-base tablet:text-lg">←</span>
           <span className="text-xs tablet:text-sm font-semibold">Back</span>
@@ -119,12 +208,16 @@ export const ItemCartPage = () => {
       </div>
 
       <h1 className="text-xl tablet:text-2xl desktop:text-[28px] font-bold text-primary mb-8 tablet:mb-10 desktop:mb-12">
-        {currentProduct.name}
+        {product.name}
       </h1>
 
       <div className="flex flex-col tablet:flex-row gap-6 tablet:gap-8 desktop:gap-16 mb-12 tablet:mb-16 desktop:mb-20 min-w-0">
         <div className="flex-1 min-w-0 flex items-start justify-center">
-          <ProductGallery />
+          <ProductGallery
+          // images={product.details?.images || null}
+          // selectedImage={selectedImage}
+          // setSelectedImage={setSelectedImage}
+          />
         </div>
         <div className="flex-1 min-w-0 space-y-4 tablet:space-y-6">
           <div className="space-y-1">
@@ -132,30 +225,38 @@ export const ItemCartPage = () => {
               Available colors
             </p>
             <div className="text-xs tablet:text-sm text-primary">
-              ID: {currentProduct.itemId}
+              ID: {product.id}
             </div>
           </div>
-          <ColorSelector />
+          <ColorSelector
+          // colors={product.details.colorsAvailable || []}
+          // selectedColor={selectedColor}
+          // onSelectColor={setSelectedColor}
+          />
 
           <div className="space-y-1">
             <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider">
               Select capacity
             </p>
           </div>
-          <CapacitySelector />
+          <CapacitySelector
+          // capacities={product.details.capacityAvailable || []}
+          // selectedCapacity={selectedCapacity}
+          // onSelectCapacity={setSelectedCapacity}
+          />
 
           <div className="flex items-baseline gap-3 py-4">
             <span className="text-2xl tablet:text-3xl desktop:text-[32px] font-bold text-primary">
-              ${currentProduct.price}
+              ${product.price}
             </span>
             <span className="text-lg tablet:text-xl desktop:text-[22px] text-secondary line-through">
-              ${currentProduct.fullPrice}
+              ${product.fullPrice}
             </span>
           </div>
 
           <div className="flex gap-2 tablet:gap-4">
-            <ButtonMain product={currentProduct} />
-            <FavoriteButton product={currentProduct} />
+            <ButtonMain product={product} />
+            <FavoriteButton product={product} />
           </div>
 
           <div className="space-y-2 pt-6 border-t border-elements">
@@ -163,30 +264,28 @@ export const ItemCartPage = () => {
               <div className="flex justify-between">
                 <span className="text-secondary">Screen</span>
                 <span className="text-primary font-medium">
-                  {currentProduct.screen}
+                  {product.screen}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-secondary">Resolution</span>
                 <span className="text-primary font-medium">
-                  {details && 'resolution' in details
-                    ? details.resolution
+                  {product.details && 'resolution' in product.details
+                    ? product.details.resolution
                     : 'N/A'}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-secondary">Processor</span>
                 <span className="text-primary font-medium">
-                  {details && 'processor' in details
-                    ? details.processor
+                  {product.details && 'processor' in product.details
+                    ? product.details.processor
                     : 'N/A'}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-secondary">RAM</span>
-                <span className="text-primary font-medium">
-                  {currentProduct.ram}
-                </span>
+                <span className="text-primary font-medium">{product.ram}</span>
               </div>
             </div>
           </div>
@@ -199,8 +298,9 @@ export const ItemCartPage = () => {
             About
           </h2>
           <div className="space-y-6 text-secondary text-sm tablet:text-base">
-            {details?.description && details.description.length > 0 ? (
-              details.description.map((section, index) => (
+            {product.details?.description &&
+            product.details.description.length > 0 ? (
+              product.details.description.map((section, index) => (
                 <div key={index}>
                   <h3 className="font-semibold mb-3 text-primary">
                     {section.title}
@@ -218,7 +318,7 @@ export const ItemCartPage = () => {
             ) : (
               <div>
                 <h3 className="font-semibold mb-3 text-primary">
-                  About {currentProduct.name}
+                  About {product.name}
                 </h3>
                 <p className="leading-relaxed">
                   Detailed information about this product is not available at
@@ -237,49 +337,55 @@ export const ItemCartPage = () => {
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Screen</span>
               <span className="text-primary text-sm font-medium">
-                {currentProduct.screen}
+                {product.screen}
               </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Resolution</span>
               <span className="text-primary text-sm font-medium">
-                {details?.resolution || 'N/A'}
+                {product.details?.resolution || 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Processor</span>
               <span className="text-primary text-sm font-medium">
-                {details?.processor || 'N/A'}
+                {product.details?.processor || 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">RAM</span>
               <span className="text-primary text-sm font-medium">
-                {currentProduct.ram}
+                {product.ram}
               </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Built in memory</span>
               <span className="text-primary text-sm font-medium">
-                {currentProduct.capacity}
+                {product.capacity}
               </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Camera</span>
               <span className="text-primary text-sm font-medium">
-                {details && 'camera' in details ? details.camera : 'N/A'}
+                {product.details && 'camera' in product.details
+                  ? product.details.camera
+                  : 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3 border-b border-elements">
               <span className="text-secondary text-sm">Zoom</span>
               <span className="text-primary text-sm font-medium">
-                {details && 'zoom' in details ? details.zoom : 'N/A'}
+                {product.details && 'zoom' in product.details
+                  ? product.details.zoom
+                  : 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">Cell</span>
               <span className="text-primary text-sm font-medium">
-                {details && 'cell' in details ? details.cell.join(', ') : 'N/A'}
+                {product.details && 'cell' in product.details
+                  ? product.details.cell.join(', ')
+                  : 'N/A'}
               </span>
             </div>
           </div>

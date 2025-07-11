@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import phoneImge from '/img/categories/category-phones.webp';
+import phoneImage from '/img/categories/category-phones.webp';
 import tabletImage from '/img/categories/category-tablets.webp';
 import phonesImage from '/img/categories/category-accessories.webp';
 import { usePhones } from '../../context/PhonesContext';
@@ -23,14 +23,16 @@ export const ShopByCategory = () => {
           >
             <div className="w-full aspect-square mb-4 transition-transform duration-300 hover:scale-110">
               <img
-                src={phoneImge}
+                src={phoneImage}
                 alt="Phone"
                 className="w-full h-full object-cover"
               />
             </div>
+
             <h4 className="h4 color-primary mb-1 hover:underline transition-all duration-200">
               Mobile phones
             </h4>
+
             <p className="color-secondary mb-6">{phonesLength} models</p>
           </NavLink>
 
@@ -45,9 +47,11 @@ export const ShopByCategory = () => {
                 className="w-full h-full object-cover"
               />
             </div>
+
             <h4 className="h4 color-primary mb-1 hover:underline transition-all duration-200">
               Tablets
             </h4>
+
             <p className="color-secondary mb-6">{tabletsLength} models</p>
           </NavLink>
 
@@ -62,9 +66,11 @@ export const ShopByCategory = () => {
                 className="w-full h-full object-cover"
               />
             </div>
+
             <h4 className="h4 color-primary mb-1 hover:underline transition-all duration-200">
               Accessories
             </h4>
+
             <p className="color-secondary">{accessoriesLength} models</p>
           </NavLink>
         </div>

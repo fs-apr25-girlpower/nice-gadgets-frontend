@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ArrowLeftButton } from '../../images/icons/ArrowLeftButton';
 import { ArrowRightButton } from '../../images/icons/ArrowRightButton';
 
@@ -16,14 +17,11 @@ export function Pagination<T>({
   currentPage,
   onPageChange,
 }: PaginationProps<T>) {
-  // Тепер currentPage і onPageChange приходять зверху — без локального useState
-
   const totalPages = Math.ceil(items.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = items.slice(startIndex, endIndex);
 
-  // Замість setCurrentPage викликаємо onPageChange
   const handlePageClick = (page: number) => {
     if (page !== currentPage) {
       onPageChange(page);
@@ -38,22 +36,28 @@ export function Pagination<T>({
     if (currentPage < totalPages) onPageChange(currentPage + 1);
   };
 
+  const isDisabledPrev = currentPage === 1;
+  const isDisabledNext = currentPage === totalPages;
+
   return (
-    <div>
-      <div className="grid gap-4  grid-cols-[repeat(auto-fill,_minmax(230px,288px))] mt-6 mb-6 tablet:mb-10">
+    <>
+      <div className="grid gap-4 mobile:grid-cols-[repeat(auto-fill,_minmax(230px,288px))] mobile:justify-center tablet:grid-cols-[repeat(auto-fill,_minmax(230px,1fr))] mt-6 mb-6 tablet:mb-10">
         {currentItems.map(renderItem)}
       </div>
 
       <div className="flex justify-center items-center m-10 gap-2">
-        <button onClick={handlePrevPageClick}>
-          <ArrowLeftButton />
+        <button
+          onClick={handlePrevPageClick}
+          className={clsx({ 'cursor-pointer': !isDisabledPrev })}
+        >
+          <ArrowLeftButton isDisabled={isDisabledPrev} />
         </button>
 
         {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
           <button
             key={page}
             onClick={() => handlePageClick(page)}
-            className={`w-8 h-8 ${
+            className={`w-8 h-8 cursor-pointer ${
               page === currentPage
                 ? 'bg-primary border-1 border-secondary text-white'
                 : 'bg-white text-black'
@@ -63,10 +67,13 @@ export function Pagination<T>({
           </button>
         ))}
 
-        <button onClick={handleNextPageClick}>
-          <ArrowRightButton />
+        <button
+          onClick={handleNextPageClick}
+          className={clsx({ 'cursor-pointer': !isDisabledNext })}
+        >
+          <ArrowRightButton isDisabled={isDisabledNext} />
         </button>
       </div>
-    </div>
+    </>
   );
 }

@@ -11,6 +11,7 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { MobileMenuPage } from './pages/MobileMenuPage';
 import { ContactsUsPage } from './pages/ContactsUsPage';
 import { RightsPage } from './pages/RightsPage';
+import { ProductDetailsPage } from './pages/ProductDetailsPage';
 
 const routeConfig: RouteConfig[] = [
   { index: true, element: <HomePage /> },
@@ -22,6 +23,8 @@ const routeConfig: RouteConfig[] = [
   { path: 'mobileMenu', element: <MobileMenuPage /> },
   { path: 'contacts', element: <ContactsUsPage /> },
   { path: 'rights', element: <RightsPage /> },
+  //{ path: 'product/:productId', element: <ProductDetailsPage /> },
+  { path: ':category/:itemId', element: <ProductDetailsPage /> },
   { path: '*', element: <NotFoundPage /> },
 ];
 export const Root = () => {
