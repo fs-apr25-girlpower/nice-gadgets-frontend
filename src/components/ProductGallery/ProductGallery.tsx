@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import clsx from 'clsx';
 import Picture1 from '../../../public/img/phones/apple-iphone-13-pro-max/gold/00.webp';
 import Picture2 from '../../../public/img/phones/apple-iphone-13-pro-max/gold/01.webp';
@@ -11,23 +11,24 @@ const images = [Picture1, Picture2, Picture3, Picture4, Picture5];
 export const ProductGallery: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
-  const [zoomOrigin, setZoomOrigin] = useState('center center');
+  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+  const imageRef = useRef<HTMLImageElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isZoomed) return;
+    if (!isZoomed || !imageRef.current) return;
 
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setZoomOrigin(`${x}% ${y}%`);
+    const rect = imageRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    setZoomPosition({ x, y });
   };
 
-  const handleImageClick = () => {
-    setIsZoomed(prev => !prev);
-  };
+  const handleMouseEnter = () => setIsZoomed(true);
+  const handleMouseLeave = () => setIsZoomed(false);
 
   return (
-    <div className="flex flex-col tablet:flex-row gap-4 items-center tablet:items-start w-full">
+    <div className="relative flex flex-col tablet:flex-row gap-4 items-center tablet:items-start w-full">
       <div
         className={clsx(
           'flex gap-[13px] overflow-auto',
@@ -61,23 +62,38 @@ export const ProductGallery: React.FC = () => {
       </div>
 
       <div
-        className="relative w-full max-w-[350px] mx-auto order-1 tablet:order-2 tablet:self-start overflow-hidden cursor-zoom-in"
-        onClick={handleImageClick}
+        className="relative w-full max-w-[350px] mx-auto order-1 tablet:order-2 tablet:self-start overflow-hidden"
         onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <img
+          ref={imageRef}
           src={images[selectedIndex]}
           alt={`Image ${selectedIndex + 1}`}
-          className={clsx(
-            'w-full h-auto object-contain transition-transform duration-200 ease-in-out',
-            isZoomed && 'cursor-zoom-out',
-          )}
-          style={{
-            transform: isZoomed ? 'scale(2)' : 'scale(1)',
-            transformOrigin: zoomOrigin,
-          }}
+          className="w-full h-auto object-contain"
         />
       </div>
+
+      {isZoomed && (
+        <div
+          className="absolute z-50 w-[400px] h-[400px] bg-white border border-gray-300 overflow-hidden shadow-lg hidden tablet:block"
+          style={{
+            top: '0',
+            left: 'calc(100% + 16px)',
+            pointerEvents: 'none',
+          }}
+        >
+          <div
+            className="w-full h-full bg-no-repeat bg-cover"
+            style={{
+              backgroundImage: `url(${images[selectedIndex]})`,
+              backgroundPosition: `${-zoomPosition.x * 2 + 100}px ${-zoomPosition.y * 2 + 100}px`,
+              backgroundSize: '700px',
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
