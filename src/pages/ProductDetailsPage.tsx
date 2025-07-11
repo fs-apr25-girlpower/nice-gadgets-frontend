@@ -186,8 +186,6 @@ export const ProductDetailsPage = () => {
 
   const sliderConfig = {
     titleForBrand: 'You may also like',
-    classNameForButtonPrev: 'slider-prev-btn',
-    classNameForButtonNext: 'slider-next-btn',
     marginTop: 'mt-16',
   };
 
