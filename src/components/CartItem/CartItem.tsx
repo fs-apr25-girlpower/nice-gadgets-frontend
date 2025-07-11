@@ -1,5 +1,6 @@
 import type { Product } from '../../types/Product';
 import { useCart } from '../../hooks/useCart';
+import { Link } from 'react-router-dom';
 
 interface Props {
   product: Product;
@@ -35,13 +36,16 @@ export const CartItem: React.FC<Props> = ({ product }) => {
               >
                 ×
               </button>
-              <div className="w-20 h-20 flex-shrink-0">
+              <Link
+                className="w-20 h-20 flex-shrink-0"
+                to={`/${product.category}/${product.itemId}`}
+              >
                 <img
                   src={`${import.meta.env.BASE_URL}${product.image}`}
                   alt={product.name}
                   className="w-full h-full object-contain"
                 />
-              </div>
+              </Link>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -62,11 +66,11 @@ export const CartItem: React.FC<Props> = ({ product }) => {
             </div>
           </div>
           <div className="flex-1 flex flex-col justify-between">
-            <div>
+            <Link to={`/${product.category}/${product.itemId}`}>
               <h3 className="text-sm font-medium text-gray-900 leading-tight">
                 {product.name}
               </h3>
-            </div>
+            </Link>
             <div className="text-right self-end">
               <div className="text-lg font-bold text-gray-900 w-16 text-right">
                 ${product.price * quantity}
