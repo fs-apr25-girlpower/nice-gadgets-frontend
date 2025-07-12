@@ -14,10 +14,11 @@ const optionsSortTypes = [
   { label: 'Name', value: 'byName' },
 ];
 
-const optionsItemsPerPage = [
+const getOptionsItemsPerPage = (totalPagesCount: number) => [
+  { label: '4', value: '4' },
   { label: '8', value: '8' },
   { label: '16', value: '16' },
-  { label: '32', value: '32' },
+  { label: 'All', value: String(totalPagesCount) },
 ];
 
 type SortTypes = (typeof optionsSortTypes)[number]['value'];
@@ -26,6 +27,7 @@ export const ProductsList = ({ products }: ProductsListProps) => {
   const { sort, perPage, page, refreshParams } = useQueryParams('phones');
   const sortTypeSelected = sort as SortTypes;
   const itemsToShow = String(perPage);
+  const optionsItemsPerPage = getOptionsItemsPerPage(products.length);
 
   const toSortProducts = (
     products: Product[],
@@ -49,6 +51,7 @@ export const ProductsList = ({ products }: ProductsListProps) => {
 
     return result;
   };
+
   const sortedProducts = toSortProducts(products, sortTypeSelected);
 
   const handleSortChange = (newValue: string) => {
@@ -56,14 +59,18 @@ export const ProductsList = ({ products }: ProductsListProps) => {
   };
 
   const handleItemsPerPageChange = (newValue: string) => {
-    refreshParams({ perPage: newValue, page: 1 });
+    if (parseInt(newValue) === products.length) {
+      refreshParams({ perPage: null, page: null });
+    } else {
+      refreshParams({ perPage: newValue, page: 1 });
+    }
   };
 
   return (
     <>
       <p className="body-text mb-8 tablet:mb-10">{products.length} models</p>
 
-      <div className="  w-full min-h-20 flex items-center gap-4 ">
+      <div className="w-full min-h-20 flex items-center gap-4">
         <DropDown
           label="sortBy"
           options={optionsSortTypes}
@@ -80,6 +87,7 @@ export const ProductsList = ({ products }: ProductsListProps) => {
       </div>
 
       <Pagination
+        refreshParams={refreshParams}
         items={sortedProducts}
         itemsPerPage={+itemsToShow}
         currentPage={page}
