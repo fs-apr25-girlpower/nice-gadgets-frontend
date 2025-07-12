@@ -30,8 +30,8 @@ export const TopSlider = () => {
           className="
           swiper-button-prev-custom absolute -left-15 top-1/2 -translate-y-1/2
           h-full max-h-[432px] w-[32px] items-center justify-center
-          bg-white/90 hover:bg-gray-200 transition z-10
-          text-3xl border-1 border-gray-300 hidden sm:flex cursor-pointer
+          bg-white/90 hover:bg-hover transition z-10
+          text-3xl border-1 border-elements hidden sm:flex cursor-pointer
         "
         >
           ‹
@@ -41,8 +41,8 @@ export const TopSlider = () => {
           className="
           swiper-button-next-custom absolute -right-15 top-1/2 -translate-y-1/2
           h-full max-h-[432px] w-[32px] items-center justify-center
-          bg-white/90 hover:bg-gray-200 transition z-10
-          text-3xl border-1 border-gray-300 hidden sm:flex cursor-pointer
+          bg-white/90 hover:bg-hover transition z-10
+          text-3xl border-1 border-elements hidden sm:flex cursor-pointer
         "
         >
           ›
@@ -69,6 +69,16 @@ export const TopSlider = () => {
             <div className="w-full h-full flex border-1 border-gray-300 bg-neutral-50 items-center justify-center text-3xl">
               <img
                 className="w-full h-full object-center object-cover"
+                src="./img/start-banner-3.png"
+                alt="slide-1"
+              />
+            </div>
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <div className="w-full h-full flex border-1 border-elements bg-hover items-center justify-center text-3xl">
+              <img
+                className="w-full h-full object-center object-cover"
                 src="./img/banner-accessories.png"
                 alt="slide-1"
               />
@@ -76,7 +86,7 @@ export const TopSlider = () => {
           </SwiperSlide>
 
           <SwiperSlide>
-            <div className="w-full h-full flex border-1 border-gray-300 bg-neutral-50 items-center justify-center text-3xl">
+            <div className="w-full h-full flex border-1 border-elements bg-hover items-center justify-center text-3xl">
               <img
                 className="w-full h-full object-center object-cover"
                 src="./img/banner-phones.png"
@@ -86,7 +96,7 @@ export const TopSlider = () => {
           </SwiperSlide>
 
           <SwiperSlide>
-            <div className="w-full h-full flex border-1 border-gray-300 bg-neutral-50 items-center justify-center text-3xl">
+            <div className="w-full h-full flex border-1 border-elements bg-hover items-center justify-center text-3xl">
               <img
                 className="w-full h-full object-center object-cover"
                 src="./img/banner-tablets.png"

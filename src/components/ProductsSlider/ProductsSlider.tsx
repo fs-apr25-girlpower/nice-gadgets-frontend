@@ -32,6 +32,8 @@ export const ProductSlider = ({
 
   useEffect(() => {
     if (swiperRef.current && prevRef.current && nextRef.current) {
+      // swiperRef.current.el.style.overflow = 'visible';
+
       const navigationParams = swiperRef.current.params.navigation;
 
       if (navigationParams && typeof navigationParams !== 'boolean') {
@@ -68,7 +70,7 @@ export const ProductSlider = ({
         </div>
       </div>
 
-      <div className="-mr-4 tablet:-mr-6 desktop:mr-0">
+      <div className="-mr-4 tablet:-mr-6 desktop:mr-0 overflow-visible">
         <Swiper
           modules={[Navigation]}
           navigation={{

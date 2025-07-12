@@ -1,11 +1,11 @@
 type Props = {
-  isEmpty: boolean;
-  count: number;
+  cartCount: number;
   isMobile?: boolean;
 };
 
-export const Cart: React.FC<Props> = ({ isEmpty, count = 0 }) => {
-  const displayCount = isEmpty ? 0 : count;
+export const CartIcon: React.FC<Props> = ({ cartCount = 0 }) => {
+  const isCartEmpty = cartCount === 0;
+  const displayCount = isCartEmpty ? 0 : cartCount;
 
   return (
     <svg

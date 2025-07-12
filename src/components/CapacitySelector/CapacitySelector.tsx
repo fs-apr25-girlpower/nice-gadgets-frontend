@@ -1,15 +1,4 @@
-// import { useState } from 'react';
 import clsx from 'clsx';
-
-// const capacityOptions = [
-//   { id: '64', label: '64GB' },
-//   { id: '256', label: '256GB' },
-//   { id: '512', label: '512GB' },
-// ];
-// export type capacityOption = {
-//     id: string;
-//     label: string;
-// }
 
 export type CapacitySelectorProps = {
   availableCapacities: string[];
@@ -22,19 +11,6 @@ export const CapacitySelector = ({
   selectedCapacity,
   onSelectCapacity,
 }: CapacitySelectorProps) => {
-  // const capacityOptions: capacityOption[] = availableCapacities.reduce<capacityOption[]>((acc, val) => {
-  //     const match: string[] | null = val.match(/\d+/g);
-  //     const id = match ? parseInt(match[0], 10) : 0;
-
-  //     acc.push({
-  //         id: String(id),
-  //         label: val,
-  //     })
-  //     return acc;
-  // }, [])
-
-  //   const [selected, setSelected] = useState('64');
-
   return (
     <div className="flex gap-2">
       {availableCapacities.map(capacity => {
@@ -44,10 +20,14 @@ export const CapacitySelector = ({
           <label
             key={capacity}
             className={clsx(
-              'w-[56px] h-[32px] flex flex-col items-center justify-center cursor-pointer select-none border text-sm font-medium transition-colors',
+              'w-[56px] h-[32px]',
+              'flex flex-col items-center justify-center',
+              'cursor-pointer select-none',
+              'border text-default',
+              'transition-colors',
               isSelected
-                ? 'bg-[#313237] text-white border-[#313237]'
-                : 'bg-white text-[#313237] border-gray-300 hover:border-gray-500',
+                ? 'bg-primary text-white border-primary'
+                : 'bg-white text-primary border-elements hover:border-secondary',
             )}
           >
             <input
@@ -55,7 +35,9 @@ export const CapacitySelector = ({
               name="capacity"
               value={capacity}
               checked={isSelected}
-              onChange={e => onSelectCapacity(e.target.value)}
+              onChange={e => {
+                onSelectCapacity(e.target.value);
+              }}
               className="sr-only"
             />
             <span className="block">{capacity}</span>

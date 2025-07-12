@@ -13,7 +13,7 @@ module.exports = {
         secondary: '#89939a',
         icons: '#b4bdc3',
         elements: '#e2e6e9',
-        hoverAndBg: '#fafbfc',
+        hover: '#fafbfc',
         green: '#27ae60',
         red: '#eb5757',
       },

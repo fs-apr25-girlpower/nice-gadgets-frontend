@@ -12,7 +12,13 @@ export const BackToTopButton: React.FC = () => {
     <button
       type="button"
       onClick={handleScrollTop}
-      className="py-3 px-3 border border-[#B4BDC3] hover:border-black transition duration-300 ease-in-out cursor-pointer"
+      className="
+        py-3 px-3
+        border border-icons
+        hover:border-black
+        transition duration-300 ease-in-out
+        cursor-pointer
+      "
     >
       <ArrowUp />
     </button>

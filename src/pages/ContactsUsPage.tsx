@@ -23,7 +23,7 @@ export const ContactsUsPage = () => {
       <section className="w-full flex justify-center mt-8 mb-16">
         <div className="w-full max-w-4xl flex flex-col items-center">
           <h2 className="text-3xl font-bold mb-6 text-center">Contact Us</h2>
-          <div className="h-1 w-24 bg-gray-200 mb-8" />
+          <div className="h-1 w-24 bg-elements mb-8" />
 
           <div className="flex flex-col md:flex-row gap-12 w-full">
             <div className="flex-1 flex flex-col items-start gap-4">
@@ -57,22 +57,22 @@ export const ContactsUsPage = () => {
                   />
                 </a>
               </div>
-              <p className="text-gray-600 text-sm">
+              <p className="text-primary text-sm">
                 Vexillologist vape microdosing freegan pork belly deep v direct
                 trade cray single-origin coffee street art. Viral shaman
                 mustache master cleanse, pop-over affogato poutine copper mug
                 marfa fanny pack normcore. Lo-fi pop-up banjo portland, echo
                 park hammock.
               </p>
-              <div className="text-gray-800 text-base font-medium">
+              <div className="text-primary text-base font-medium">
                 (415) 823-7934
               </div>
-              <div className="text-gray-800 text-base font-medium">
+              <div className="text-primary text-base font-medium">
                 725 Green St
                 <br />
                 San Francisco, California(CA), 94133
               </div>
-              <div className="text-gray-800 text-base font-medium">
+              <div className="text-primary text-base font-medium">
                 ouremailaddress@email.com
               </div>
             </div>
@@ -81,21 +81,21 @@ export const ContactsUsPage = () => {
                 <input
                   type="text"
                   placeholder="Your name"
-                  className="flex-1 border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                  className="flex-1 border border-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 />
                 <input
                   type="email"
                   placeholder="Your e-mail"
-                  className="flex-1 border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                  className="flex-1 border border-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 />
               </div>
               <textarea
                 placeholder="Your message"
-                className="border border-gray-300 rounded px-4 py-2 min-h-[100px] focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none"
+                className="border border-elements rounded px-4 py-2 min-h-[100px] focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none"
               />
               <button
                 type="submit"
-                className="self-end bg-gray-800 text-white px-8 py-2 rounded hover:bg-gray-700 transition cursor-pointer"
+                className="self-end bg-primary text-white px-8 py-2 rounded hover:bg-secondary transition cursor-pointer"
               >
                 Send
               </button>

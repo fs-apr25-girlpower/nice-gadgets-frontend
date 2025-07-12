@@ -67,7 +67,7 @@ export const Breadcrumbs = () => {
 
   return (
     <nav
-      className="flex items-center text-xs"
+      className="flex items-center text-small"
       aria-label="Breadcrumb"
     >
       {breadcrumbs.map((breadcrumb, index) => (
@@ -79,7 +79,7 @@ export const Breadcrumbs = () => {
             // Home icon
             <Link
               to="/"
-              className="text-gray-500 hover:text-gray-700 transition-colors"
+              className="text-secondary hover:text-primary transition-colors"
             >
               <HomeIcon />
             </Link>
@@ -91,7 +91,7 @@ export const Breadcrumbs = () => {
                 viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 text-gray-400 mx-2"
+                className="w-4 h-4 text-secondary mx-2"
               >
                 <path
                   d="M6 12L10 8L6 4"
@@ -105,12 +105,12 @@ export const Breadcrumbs = () => {
               {breadcrumb.path ? (
                 <Link
                   to={breadcrumb.path}
-                  className="text-gray-600 hover:text-gray-800 transition-colors text-xs"
+                  className="text-secondary hover:text-primary transition-colors text-small"
                 >
                   {breadcrumb.label}
                 </Link>
               ) : (
-                <span className="text-gray-600 text-xs">
+                <span className="text-secondary text-small">
                   {breadcrumb.label}
                 </span>
               )}

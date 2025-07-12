@@ -105,7 +105,7 @@ export function Pagination<T>({
 
   return (
     <>
-      <div className="grid gap-4 mobile:grid-cols-[repeat(auto-fill,_minmax(230px,288px))] mobile:justify-center tablet:grid-cols-[repeat(auto-fill,_minmax(230px,1fr))] mt-6 mb-6 tablet:mb-10">
+      <div className="grid gap-4 mt-6 mb-6 tablet:mb-10 max-w-[1200px] mx-auto justify-center grid-cols-[repeat(auto-fit,minmax(230px,280px))]">
         {currentItems.map(renderItem)}
       </div>
 
@@ -129,7 +129,7 @@ export function Pagination<T>({
           page === 'dots' ? (
             <span
               key={`dots-${index}`}
-              className="px-2 text-gray-500"
+              className="px-2 text-secondary"
               aria-hidden="true"
             >
               ...

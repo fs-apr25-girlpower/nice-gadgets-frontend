@@ -11,6 +11,7 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { ContactsUsPage } from './pages/ContactsUsPage';
 import { RightsPage } from './pages/RightsPage';
 import { ProductDetailsPage } from './pages/ProductDetailsPage';
+import { ScrollToTop } from './components/ScrollToTop';
 
 const routeConfig: RouteConfig[] = [
   { index: true, element: <HomePage /> },
@@ -27,29 +28,32 @@ const routeConfig: RouteConfig[] = [
 ];
 export const Root = () => {
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={<App />}
-        >
-          {routeConfig.map((route: RouteConfig, index: number) =>
-            route.index ? (
-              <Route
-                key={index}
-                index
-                element={route.element}
-              />
-            ) : (
-              <Route
-                key={index}
-                path={route.path}
-                element={route.element}
-              />
-            ),
-          )}
-        </Route>
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route
+            path="/"
+            element={<App />}
+          >
+            {routeConfig.map((route: RouteConfig, index: number) =>
+              route.index ? (
+                <Route
+                  key={index}
+                  index
+                  element={route.element}
+                />
+              ) : (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={route.element}
+                />
+              ),
+            )}
+          </Route>
+        </Routes>
+      </Router>
+    </>
   );
 };

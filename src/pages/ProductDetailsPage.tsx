@@ -1,20 +1,16 @@
 import { Breadcrumbs } from '../components/Breadcrumbs/Breadcrumbs';
 import { ProductGallery } from '../components/ProductGallery/ProductGallery';
-import {
-  ColorSelector,
-  type ColorKey,
-} from '../components/ColorSelector/ColorSelector';
+import { ColorSelector } from '../components/ColorSelector/ColorSelector';
 import { CapacitySelector } from '../components/CapacitySelector/CapacitySelector';
 import { FavoriteButton } from '../components/FavoriteButton/FavoriteButton';
 import { ProductSlider } from '../components/ProductsSlider/ProductsSlider';
 import { ButtonMain } from '../components/ButtonMain';
-//import { useProducts } from '../context/ProductsContext';
 import { Loader } from '../components/Loader';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-//import { getProductsWithDetails } from '../api/getProductsWithDetails';
 import type { ProductWithDetails } from '../types/ProductWithDetails';
 import { useProductsWithDetails } from '../context/ProductsWithDetailsContext';
+import type { ColorKey } from '../types/ColorKey';
 
 export const ProductDetailsPage = () => {
   const allProducts = useProductsWithDetails();
@@ -31,41 +27,13 @@ export const ProductDetailsPage = () => {
   const [selectedCapacity, setSelectedCapacity] = useState<string>('');
   //   const [selectedImage, setSelectedImage] = useState<string>('')
 
-  // // useEffect для встановлення початкового значення по дефолту
-  //     useEffect(() => {
-  //     if (itemId) {
-  //         const defaultSelectedColor = itemId.split('-').slice(-1).join('');
-  //         setSelectedColor(defaultSelectedColor);
-  //         const defaultSelectedCapacity = itemId.split('-').splice(-2, 1).join('');
-  //         // setSelectedCapacity(defaultSelectedCapacity);
-  //         console.log(`..${defaultSelectedCapacity}..`)
-  //     }
-  //     }, [itemId]);
-
-  //   const currentProduct = allProducts.find(p => p.details.id === product?.itemId || p.details.id === itemId);
   const currentProduct = allProducts.find(p => p.details?.id === itemId);
-  const imagesForGallery = currentProduct?.details?.images || [];
+  const imagesForGallery = product?.details?.images || [];
   const availableColors: ColorKey[] =
     currentProduct?.details?.colorsAvailable || [];
   const availableCapacities = currentProduct?.details?.capacityAvailable || [];
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const colorParam = searchParams.get('color') || '';
-
-  const updateColorParam = (color: string) => {
-    const newParams = new URLSearchParams(searchParams);
-    if (color) {
-      newParams.set('color', color);
-    } else {
-      newParams.delete('color');
-    }
-    setSearchParams(newParams);
-  };
-
-  useEffect(() => {
-    if (colorParam) setSelectedColor(colorParam);
-    // if (capacityParam) setSelectedCapacity(capacityParam);
-  }, [colorParam]);
+  const location = useLocation();
+  const isFromSlider = location.state?.fromSlider || false;
 
   useEffect(() => {
     if (
@@ -80,12 +48,6 @@ export const ProductDetailsPage = () => {
     setLoading(true);
     setError(false);
 
-    // Шукаємо продукт у вже завантаженому контексті
-    let foundProduct = allProducts.find(
-      p => `${p.itemId}` === itemId,
-      //p => `${p.id}` === productId || p.itemId === productId,
-    );
-
     if (!currentProduct) {
       //перевірка для TS
       return;
@@ -93,57 +55,36 @@ export const ProductDetailsPage = () => {
 
     const baseTitleId = currentProduct.itemId.split('-').slice(0, -2).join('-');
 
-    const preparedProduct = allProducts.filter(p =>
-      p.itemId.includes(baseTitleId),
+    const preparedRelevantProducts = allProducts.filter(p =>
+      p.itemId.startsWith(baseTitleId),
     );
 
-    if (selectedColor !== '' && selectedCapacity !== '') {
-      foundProduct = preparedProduct.find(
-        product =>
-          product.color === selectedColor &&
-          product.capacity === selectedCapacity,
-      );
-    } else if (selectedColor !== '' && selectedCapacity === '') {
-      foundProduct = preparedProduct.find(
-        product => product.color === selectedColor,
-      );
-    } else if (selectedCapacity !== '' && selectedColor === '') {
-      foundProduct = preparedProduct.find(
-        product => product.capacity === selectedCapacity,
+    let foundProduct = null;
+
+    if (selectedColor && selectedCapacity) {
+      foundProduct = preparedRelevantProducts.find(
+        p => p.color === selectedColor && p.capacity === selectedCapacity,
       );
     }
 
-    console.log('selectedColor', selectedColor);
-    console.log('foundProduct', foundProduct);
+    if (!foundProduct && selectedColor) {
+      foundProduct = preparedRelevantProducts.find(
+        p => p.color === selectedColor,
+      );
+    }
+
+    if (!foundProduct && selectedCapacity) {
+      foundProduct = preparedRelevantProducts.find(
+        p => p.capacity === selectedCapacity,
+      );
+    }
+
+    if (!foundProduct) {
+      foundProduct = allProducts.find(p => p.itemId === itemId);
+    }
 
     if (foundProduct) {
       setProduct(foundProduct);
-
-      //   if (foundProduct.itemId !== itemId) {
-      //     navigate(`/${foundProduct.category}/${foundProduct.itemId}`)
-      //     //  <Navigate to={`/${foundProduct.category}/${foundProduct.itemId}`} replace />;
-      //   }
-
-      if (
-        foundProduct.details?.colorsAvailable &&
-        foundProduct.details.colorsAvailable.length > 0
-      ) {
-        //setSelectedColor(foundProduct.details.colorsAvailable[0]);
-      }
-
-      if (
-        foundProduct.details?.capacityAvailable &&
-        foundProduct.details.capacityAvailable.length > 0
-      ) {
-        //setSelectedCapacity(foundProduct.details.capacityAvailable[0]);
-      }
-
-      if (
-        foundProduct.details?.images &&
-        foundProduct.details.images.length > 0
-      ) {
-        //setSelectedImage(foundProduct.details.images[0]);
-      }
     } else {
       setError(true); // Продукт не знайдено
     }
@@ -159,10 +100,18 @@ export const ProductDetailsPage = () => {
     navigate,
   ]);
 
-  // if (product?.itemId !== itemId) {
-  //     navigate(`/${product?.category}/${product?.itemId}`)
-  //     //  <Navigate to={`/${product?.category}/${product?.itemId}`} replace />;
-  //     }
+  useEffect(() => {
+    setSelectedColor('');
+    setSelectedCapacity('');
+  }, [itemId]);
+
+  useEffect(() => {
+    if (!product || isFromSlider) return;
+
+    if (product.itemId !== itemId) {
+      navigate(`/${product.category}/${product.itemId}`, { replace: true });
+    }
+  }, [isFromSlider, itemId, navigate, product]);
 
   // --- Умовний рендеринг: Loader, Product Not Found ---
   if (loading) {
@@ -195,77 +144,6 @@ export const ProductDetailsPage = () => {
     );
   }
 
-  // useEffect(() => {
-  //   const loadProductDetails = async () => {
-  //     if (!allProducts || !Array.isArray(allProducts)) {
-  //       return;
-  //     }
-
-  //     const currentProduct = allProducts.find(
-  //       product =>
-  //         product.id.toString() === productId || product.itemId === productId,
-  //     );
-
-  //     if (!currentProduct) {
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     try {
-  //       const productsWithDetails = await getProductsWithDetails();
-  //       const detailedProduct = productsWithDetails.find(
-  //         product =>
-  //           product.id === currentProduct.id ||
-  //           product.itemId === currentProduct.itemId,
-  //       );
-
-  //       setProductWithDetails(
-  //         detailedProduct || { ...currentProduct, details: null },
-  //       );
-  //     } catch (error) {
-  //       console.error('Error loading product details:', error);
-  //       setProductWithDetails({ ...currentProduct, details: null });
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   loadProductDetails();
-  // }, [allProducts, productId]);
-
-  // if (!allProducts || !Array.isArray(allProducts) || loading) {
-  //   return (
-  //     <div className="min-w-[320px] max-w-[1136px] mx-auto">
-  //       <p>
-  //         <Loader />
-  //       </p>
-  //     </div>
-  //   );
-  // }
-
-  // if (!productWithDetails) {
-  //   return (
-  //     <div className="min-w-[320px] max-w-[1136px] mx-auto">
-  //       <div className="flex flex-col items-center justify-center py-16">
-  //         <h1 className="text-2xl font-bold text-primary mb-4">
-  //           Product not found
-  //         </h1>
-  //         <p className="text-secondary mb-6">
-  //           The product you&apos;re looking for doesn&apos;t exist.
-  //         </p>
-  //         <button
-  //           onClick={() => window.history.back()}
-  //           className="px-6 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-colors"
-  //         >
-  //           Go Back
-  //         </button>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  // const currentProduct = productWithDetails;
-  // const details = productWithDetails.details;
   const recommendedProducts = allProducts
     .filter(p => p.itemId !== product.itemId && p.category === product.category)
     .slice(0, 10);
@@ -285,8 +163,6 @@ export const ProductDetailsPage = () => {
         <button
           onClick={() => navigate(-1)} // Використовуємо useNavigate
           className="flex items-center gap-2 text-secondary hover:text-primary transition-colors"
-          // onClick={() => window.history.back()}
-          // className="flex items-center gap-2 text-secondary hover:text-primary transition-colors"
         >
           <span className="text-base tablet:text-lg">←</span>
           <span className="text-xs tablet:text-sm font-semibold">Back</span>
@@ -299,15 +175,10 @@ export const ProductDetailsPage = () => {
 
       <div className="flex flex-col tablet:flex-row gap-6 tablet:gap-8 desktop:gap-16 mb-12 tablet:mb-16 desktop:mb-20 min-w-0">
         <div className="flex-1 min-w-0 flex items-start justify-center">
-          <ProductGallery
-            images={imagesForGallery}
-            // images={product.details?.images || null}
-            //   selectedImage={selectedImage}
-            //   setSelectedImage={setSelectedImage}
-          />
+          <ProductGallery images={imagesForGallery} />
         </div>
         <div className="flex-1 min-w-0 justify-between relative">
-          <p className="text-xs tablet:text-sm text-gray-400 font-semibold uppercase tracking-wider absolute top-0 right-0 ">
+          <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider absolute top-0 right-0 ">
             ID: {product.id}
           </p>
           <div className="min-w-0 space-y-4 tablet:space-y-6 desktop:max-w-80">
@@ -316,12 +187,10 @@ export const ProductDetailsPage = () => {
             </p>
             <ColorSelector
               colors={availableColors}
-              // colors={product.details.colorsAvailable || []}
               selectedColor={selectedColor}
               onSelectColor={setSelectedColor}
-              updateColorParam={updateColorParam}
             />
-            <div className="h-px w-full bg-[#E2E6E9]"></div>
+            <div className="h-px w-full bg-elements"></div>
 
             <div className="space-y-1">
               <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider">
@@ -330,11 +199,10 @@ export const ProductDetailsPage = () => {
             </div>
             <CapacitySelector
               availableCapacities={availableCapacities}
-              // capacities={product.details.capacityAvailable || []}
               selectedCapacity={selectedCapacity}
               onSelectCapacity={setSelectedCapacity}
             />
-            <div className="h-px w-full bg-[#E2E6E9]"></div>
+            <div className="h-px w-full bg-elements"></div>
 
             <div className="flex items-baseline gap-3 py-4">
               <span className="text-2xl tablet:text-3xl desktop:text-[32px] font-bold text-primary">
@@ -391,8 +259,8 @@ export const ProductDetailsPage = () => {
           <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary">
             About
           </h2>
-          <div className="h-px w-full bg-[#E2E6E9] mt-4 mb-8"></div>
-          <div className="space-y-6 text-secondary text-sm tablet:text-base">
+          <div className="h-px w-full bg-elements mt-4 mb-8"></div>
+          <div className="space-y-6 text-secondary text-default">
             {product.details?.description &&
             product.details.description.length > 0 ? (
               product.details.description.map((section, index) => (
@@ -428,7 +296,7 @@ export const ProductDetailsPage = () => {
           <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary">
             Tech specs
           </h2>
-          <div className="h-px w-full bg-[#E2E6E9] mb-7"></div>
+          <div className="h-px w-full bg-elements mb-7"></div>
           <div className="space-y-0">
             <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">Screen</span>
