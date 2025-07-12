@@ -66,6 +66,16 @@ export const TopSlider = () => {
           className="overflow-hidden h-full"
         >
           <SwiperSlide>
+            <div className="w-full h-full flex border-1 border-gray-300 bg-neutral-50 items-center justify-center text-3xl">
+              <img
+                className="w-full h-full object-center object-cover"
+                src="./img/start-banner-3.png"
+                alt="slide-1"
+              />
+            </div>
+          </SwiperSlide>
+
+          <SwiperSlide>
             <div className="w-full h-full flex border-1 border-elements bg-hover items-center justify-center text-3xl">
               <img
                 className="w-full h-full object-center object-cover"
