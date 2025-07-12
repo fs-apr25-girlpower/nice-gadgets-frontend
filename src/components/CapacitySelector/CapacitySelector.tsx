@@ -1,23 +1,48 @@
-import React, { useState } from 'react';
+// import { useState } from 'react';
 import clsx from 'clsx';
 
-const capacityOptions = [
-  { id: '64', label: '64GB' },
-  { id: '256', label: '256GB' },
-  { id: '512', label: '512GB' },
-];
+// const capacityOptions = [
+//   { id: '64', label: '64GB' },
+//   { id: '256', label: '256GB' },
+//   { id: '512', label: '512GB' },
+// ];
+// export type capacityOption = {
+//     id: string;
+//     label: string;
+// }
 
-export const CapacitySelector: React.FC = () => {
-  const [selected, setSelected] = useState('64');
+export type CapacitySelectorProps = {
+  availableCapacities: string[];
+  selectedCapacity: string;
+  onSelectCapacity: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const CapacitySelector = ({
+  availableCapacities,
+  selectedCapacity,
+  onSelectCapacity,
+}: CapacitySelectorProps) => {
+  // const capacityOptions: capacityOption[] = availableCapacities.reduce<capacityOption[]>((acc, val) => {
+  //     const match: string[] | null = val.match(/\d+/g);
+  //     const id = match ? parseInt(match[0], 10) : 0;
+
+  //     acc.push({
+  //         id: String(id),
+  //         label: val,
+  //     })
+  //     return acc;
+  // }, [])
+
+  //   const [selected, setSelected] = useState('64');
 
   return (
     <div className="flex gap-2">
-      {capacityOptions.map(({ id, label }) => {
-        const isSelected = selected === id;
+      {availableCapacities.map(capacity => {
+        const isSelected = selectedCapacity === capacity;
 
         return (
           <label
-            key={id}
+            key={capacity}
             className={clsx(
               'w-[56px] h-[32px] flex flex-col items-center justify-center cursor-pointer select-none border text-sm font-medium transition-colors',
               isSelected
@@ -28,12 +53,12 @@ export const CapacitySelector: React.FC = () => {
             <input
               type="radio"
               name="capacity"
-              value={id}
+              value={capacity}
               checked={isSelected}
-              onChange={() => setSelected(id)}
+              onChange={e => onSelectCapacity(e.target.value)}
               className="sr-only"
             />
-            <span className="block">{label}</span>
+            <span className="block">{capacity}</span>
           </label>
         );
       })}

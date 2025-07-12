@@ -86,18 +86,27 @@ export const CartItem: React.FC<Props> = ({ product }) => {
         >
           ×
         </button>
-        <div className="w-20 h-20 flex-shrink-0">
+
+        <Link
+          className="w-20 h-20 flex-shrink-0"
+          to={`/${product.category}/${product.itemId}`}
+        >
           <img
             src={`${import.meta.env.BASE_URL}${product.image}`}
             alt={product.name}
             className="w-full h-full object-contain"
           />
-        </div>
-        <div className="flex-1 min-w-0">
+        </Link>
+
+        <Link
+          className="flex-1 min-w-0"
+          to={`/${product.category}/${product.itemId}`}
+        >
           <h3 className="text-sm font-medium text-gray-900 leading-tight">
             {product.name}
           </h3>
-        </div>
+        </Link>
+
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <button
