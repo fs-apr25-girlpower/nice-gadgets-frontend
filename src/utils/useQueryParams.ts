@@ -29,3 +29,4 @@ export const useQueryParams = (defaultCategory: string) => {
     sort,
   };
 };
+//
