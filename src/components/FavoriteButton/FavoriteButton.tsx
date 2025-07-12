@@ -23,7 +23,13 @@ export const FavoriteButton: React.FC<Props> = ({ product }) => {
   return (
     <button
       onClick={handleToggle}
-      className="w-[40px] h-[40px] px-3 border border-[#B4BDC3] hover:border-black transition duration-300 ease-in-out cursor-pointer"
+      className="
+        w-[40px] h-[40px] px-3
+        border border-icons
+        hover:border-black
+        transition duration-300 ease-in-out
+        cursor-pointer
+      "
     >
       {isFavorite ? <FilledHeart /> : <Heart />}
     </button>

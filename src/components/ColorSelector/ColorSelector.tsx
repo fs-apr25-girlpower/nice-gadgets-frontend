@@ -31,7 +31,7 @@ export const ColorSelector = () => {
               'outline-none cursor-pointer',
               'border',
               'data-[state=checked]:border-black',
-              'data-[state=unchecked]:border-[#E3E5E5]',
+              'data-[state=unchecked]:border-elements',
             )}
           >
             <div

@@ -19,10 +19,14 @@ export const CapacitySelector: React.FC = () => {
           <label
             key={id}
             className={clsx(
-              'w-[56px] h-[32px] flex flex-col items-center justify-center cursor-pointer select-none border text-sm font-medium transition-colors',
+              'w-[56px] h-[32px]',
+              'flex flex-col items-center justify-center',
+              'cursor-pointer select-none',
+              'border text-default',
+              'transition-colors',
               isSelected
-                ? 'bg-[#313237] text-white border-[#313237]'
-                : 'bg-white text-[#313237] border-gray-300 hover:border-gray-500',
+                ? 'bg-primary text-white border-primary'
+                : 'bg-white text-primary border-elements hover:border-secondary',
             )}
           >
             <input

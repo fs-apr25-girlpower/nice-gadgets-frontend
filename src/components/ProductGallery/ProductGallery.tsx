@@ -55,7 +55,7 @@ export const ProductGallery: React.FC = () => {
             <img
               src={img}
               alt={`Miniature ${index + 1}`}
-              className="object-cover w-full h-full aspect-square border border-[#E2E6E9]"
+              className="object-cover w-full h-full aspect-square border border-elements"
             />
           </button>
         ))}
@@ -77,7 +77,7 @@ export const ProductGallery: React.FC = () => {
 
       {isZoomed && (
         <div
-          className="absolute z-50 w-[400px] h-[400px] bg-white border border-gray-300 overflow-hidden shadow-lg hidden tablet:block"
+          className="absolute z-50 w-[400px] h-[400px] bg-white border border-elements overflow-hidden shadow-lg hidden tablet:block"
           style={{
             top: '0',
             left: 'calc(100% + 16px)',

@@ -32,7 +32,7 @@ export const ProductSlider = ({
 
   useEffect(() => {
     if (swiperRef.current && prevRef.current && nextRef.current) {
-      swiperRef.current.el.style.overflow = 'visible';
+      // swiperRef.current.el.style.overflow = 'visible';
 
       const navigationParams = swiperRef.current.params.navigation;
 

@@ -220,7 +220,7 @@ export const ProductDetailsPage = () => {
           />
         </div>
         <div className="flex-1 min-w-0 justify-between relative">
-          <p className="text-xs tablet:text-sm text-gray-400 font-semibold uppercase tracking-wider absolute top-0 right-0 ">
+          <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider absolute top-0 right-0 ">
             ID: {product.id}
           </p>
           <div className="min-w-0 space-y-4 tablet:space-y-6 desktop:max-w-80">
@@ -232,7 +232,7 @@ export const ProductDetailsPage = () => {
             // selectedColor={selectedColor}
             // onSelectColor={setSelectedColor}
             />
-            <div className="h-px w-full bg-[#E2E6E9]"></div>
+            <div className="h-px w-full bg-elements"></div>
 
             <div className="space-y-1">
               <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider">
@@ -244,7 +244,7 @@ export const ProductDetailsPage = () => {
             // selectedCapacity={selectedCapacity}
             // onSelectCapacity={setSelectedCapacity}
             />
-            <div className="h-px w-full bg-[#E2E6E9]"></div>
+            <div className="h-px w-full bg-elements"></div>
 
             <div className="flex items-baseline gap-3 py-4">
               <span className="text-2xl tablet:text-3xl desktop:text-[32px] font-bold text-primary">
@@ -301,8 +301,8 @@ export const ProductDetailsPage = () => {
           <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary">
             About
           </h2>
-          <div className="h-px w-full bg-[#E2E6E9] mt-4 mb-8"></div>
-          <div className="space-y-6 text-secondary text-sm tablet:text-base">
+          <div className="h-px w-full bg-elements mt-4 mb-8"></div>
+          <div className="space-y-6 text-secondary text-default">
             {product.details?.description &&
             product.details.description.length > 0 ? (
               product.details.description.map((section, index) => (
@@ -338,7 +338,7 @@ export const ProductDetailsPage = () => {
           <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary">
             Tech specs
           </h2>
-          <div className="h-px w-full bg-[#E2E6E9] mb-7"></div>
+          <div className="h-px w-full bg-elements mb-7"></div>
           <div className="space-y-0">
             <div className="flex justify-between py-3">
               <span className="text-secondary text-sm">Screen</span>
