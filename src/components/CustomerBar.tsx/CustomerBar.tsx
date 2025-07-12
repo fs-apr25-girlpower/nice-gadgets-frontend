@@ -8,7 +8,7 @@ export const CustomerBar = () => {
   const cartContext = useContext(CartContext);
 
   if (!cartContext) {
-    throw new Error('CustomerBar must be used inside CartProvider');
+    throw new Error('CartProvider can not find CustomerBar');
   }
 
   const favouritesCount = cartContext.favorites.length;
