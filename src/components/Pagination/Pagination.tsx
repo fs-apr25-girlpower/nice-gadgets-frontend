@@ -8,6 +8,7 @@ interface PaginationProps<T> {
   renderItem: (item: T) => React.ReactNode;
   currentPage: number;
   onPageChange: (page: number) => void;
+  refreshParams: (updates: Record<string, string | number | null>) => void;
   pageRangeDisplayed?: number;
   marginPagesDisplayed?: number;
 }
@@ -18,6 +19,7 @@ export function Pagination<T>({
   renderItem,
   currentPage,
   onPageChange,
+  refreshParams,
   pageRangeDisplayed = 3,
   marginPagesDisplayed = 1,
 }: PaginationProps<T>) {
@@ -26,36 +28,38 @@ export function Pagination<T>({
   const endIndex = startIndex + itemsPerPage;
   const currentItems = items.slice(startIndex, endIndex);
 
+  const updatePageAndScroll = (page: number) => {
+    refreshParams({ page: page === 1 ? null : page });
+
+    setTimeout(() => {
+      const el = document.querySelector('.pagination-container');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   const handlePageClick = (page: number) => {
     if (page !== currentPage) {
       onPageChange(page);
-      setTimeout(() => {
-        const el = document.querySelector('.pagination-container');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
+      updatePageAndScroll(page);
     }
   };
 
   const handlePrevPageClick = () => {
-    if (currentPage > 1) onPageChange(currentPage - 1);
-    setTimeout(() => {
-      const el = document.querySelector('.pagination-container');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
+    if (currentPage > 1) {
+      const newPage = currentPage - 1;
+      onPageChange(newPage);
+      updatePageAndScroll(newPage);
+    }
   };
 
   const handleNextPageClick = () => {
-    if (currentPage < totalPages) onPageChange(currentPage + 1);
-    setTimeout(() => {
-      const el = document.querySelector('.pagination-container');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
+    if (currentPage < totalPages) {
+      const newPage = currentPage + 1;
+      onPageChange(newPage);
+      updatePageAndScroll(newPage);
+    }
   };
 
   const isDisabledPrev = currentPage === 1;
@@ -105,7 +109,7 @@ export function Pagination<T>({
 
   return (
     <>
-      <div className="grid gap-4 mt-6 mb-6 tablet:mb-10 max-w-[1200px] mx-auto justify-center grid-cols-[repeat(auto-fit,minmax(230px,280px))]">
+      <div className="grid gap-4 mobile:grid-cols-[repeat(auto-fill,_minmax(230px,288px))] mobile:justify-center tablet:grid-cols-[repeat(auto-fill,_minmax(230px,1fr))] mt-6 mb-6 tablet:mb-10">
         {currentItems.map(renderItem)}
       </div>
 
@@ -129,7 +133,7 @@ export function Pagination<T>({
           page === 'dots' ? (
             <span
               key={`dots-${index}`}
-              className="px-2 text-secondary"
+              className="px-2 text-gray-500"
               aria-hidden="true"
             >
               ...

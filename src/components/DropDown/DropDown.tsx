@@ -104,15 +104,15 @@ export const DropDown = ({
 
   const baseWrapper =
     'dropdown-wrapper flex flex-col items-start justify-center text-start h-15 mobile:w-34 tablet:w-44';
-  const baseLabel = 'block text-nav leading-[100%] text-secondary mb-1';
+  const baseLabel = 'block text-nav leading-[100%] text-[#89939A] mb-1';
   const baseTriggerBtn =
-    'w-34 mobile:w-34 tablet:w-44 h-10 px-3 bg-white border border-icons hover:border-black flex items-center justify-between';
+    'w-34 mobile:w-34 tablet:w-44 h-10 px-3 bg-white border border-[#B4BDC3] hover:border-black flex items-center justify-between';
   const baseDropdownContent =
-    'bg-white shadow-lg border border-icons z-50 overflow-hidden mobile:w-34 tablet:w-44 text-2 focus:outline-none';
+    'bg-white shadow-lg border border-[#B4BDC3] z-50 overflow-hidden mobile:w-34 tablet:w-44 text-2 focus:outline-none';
   const baseDropdownItem =
-    'px-3 py-2 text-default cursor-pointer outline-none w-full text-secondary transition-colors';
-  const activeDropdownItem = 'bg-gray-100 text-primary';
-  const focusedDropdownItem = 'bg-gray-200 text-black';
+    'px-3 py-2 text-sm cursor-pointer outline-none w-full text-[#89939A] transition-colors hover:bg-elements';
+  const activeDropdownItem = 'bg-gray-100 text-[#313237]';
+  const focusedDropdownItem = 'bg-gray-200 text-[#000000]';
 
   return (
     <div className={clsx(baseWrapper, className)}>
