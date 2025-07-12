@@ -1,15 +1,18 @@
 import { Logo } from '../../images/logos/Logo';
 import { NavLink } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
-import './Header.css';
+
 export const Header = () => {
   const headerClass =
-    'header flex flex-row sticky top-0 justify-between items-center w-full gap-12 bg-white z-10000 mobile:h-12 desktop:h-16 pl-[18px] border-b border-[#E2E6E9] font-bold text-[12px]';
-  const navItemClass =
-    "flex items-center h-full relative before:content-[''] before:absolute before:bottom-[0] before:left-0 before:h-[3px] before:w-0 before:bg-black before:transition-all hover:before:w-full hover:text-[#313237] ";
+    'header flex flex-row sticky top-0 justify-between items-center w-full gap-12 bg-white z-10000 mobile:h-12 desktop:h-16 pl-[18px] border-b border-elements font-bold text-[12px]';
+  const navItemClass = 'flex items-center h-full relative hover:text-primary';
 
-  // const isActive = ({ isActive }: { isActive: boolean }) =>
-  // isActive ? 'text-black nav-active' : 'text-[#828282]';
+  const isActive = ({ isActive }: { isActive: boolean }) =>
+    `flex h-full w-full items-center relative before:content-[''] before:absolute before:bottom-[0] before:left-0 before:h-[3px] before:bg-black before:transition-all hover:before:w-full hover:text-primary focus:before:w-full focus:text-primary ${
+      isActive
+        ? 'text-black nav-active before:w-full'
+        : 'text-[#828282] before:w-0'
+    }`;
 
   return (
     <>
@@ -25,9 +28,7 @@ export const Header = () => {
             <li className={navItemClass}>
               <NavLink
                 to={'/'}
-                className={({ isActive }) =>
-                  `flex h-full w-full items-center  ${isActive ? 'text-black nav-active' : ''}`
-                }
+                className={isActive}
               >
                 home
               </NavLink>
@@ -35,19 +36,15 @@ export const Header = () => {
             <li className={navItemClass}>
               <NavLink
                 to={'/phones'}
-                className={({ isActive }) =>
-                  `flex h-full w-full items-center  ${isActive ? 'text-black nav-active' : ''}`
-                }
+                className={isActive}
               >
-                Phones
+                phones
               </NavLink>
             </li>
             <li className={navItemClass}>
               <NavLink
                 to={'/tablets'}
-                className={({ isActive }) =>
-                  `flex h-full w-full items-center  ${isActive ? 'text-black nav-active' : ''}`
-                }
+                className={isActive}
               >
                 tablets
               </NavLink>
@@ -55,9 +52,7 @@ export const Header = () => {
             <li className={navItemClass}>
               <NavLink
                 to={'/accessories'}
-                className={({ isActive }) =>
-                  `flex h-full w-full items-center  ${isActive ? 'text-black nav-active' : ''}`
-                }
+                className={isActive}
               >
                 accessories
               </NavLink>

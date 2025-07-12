@@ -110,7 +110,7 @@ export const DropDown = ({
   const baseDropdownContent =
     'bg-white shadow-lg border border-[#B4BDC3] z-50 overflow-hidden mobile:w-34 tablet:w-44 text-2 focus:outline-none';
   const baseDropdownItem =
-    'px-3 py-2 text-sm cursor-pointer outline-none w-full text-[#89939A] transition-colors';
+    'px-3 py-2 text-sm cursor-pointer outline-none w-full text-[#89939A] transition-colors hover:bg-elements';
   const activeDropdownItem = 'bg-gray-100 text-[#313237]';
   const focusedDropdownItem = 'bg-gray-200 text-[#000000]';
 
