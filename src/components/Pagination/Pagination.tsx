@@ -129,7 +129,7 @@ export function Pagination<T>({
           page === 'dots' ? (
             <span
               key={`dots-${index}`}
-              className="px-2 text-gray-500"
+              className="px-2 text-secondary"
               aria-hidden="true"
             >
               ...
