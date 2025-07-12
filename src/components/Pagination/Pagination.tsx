@@ -12,7 +12,7 @@ interface PaginationProps<T> {
   pageRangeDisplayed?: number;
   marginPagesDisplayed?: number;
 }
-
+//
 export function Pagination<T>({
   items,
   itemsPerPage,
