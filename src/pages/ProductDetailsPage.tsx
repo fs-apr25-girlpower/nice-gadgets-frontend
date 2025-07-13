@@ -5,13 +5,12 @@ import { CapacitySelector } from '../components/CapacitySelector/CapacitySelecto
 import { FavoriteButton } from '../components/FavoriteButton/FavoriteButton';
 import { ProductSlider } from '../components/ProductsSlider/ProductsSlider';
 import { ButtonMain } from '../components/ButtonMain';
-//import { useProducts } from '../context/ProductsContext';
 import { Loader } from '../components/Loader';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-//import { getProductsWithDetails } from '../api/getProductsWithDetails';
 import type { ProductWithDetails } from '../types/ProductWithDetails';
 import { useProductsWithDetails } from '../context/ProductsWithDetailsContext';
+import type { ColorKey } from '../types/ColorKey';
 
 export const ProductDetailsPage = () => {
   const allProducts = useProductsWithDetails();
@@ -24,9 +23,17 @@ export const ProductDetailsPage = () => {
   const [error, setError] = useState(false); // Додаємо стан для помилок
 
   // Стани для вибору кольору, об'єму та зображення (якщо вони використовуються в дочірніх компонентах)
-  //const [selectedColor, setSelectedColor] = useState<string>('');
-  //const [selectedCapacity, setSelectedCapacity] = useState<string>('');
-  //const [selectedImage, setSelectedImage] = useState<string>('');
+  const [selectedColor, setSelectedColor] = useState<string>('');
+  const [selectedCapacity, setSelectedCapacity] = useState<string>('');
+  //   const [selectedImage, setSelectedImage] = useState<string>('')
+
+  const currentProduct = allProducts.find(p => p.details?.id === itemId);
+  const imagesForGallery = product?.details?.images || [];
+  const availableColors: ColorKey[] =
+    currentProduct?.details?.colorsAvailable || [];
+  const availableCapacities = currentProduct?.details?.capacityAvailable || [];
+  const location = useLocation();
+  const isFromSlider = location.state?.fromSlider || false;
 
   useEffect(() => {
     if (
@@ -41,41 +48,70 @@ export const ProductDetailsPage = () => {
     setLoading(true);
     setError(false);
 
-    // Шукаємо продукт у вже завантаженому контексті
-    const foundProduct = allProducts.find(
-      p => `${p.itemId}` === itemId,
-      //p => `${p.id}` === productId || p.itemId === productId,
+    if (!currentProduct) {
+      //перевірка для TS
+      return;
+    }
+
+    const baseTitleId = currentProduct.itemId.split('-').slice(0, -2).join('-');
+
+    const preparedRelevantProducts = allProducts.filter(p =>
+      p.itemId.startsWith(baseTitleId),
     );
+
+    let foundProduct = null;
+
+    if (selectedColor && selectedCapacity) {
+      foundProduct = preparedRelevantProducts.find(
+        p => p.color === selectedColor && p.capacity === selectedCapacity,
+      );
+    }
+
+    if (!foundProduct && selectedColor) {
+      foundProduct = preparedRelevantProducts.find(
+        p => p.color === selectedColor,
+      );
+    }
+
+    if (!foundProduct && selectedCapacity) {
+      foundProduct = preparedRelevantProducts.find(
+        p => p.capacity === selectedCapacity,
+      );
+    }
+
+    if (!foundProduct) {
+      foundProduct = allProducts.find(p => p.itemId === itemId);
+    }
 
     if (foundProduct) {
       setProduct(foundProduct);
-
-      if (
-        foundProduct.details?.colorsAvailable &&
-        foundProduct.details.colorsAvailable.length > 0
-      ) {
-        //setSelectedColor(foundProduct.details.colorsAvailable[0]);
-      }
-
-      if (
-        foundProduct.details?.capacityAvailable &&
-        foundProduct.details.capacityAvailable.length > 0
-      ) {
-        //setSelectedCapacity(foundProduct.details.capacityAvailable[0]);
-      }
-
-      if (
-        foundProduct.details?.images &&
-        foundProduct.details.images.length > 0
-      ) {
-        //setSelectedImage(foundProduct.details.images[0]);
-      }
     } else {
       setError(true); // Продукт не знайдено
     }
 
     setLoading(false); // Завантаження завершено
-  }, [allProducts, itemId, setLoading]);
+  }, [
+    allProducts,
+    itemId,
+    selectedColor,
+    selectedCapacity,
+    setLoading,
+    currentProduct,
+    navigate,
+  ]);
+
+  useEffect(() => {
+    setSelectedColor('');
+    setSelectedCapacity('');
+  }, [itemId]);
+
+  useEffect(() => {
+    if (!product || isFromSlider) return;
+
+    if (product.itemId !== itemId) {
+      navigate(`/${product.category}/${product.itemId}`, { replace: true });
+    }
+  }, [isFromSlider, itemId, navigate, product]);
 
   // --- Умовний рендеринг: Loader, Product Not Found ---
   if (loading) {
@@ -108,78 +144,6 @@ export const ProductDetailsPage = () => {
     );
   }
 
-  // useEffect(() => {
-  //   const loadProductDetails = async () => {
-  //     if (!allProducts || !Array.isArray(allProducts)) {
-  //       return;
-  //     }
-
-  //     const currentProduct = allProducts.find(
-  //       product =>
-  //         product.id.toString() === productId || product.itemId === productId,
-  //     );
-
-  //     if (!currentProduct) {
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     try {
-  //       const productsWithDetails = await getProductsWithDetails();
-  //       const detailedProduct = productsWithDetails.find(
-  //         product =>
-  //           product.id === currentProduct.id ||
-  //           product.itemId === currentProduct.itemId,
-  //       );
-
-  //       setProductWithDetails(
-  //         detailedProduct || { ...currentProduct, details: null },
-  //       );
-  //     } catch (error) {
-  //       console.error('Error loading product details:', error);
-  //       setProductWithDetails({ ...currentProduct, details: null });
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   loadProductDetails();
-  // }, [allProducts, productId]);
-
-  // if (!allProducts || !Array.isArray(allProducts) || loading) {
-  //   return (
-  //     <div className="min-w-[320px] max-w-[1136px] mx-auto">
-  //       <p>
-  //         <Loader />
-  //       </p>
-  //     </div>
-  //   );
-  // }
-
-  // if (!productWithDetails) {
-  //   return (
-  //     <div className="min-w-[320px] max-w-[1136px] mx-auto">
-  //       <div className="flex flex-col items-center justify-center py-16">
-  //         <h1 className="text-2xl font-bold text-primary mb-4">
-  //           Product not found
-  //         </h1>
-  //         <p className="text-secondary mb-6">
-  //           The product you&apos;re looking for doesn&apos;t exist.
-  //         </p>
-  //         <button
-  //           onClick={() => window.history.back()}
-  //           className="px-6 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-colors"
-  //         >
-  //           Go Back
-  //         </button>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  // const currentProduct = productWithDetails;
-  // const details = productWithDetails.details;
-
   const recommendedProducts = allProducts
     .filter(p => p.itemId !== product.itemId && p.category === product.category)
     .slice(0, 10);
@@ -199,8 +163,6 @@ export const ProductDetailsPage = () => {
         <button
           onClick={() => navigate(-1)} // Використовуємо useNavigate
           className="flex items-center gap-2 text-secondary hover:text-primary transition-colors"
-          // onClick={() => window.history.back()}
-          // className="flex items-center gap-2 text-secondary hover:text-primary transition-colors"
         >
           <span className="text-base tablet:text-lg">←</span>
           <span className="text-xs tablet:text-sm font-semibold">Back</span>
@@ -213,11 +175,7 @@ export const ProductDetailsPage = () => {
 
       <div className="flex flex-col tablet:flex-row gap-6 tablet:gap-8 desktop:gap-16 mb-12 tablet:mb-16 desktop:mb-20 min-w-0">
         <div className="flex-1 min-w-0 flex items-start justify-center">
-          <ProductGallery
-          // images={product.details?.images || null}
-          // selectedImage={selectedImage}
-          // setSelectedImage={setSelectedImage}
-          />
+          <ProductGallery images={imagesForGallery} />
         </div>
         <div className="flex-1 min-w-0 justify-between relative">
           <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider absolute top-0 right-0 ">
@@ -228,9 +186,9 @@ export const ProductDetailsPage = () => {
               Available colors
             </p>
             <ColorSelector
-            // colors={product.details.colorsAvailable || []}
-            // selectedColor={selectedColor}
-            // onSelectColor={setSelectedColor}
+              colors={availableColors}
+              selectedColor={selectedColor}
+              onSelectColor={setSelectedColor}
             />
             <div className="h-px w-full bg-elements"></div>
 
@@ -240,9 +198,9 @@ export const ProductDetailsPage = () => {
               </p>
             </div>
             <CapacitySelector
-            // capacities={product.details.capacityAvailable || []}
-            // selectedCapacity={selectedCapacity}
-            // onSelectCapacity={setSelectedCapacity}
+              availableCapacities={availableCapacities}
+              selectedCapacity={selectedCapacity}
+              onSelectCapacity={setSelectedCapacity}
             />
             <div className="h-px w-full bg-elements"></div>
 

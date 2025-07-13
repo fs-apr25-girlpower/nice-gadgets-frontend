@@ -1,29 +1,33 @@
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import clsx from 'clsx';
-import { useState } from 'react';
+import type { ColorKey } from '../../types/ColorKey';
+import { appleColorsHex } from '../../constants/constants';
 
-const COLORS = [
-  { id: 'peach', value: '#FDDDC6' },
-  { id: 'green', value: '#556C6A' },
-  { id: 'gray', value: '#444443' },
-  { id: 'lightgray', value: '#F1F1F1' },
-];
+export type ColorSelectorProps = {
+  colors: ColorKey[];
+  selectedColor: string;
+  onSelectColor: React.Dispatch<React.SetStateAction<string>>;
+};
 
-export const ColorSelector = () => {
-  const [selectedColor, setSelectedColor] = useState('peach');
-
+export const ColorSelector = ({
+  colors,
+  selectedColor,
+  onSelectColor,
+}: ColorSelectorProps) => {
   return (
     <div>
       <RadioGroup.Root
         className="flex gap-4"
         value={selectedColor}
-        onValueChange={setSelectedColor}
+        onValueChange={value => {
+          onSelectColor(value);
+        }}
         aria-label="Available colors"
       >
-        {COLORS.map(color => (
+        {colors.map(color => (
           <RadioGroup.Item
-            key={color.id}
-            value={color.id}
+            key={color}
+            value={color}
             className={clsx(
               'w-7 h-7 rounded-full bg-white',
               'flex items-center justify-center',
@@ -36,7 +40,7 @@ export const ColorSelector = () => {
           >
             <div
               className="w-[22px] h-[22px] rounded-full"
-              style={{ backgroundColor: color.value }}
+              style={{ backgroundColor: appleColorsHex[color] }}
             />
           </RadioGroup.Item>
         ))}

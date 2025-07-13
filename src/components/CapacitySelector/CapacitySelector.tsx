@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
 import clsx from 'clsx';
 
-const capacityOptions = [
-  { id: '64', label: '64GB' },
-  { id: '256', label: '256GB' },
-  { id: '512', label: '512GB' },
-];
+export type CapacitySelectorProps = {
+  availableCapacities: string[];
+  selectedCapacity: string;
+  onSelectCapacity: React.Dispatch<React.SetStateAction<string>>;
+};
 
-export const CapacitySelector: React.FC = () => {
-  const [selected, setSelected] = useState('64');
-
+export const CapacitySelector = ({
+  availableCapacities,
+  selectedCapacity,
+  onSelectCapacity,
+}: CapacitySelectorProps) => {
   return (
     <div className="flex gap-2">
-      {capacityOptions.map(({ id, label }) => {
-        const isSelected = selected === id;
+      {availableCapacities.map(capacity => {
+        const isSelected = selectedCapacity === capacity;
 
         return (
           <label
-            key={id}
+            key={capacity}
             className={clsx(
               'w-[56px] h-[32px]',
               'flex flex-col items-center justify-center',
@@ -32,12 +33,14 @@ export const CapacitySelector: React.FC = () => {
             <input
               type="radio"
               name="capacity"
-              value={id}
+              value={capacity}
               checked={isSelected}
-              onChange={() => setSelected(id)}
+              onChange={e => {
+                onSelectCapacity(e.target.value);
+              }}
               className="sr-only"
             />
-            <span className="block">{label}</span>
+            <span className="block">{capacity}</span>
           </label>
         );
       })}

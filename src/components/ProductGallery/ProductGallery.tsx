@@ -1,14 +1,12 @@
 import { useState, useRef } from 'react';
 import clsx from 'clsx';
-import Picture1 from '../../../public/img/phones/apple-iphone-13-pro-max/gold/00.webp';
-import Picture2 from '../../../public/img/phones/apple-iphone-13-pro-max/gold/01.webp';
-import Picture3 from '../../../public/img/phones/apple-iphone-13-pro-max/gold/02.webp';
-import Picture4 from '../../../public/img/phones/apple-iphone-13-pro-max/gold/03.webp';
-import Picture5 from '../../../public/img/phones/apple-iphone-13-pro-max/graphite/00.webp';
+import { useExistingImages } from '../../hooks/useExistingImages';
 
-const images = [Picture1, Picture2, Picture3, Picture4, Picture5];
+export type ProductGalleryProps = {
+  images: string[];
+};
 
-export const ProductGallery: React.FC = () => {
+export const ProductGallery = ({ images }: ProductGalleryProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
@@ -27,6 +25,8 @@ export const ProductGallery: React.FC = () => {
   const handleMouseEnter = () => setIsZoomed(true);
   const handleMouseLeave = () => setIsZoomed(false);
 
+  const existingImages = useExistingImages(images);
+
   return (
     <div className="relative flex flex-col tablet:flex-row gap-4 items-center tablet:items-start w-full">
       <div
@@ -36,7 +36,7 @@ export const ProductGallery: React.FC = () => {
           'order-2 tablet:order-1',
         )}
       >
-        {images.map((img, index) => (
+        {existingImages.map((img, index) => (
           <button
             key={img}
             onClick={() => {
