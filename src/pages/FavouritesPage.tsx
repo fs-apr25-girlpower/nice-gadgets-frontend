@@ -25,7 +25,7 @@ export const FavouritesPage = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
       <h2 className="text-2xl font-bold mb-6">Favourites</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(230px,272px))] mobile:justify-center mx-auto mt-6 mb-6 tablet:mb-10">
         {favorites.map((product: Product) => (
           <ProductCard
             key={product.id}

@@ -11,7 +11,7 @@ export const App = () => {
       <div className="App">
         <div className="wrapper min-h-screen flex flex-col">
           <Header />
-          <main className="grow px-4 tablet:px-6 desktop:px-8 pb-16 tablet:pb-16 desktop:pb-20 pt-6">
+          <main className="grow max-w-[1264px] w-full mx-auto px-[5px]">
             <Outlet />
           </main>
           <Footer />

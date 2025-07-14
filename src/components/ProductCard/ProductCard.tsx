@@ -2,6 +2,10 @@ import { Link, NavLink } from 'react-router-dom';
 import type { Product } from '../../types/Product';
 import { ButtonMain } from '../ButtonMain';
 import { FavoriteButton } from '../FavoriteButton';
+import {
+  getImageScale,
+  PRODUCT_CARD_SCALE_CONFIG,
+} from '../../utils/getImageScale';
 
 interface Props {
   product: Product;
@@ -9,47 +13,6 @@ interface Props {
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
   const hasDiscount = product.year < 2020;
-
-  const getImageScale = () => {
-    const productName = product.name.toLowerCase();
-    const category = product.category.toLowerCase();
-
-    switch (category) {
-      case 'phones':
-        if (productName.includes('pro') && productName.includes('14')) {
-          return 'scale-75 tablet:scale-75 desktop:scale-75';
-        }
-        if (productName.includes('8')) {
-          return 'scale-45 tablet:scale-45 desktop:scale-45';
-        }
-        if (productName.includes('7')) {
-          return 'scale-50 tablet:scale-50 desktop:scale-50';
-        }
-        return 'scale-45 tablet:scale-45 desktop:scale-45';
-
-      case 'tablets':
-        if (
-          productName.includes('mini') &&
-          productName.includes('6th') &&
-          product.color.includes('starlight')
-        ) {
-          return 'scale-90 tablet:scale-90 desktop:scale-90';
-        }
-        if (productName.includes('mini') && productName.includes('6th')) {
-          return 'scale-125 tablet:scale-125 desktop:scale-125';
-        }
-        if (productName.includes('mini') && productName.includes('5th')) {
-          return 'scale-110 tablet:scale-110 desktop:scale-110';
-        }
-        return 'scale-75 tablet:scale-75 desktop:scale-75';
-
-      case 'accessories':
-        return 'scale-78 tablet:scale-78 desktop:scale-78';
-
-      default:
-        return 'scale-90 tablet:scale-90 desktop:scale-90';
-    }
-  };
 
   return (
     <article
@@ -69,7 +32,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
           className="flex items-center justify-center w-full h-full"
         >
           <img
-            className={`object-contain transform ${getImageScale()}`}
+            className={`object-contain transform ${getImageScale(product, PRODUCT_CARD_SCALE_CONFIG)}`}
             src={`${import.meta.env.BASE_URL}${product.image}`}
             alt={product.name}
           />

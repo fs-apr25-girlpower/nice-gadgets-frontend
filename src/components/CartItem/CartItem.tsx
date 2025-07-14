@@ -1,6 +1,10 @@
 import type { Product } from '../../types/Product';
 import { useCart } from '../../hooks/useCart';
 import { useNavigate } from 'react-router-dom';
+import {
+  getImageScale,
+  CART_ITEM_SCALE_CONFIG,
+} from '../../utils/getImageScale';
 
 interface Props {
   product: Product;
@@ -44,13 +48,13 @@ export const CartItem: React.FC<Props> = ({ product }) => {
         </button>
 
         <div
-          className="product-image-wrapper w-20 h-20 flex-shrink-0 cursor-pointer mobile:order-2"
+          className="product-image-wrapper w-20 h-20 flex-shrink-0 cursor-pointer mobile:order-2 flex items-center justify-center"
           onClick={handleNavigateToProduct}
         >
           <img
             src={`${import.meta.env.BASE_URL}${product.image}`}
             alt={product.name}
-            className="product-image w-full h-full object-contain"
+            className={`product-image object-contain transform ${getImageScale(product, CART_ITEM_SCALE_CONFIG)}`}
           />
         </div>
 
