@@ -5,13 +5,18 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import unicornImage from '../../images/unicorn/unicorn-assistant-2.png';
 
 interface UnicornAssistantProps {
-  messages: string[];
+  messages: {
+    en: string[];
+    ua: string[];
+  };
   interval?: number;
+  currentLanguage: 'ua' | 'en'; //прибрати потім, коли буде перемикання через контекст
 }
 
 export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
   messages,
   interval = 5000,
+  currentLanguage,
 }) => {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
 
@@ -21,17 +26,23 @@ export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
   const offset = useRef({ x: 0, y: 0 }); // Для зберігання зсуву миші відносно елемента
   const assistantRef = useRef<HTMLDivElement>(null); // Референс на сам елемент-контейнер
 
+  // Вибираємо правильний масив повідомлень на основі поточної мови
+  // Використовуємо фоллбек на англійську, якщо для поточної мови немає перекладів
+  const currentLanguageMessages = messages[currentLanguage] || messages.en;
+
   useEffect(() => {
-    if (messages.length === 0) {
+    if (currentLanguageMessages.length === 0) {
       return;
     }
 
     const timer = setInterval(() => {
-      setCurrentMessageIndex(prevIndex => (prevIndex + 1) % messages.length);
+      setCurrentMessageIndex(
+        prevIndex => (prevIndex + 1) % currentLanguageMessages.length,
+      );
     }, interval);
 
     return () => clearInterval(timer);
-  }, [messages, interval]);
+  }, [currentLanguageMessages, interval]);
 
   // --- Нова логіка для перетягування ---
 
@@ -112,7 +123,7 @@ export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
     };
   }, [isDragging, onMouseMove, onMouseUp]);
 
-  if (messages.length === 0) {
+  if (currentLanguageMessages.length === 0) {
     return null;
   }
 
@@ -129,7 +140,9 @@ export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
       onMouseDown={onMouseDown} // Обробник початку перетягування
     >
       <div className="message-bubble">
-        <p className="message-text">{messages[currentMessageIndex]}</p>
+        <p className="message-text">
+          {currentLanguageMessages[currentMessageIndex]}
+        </p>
       </div>
       <img
         src={unicornImage}
