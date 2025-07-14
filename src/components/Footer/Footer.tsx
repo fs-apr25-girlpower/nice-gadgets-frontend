@@ -32,8 +32,10 @@ export const Footer = () => {
           >
             <li>
               <a
-                href="#"
+                href="https://github.com/fs-apr25-girlpower/nice-gadgets-frontend"
                 className="hover:text-black"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Github
               </a>
