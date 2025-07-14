@@ -16,12 +16,12 @@ export const ShopByCategory = () => {
       <div className="flex flex-col">
         <h2 className="h2 color-primary mb-5 self-start">Shop by category</h2>
 
-        <div className="flex flex-col tablet:flex-row gap-4">
+        <div className="flex flex-col tablet:flex-row gap-8">
           <NavLink
             to="/phones"
             className="flex flex-col w-full tablet:w-1/3 desktop:w-1/3"
           >
-            <div className="w-full aspect-square mb-4 transition-transform duration-300 hover:scale-110">
+            <div className="w-full aspect-square mb-4 transition-transform duration-300 hover:scale-110 hover:z-10">
               <img
                 src={phoneImage}
                 alt="Phone"
@@ -43,7 +43,7 @@ export const ShopByCategory = () => {
             to="/tablets"
             className="flex flex-col w-full tablet:w-1/3 desktop:w-1/3 "
           >
-            <div className="w-full aspect-square mb-4 transition-transform duration-300 hover:scale-110">
+            <div className="w-full aspect-square mb-4 transition-transform duration-300 hover:scale-110 hover:z-10">
               <img
                 src={tabletImage}
                 alt="Tablets"
@@ -65,7 +65,7 @@ export const ShopByCategory = () => {
             to="/accessories"
             className="flex flex-col w-full tablet:w-1/3 desktop:w-1/3"
           >
-            <div className="w-full aspect-square mb-4 transition-transform duration-300 hover:scale-110">
+            <div className="w-full aspect-square mb-4 transition-transform duration-300 hover:scale-110 hover:z-10">
               <img
                 src={phonesImage}
                 alt="Phone"
