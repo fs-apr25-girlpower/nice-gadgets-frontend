@@ -71,7 +71,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
           ref={imageRef}
           src={images[selectedIndex]}
           alt={`Image ${selectedIndex + 1}`}
-          className="w-full h-auto object-contain"
+          className="w-full h-auto object-contain max-h-116"
         />
       </div>
 
