@@ -6,6 +6,7 @@ import { ProductCard } from '../ProductCard';
 import type { Product } from '../../types/Product';
 import { useEffect, useRef, useState } from 'react';
 import type { Swiper as SwiperInstance } from 'swiper';
+import clsx from 'clsx';
 
 export type ProductSliderProps = {
   sliderConfig: {
@@ -55,7 +56,10 @@ export const ProductSlider = ({
           <button
             ref={prevRef}
             disabled={isBeginning}
-            className={`group ${!isBeginning && 'cursor-pointer'}`}
+            className={clsx('group', {
+              'cursor-pointer': !isBeginning,
+              'cursor-not-allowed': isBeginning,
+            })}
           >
             <ArrowLeftButton isDisabled={isBeginning} />
           </button>
@@ -63,7 +67,10 @@ export const ProductSlider = ({
           <button
             ref={nextRef}
             disabled={isEnd}
-            className={`group ${!isEnd && 'cursor-pointer'}`}
+            className={clsx('group', {
+              'cursor-pointer': !isEnd,
+              'cursor-not-allowed': isEnd,
+            })}
           >
             <ArrowRightButton isDisabled={isEnd} />
           </button>

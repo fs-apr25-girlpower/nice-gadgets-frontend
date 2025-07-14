@@ -13,6 +13,7 @@ interface Props {
 
 export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
   const hasDiscount = product?.year !== undefined ? product.year < 2020 : false;
+
   if (isLoading) {
     return (
       <article
@@ -46,12 +47,12 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
           />
         </div>
 
-        <div className="flex-grow f space-y-2 mb-4">
+        <div className="flex-grow space-y-2 mb-4">
           <div className="flex flex-row justify-between">
             <Skeleton
               height={16}
               width={70}
-            />{' '}
+            />
             <Skeleton
               height={16}
               width={70}
@@ -61,7 +62,7 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
             <Skeleton
               height={16}
               width={70}
-            />{' '}
+            />
             <Skeleton
               height={16}
               width={70}
@@ -71,7 +72,7 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
             <Skeleton
               height={16}
               width={70}
-            />{' '}
+            />
             <Skeleton
               height={16}
               width={70}

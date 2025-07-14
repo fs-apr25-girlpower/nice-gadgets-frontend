@@ -16,7 +16,7 @@ export const ShopByCategory = () => {
       <div className="flex flex-col">
         <h2 className="h2 color-primary mb-5 self-start">Shop by category</h2>
 
-        <div className="flex flex-col tablet:flex-row gap-8">
+        <div className="flex flex-col tablet:flex-row gap-[22px]">
           <NavLink
             to="/phones"
             className="flex flex-col w-full tablet:w-1/3 desktop:w-1/3"
