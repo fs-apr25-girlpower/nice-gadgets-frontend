@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { HomeIcon } from '../../images/icons/HomeIcon';
 
 interface BreadcrumbItem {
@@ -8,6 +8,14 @@ interface BreadcrumbItem {
 
 export const Breadcrumbs = () => {
   const location = useLocation();
+  const { itemId } = useParams();
+
+  if (!itemId) return;
+
+  const nameProduct = itemId
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
 
   const getPathSegments = () => {
     const pathnames = location.pathname.split('/').filter(x => x);
@@ -47,7 +55,7 @@ export const Breadcrumbs = () => {
         pathnames[index - 1] === 'tablets' ||
         pathnames[index - 1] === 'accessories'
       ) {
-        label = 'Apple iPhone 11 Pro Max 64GB Gold (iMT9G2FS/A)';
+        label = nameProduct;
       }
 
       segments.push({
