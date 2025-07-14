@@ -1,7 +1,75 @@
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { useEffect, useState } from 'react';
 export const TopSlider = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+  if (isLoading) {
+    return (
+      <div
+        className="
+        w-full 
+        flex 
+        items-center 
+        justify-center 
+        px-0 sm:px-[10px]
+        mb-[28px]
+        "
+      >
+        <div
+          className="
+          relative
+          aspect-square
+          sm:aspect-[2/1]
+          w-full
+          min-w-[320px]
+          max-w-[1040px]
+          min-h-[320px]
+          max-h-[432px]
+          mx-0 sm:mx-[60px]
+          "
+        >
+          <div className="absolute -left-15 top-1/2 -translate-y-1/2 h-full max-h-[432px] w-[32px] hidden sm:block">
+            <Skeleton height="100%" />
+          </div>
+
+          <div className="absolute -right-15 top-1/2 -translate-y-1/2 h-full max-h-[432px] w-[32px] hidden sm:block">
+            <Skeleton height="100%" />
+          </div>
+
+          <div className="w-full h-full">
+            <Skeleton height="100%" />
+          </div>
+
+          <div className="ml-[14px] flex justify-center items-start gap-5 ">
+            <Skeleton
+              width={14}
+              height={4}
+            />
+            <Skeleton
+              width={14}
+              height={4}
+            />
+            <Skeleton
+              width={14}
+              height={4}
+            />
+            <Skeleton
+              width={14}
+              height={4}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       className="
