@@ -1,8 +1,28 @@
+import { useState } from 'react';
 import { FacebookIcon } from '../images/icons/FacebookIcon';
 import { GithubIcon } from '../images/icons/GithubIcon';
 import { InstagramIcon } from '../images/icons/InstagramIcon';
 import { WhatsUpIcon } from '../images/icons/WhatsUpIcon';
+
 export const ContactsUsPage = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const isFormValid = name.trim() && email.trim() && message.trim();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!isFormValid) return;
+
+    console.log({ name, email, message });
+
+    setName('');
+    setEmail('');
+    setMessage('');
+  };
+
   return (
     <div className="flex flex-col items-center bg-white">
       <div
@@ -15,11 +35,12 @@ export const ContactsUsPage = () => {
           width="100%"
           height="400"
           style={{ border: 0 }}
-          allowFullScreen={true}
+          allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
       </div>
+
       <section className="w-full flex justify-center mt-8 mb-16">
         <div className="w-full max-w-4xl flex flex-col items-center">
           <h2 className="text-3xl font-bold mb-6 text-center">Contact Us</h2>
@@ -30,30 +51,30 @@ export const ContactsUsPage = () => {
               <div className="flex gap-5 text-xl">
                 <a href="#">
                   <FacebookIcon
-                    width={'20px'}
-                    height={'20px'}
-                    color={'black'}
+                    width="20px"
+                    height="20px"
+                    color="black"
                   />
                 </a>
                 <a href="#">
                   <InstagramIcon
-                    width={'20px'}
-                    height={'20px'}
-                    color={'black'}
+                    width="20px"
+                    height="20px"
+                    color="black"
                   />
                 </a>
                 <a href="#">
                   <WhatsUpIcon
-                    width={'20px'}
-                    height={'20px'}
-                    color={'black'}
+                    width="20px"
+                    height="20px"
+                    color="black"
                   />
                 </a>
                 <a href="#">
                   <GithubIcon
-                    width={'20px'}
-                    height={'20px'}
-                    color={'black'}
+                    width="20px"
+                    height="20px"
+                    color="black"
                   />
                 </a>
               </div>
@@ -76,26 +97,43 @@ export const ContactsUsPage = () => {
                 ouremailaddress@email.com
               </div>
             </div>
-            <form className="flex-1 flex flex-col gap-4">
+
+            <form
+              onSubmit={handleSubmit}
+              className="flex-1 flex flex-col gap-4"
+            >
               <div className="flex gap-4">
                 <input
                   type="text"
                   placeholder="Your name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
                   className="flex-1 border border-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 />
                 <input
                   type="email"
                   placeholder="Your e-mail"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                   className="flex-1 border border-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 />
               </div>
               <textarea
                 placeholder="Your message"
+                value={message}
+                onChange={e => setMessage(e.target.value)}
                 className="border border-elements rounded px-4 py-2 min-h-[100px] focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none"
               />
+
               <button
                 type="submit"
-                className="self-end bg-primary text-white px-8 py-2 rounded hover:bg-secondary transition cursor-pointer"
+                disabled={!isFormValid}
+                className={`self-end px-8 py-2 rounded transition
+                  ${
+                    isFormValid
+                      ? 'bg-primary text-white hover:bg-secondary cursor-pointer'
+                      : 'bg-elements text-secondary cursor-not-allowed'
+                  }`}
               >
                 Send
               </button>
