@@ -28,6 +28,16 @@ module.exports = {
         small: ['12px', { lineHeight: '1' }],
         price: ['22px', { lineHeight: '1' }],
       },
+
+      keyframes: {
+        jump: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+      },
+      animation: {
+        jump: 'jump 1s infinite alternate ease-in-out',
+      },
     },
   },
   plugins: [],

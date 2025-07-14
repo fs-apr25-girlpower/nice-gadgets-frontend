@@ -1,75 +1,18 @@
-.unicorn-assistant {
-  position: fixed; /* Закріплюємо компонент на екрані */
-  /* bottom: 20px; Відступ від низу */
-  /*right: 20px;  Відступ від правого краю */
-  display: flex; /* Використовуємо flexbox для розташування зображення та повідомлення */
-  flex-direction: column; /* Елементи розташовані вертикально */
-  align-items: flex-end; /* Вирівнюємо елементи по правому краю */
-  z-index: 1000; /* Гарантуємо, що помічник буде над іншими елементами */
-  /*pointer-events: none;  Забороняємо взаємодію миші, щоб не блокувати кліки під ним */
-  pointer-events: auto;
-  touch-action: none; /* Запобігає деяким стандартним діям браузера при тачі/перетягуванні */
-  will-change: bottom, right; /* Оптимізація для анімації переміщення */
-  transition: none !important; /* Важливо: вимкнути будь-які transition під час перетягування, інакше буде затримка */
-
-  /* --- ВИПРАВЛЕННЯ ТУТ: Запобігаємо виділенню --- */
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Стандартна властивість */
-  /* ----------------------------------------------- */
-}
-
-.unicorn-image {
-  width: 120px; /* Розмір зображення єдинорога */
-  height: auto;
-  margin-bottom: 10px; /* Відступ між єдинорогом та баблом повідомлення */
-  pointer-events: none; /* Забороняємо взаємодію миші з зображенням, щоб обробник onMouseDown спрацював на батьківському div.unicorn-assistant */
-  /*pointer-events: auto;  Дозволяємо взаємодію миші з самим зображенням, якщо це потрібно */
-
-  /* Анімація стрибка */
-  animation: jump 1s infinite alternate ease-in-out; /* Додав ease-in-out для плавності */
-  transform-origin: bottom center; /* Точка обертання/трансформації внизу посередині */
-}
-
-.message-bubble {
-  background-color: #ffffff; /* Білий фон для бабла */
-  border: 1px solid #e0e0e0; /* Легка рамка */
-  border-radius: 15px 15px 0 15px; /* Заокруглені кути, окрім нижнього лівого */
-  padding: 12px 18px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Легка тінь */
-  max-width: 250px; /* Максимальна ширина бабла */
-  text-align: right; /* Текст вирівняний по правому краю */
-  margin-right: 20px; /* Зсуваємо бабл вліво, щоб він не накладається на єдинорога */
-  margin-bottom: -10px; /* Заходженння бабла на єдинорога */
-  position: relative;
-  font-family: sans-serif; /* Оберіть шрифт, який вам подобається */
-
-  animation: jump 1s infinite alternate ease-in-out;
-  pointer-events: none; /* Забороняємо взаємодію миші з баблом */
-}
-
 .message-bubble::after {
-  /* Створюємо "хвостик" для бабла */
+  /* creating a "tail" for the bubble */
   content: '';
   position: absolute;
-  bottom: -10px; /* Позиціонуємо хвостик унизу */
-  right: 15px; /* Позиціонуємо хвостик справа */
+  bottom: -10px;
+  right: 15px;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid #ffffff; /* Колір хвостика такий же як у бабла */
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1)); /* Тінь для хвостика */
+  border-top: 10px solid #ffffff;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
 }
 
-.message-text {
-  font-size: 15px;
-  color: #333;
-  line-height: 1.4;
-}
-
+/* for unicorn jumping */
 @keyframes jump {
   0% {
     transform: translateY(0);
