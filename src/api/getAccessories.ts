@@ -1,8 +1,8 @@
 import type { Accessory } from '../types/Accessory';
-import { wait } from './wait';
+// import { wait } from './wait';
 
 export const getAccessories = async (): Promise<Accessory[]> => {
-  await wait(1000);
+  // await wait(1000);
 
   const response = await fetch(
     `${import.meta.env.BASE_URL}api/accessories.json`,
