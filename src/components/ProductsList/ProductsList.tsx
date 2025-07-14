@@ -6,6 +6,7 @@ import { ProductCard } from '../ProductCard';
 
 export type ProductsListProps = {
   products: Product[];
+  isLoading: boolean;
 };
 
 const optionsSortTypes = [
@@ -23,7 +24,7 @@ const getOptionsItemsPerPage = (totalPagesCount: number) => [
 
 type SortTypes = (typeof optionsSortTypes)[number]['value'];
 
-export const ProductsList = ({ products }: ProductsListProps) => {
+export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
   const { sort, perPage, page, refreshParams } = useQueryParams('phones');
   const sortTypeSelected = sort as SortTypes;
   const itemsToShow = String(perPage);
@@ -86,19 +87,26 @@ export const ProductsList = ({ products }: ProductsListProps) => {
         />
       </div>
 
-      <Pagination
-        refreshParams={refreshParams}
-        items={sortedProducts}
-        itemsPerPage={+itemsToShow}
-        currentPage={page}
-        onPageChange={newPage => refreshParams({ page: newPage })}
-        renderItem={(product: Product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
-        )}
-      />
+      {isLoading ? (
+        <div className="grid gap-4 mobile:grid-cols-[repeat(auto-fill,_minmax(230px,288px))] mobile:justify-center tablet:grid-cols-[repeat(auto-fill,_minmax(230px,1fr))] mt-6 mb-6 tablet:mb-10">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <ProductCard
+              key={`skeleton-${index}`}
+              isLoading
+            />
+          ))}
+        </div>
+      ) : (
+        <Pagination
+          isLoading={false}
+          refreshParams={refreshParams}
+          items={sortedProducts}
+          itemsPerPage={+itemsToShow}
+          currentPage={page}
+          onPageChange={newPage => refreshParams({ page: newPage })}
+          renderItem={(product: Product) => <ProductCard product={product} />}
+        />
+      )}
     </>
   );
 };

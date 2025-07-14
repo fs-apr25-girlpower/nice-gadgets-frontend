@@ -3,7 +3,6 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { ProductsList } from '../components/ProductsList';
 import { getProducts } from '../api/getProducts';
 import type { Product } from '../types';
-import { Loader } from '../components/Loader';
 import { NotFoundPage } from './NotFoundPage';
 
 export const PhonesPage = () => {
@@ -38,7 +37,10 @@ export const PhonesPage = () => {
 
       {hasNotProducts && <p>There are no phones yet</p>}
 
-      {isLoading ? <Loader /> : <ProductsList products={phones} />}
+      <ProductsList
+        products={phones}
+        isLoading={isLoading}
+      />
     </div>
   );
 };
