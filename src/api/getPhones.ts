@@ -1,8 +1,8 @@
 import type { Phone } from '../types/Phone';
-import { wait } from './wait';
+// import { wait } from './wait';
 
 export const getPhones = async (): Promise<Phone[]> => {
-  await wait(1000);
+  // await wait(1000);
 
   const response = await fetch(`${import.meta.env.BASE_URL}api/phones.json`);
 
