@@ -1,8 +1,8 @@
 import type { Tablet } from '../types/Tablet';
-// import { wait } from './wait';
+import { wait } from './wait';
 
 export const getTablets = async (): Promise<Tablet[]> => {
-  // await wait(1000);
+  await wait(700);
 
   const response = await fetch(`${import.meta.env.BASE_URL}api/tablets.json`);
 

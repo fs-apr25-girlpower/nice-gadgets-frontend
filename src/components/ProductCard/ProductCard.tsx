@@ -2,13 +2,92 @@ import { Link, NavLink } from 'react-router-dom';
 import type { Product } from '../../types/Product';
 import { ButtonMain } from '../ButtonMain';
 import { FavoriteButton } from '../FavoriteButton';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { NotFoundPage } from '../../pages/NotFoundPage';
 
 interface Props {
-  product: Product;
+  product?: Product;
+  isLoading?: boolean;
 }
 
-export const ProductCard: React.FC<Props> = ({ product }) => {
-  const hasDiscount = product.year < 2020;
+export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
+  const hasDiscount = product?.year !== undefined ? product.year < 2020 : false;
+  if (isLoading) {
+    return (
+      <article
+        className="
+          min-w-[229px] min-h-[440px] max-h-[530px] w-full
+          flex flex-col
+          p-4 tablet:p-6 desktop:p-8
+          border border-elements
+          relative z-0
+        "
+      >
+        <div className="flex items-center justify-center mb-4 tablet:mb-6 h-[200px]">
+          <Skeleton className="w-full h-full" />
+        </div>
+
+        <div className="mb-4">
+          <Skeleton
+            height={20}
+            width="80%"
+          />
+        </div>
+
+        <div className="py-3 border-b border-elements flex items-center gap-x-2 mb-4">
+          <Skeleton
+            height={24}
+            width={60}
+          />
+          <Skeleton
+            height={20}
+            width={40}
+          />
+        </div>
+
+        <div className="flex-grow f space-y-2 mb-4">
+          <div className="flex flex-row justify-between">
+            <Skeleton
+              height={16}
+              width={70}
+            />{' '}
+            <Skeleton
+              height={16}
+              width={70}
+            />
+          </div>
+          <div className="flex flex-row justify-between">
+            <Skeleton
+              height={16}
+              width={70}
+            />{' '}
+            <Skeleton
+              height={16}
+              width={70}
+            />
+          </div>
+          <div className="flex flex-row justify-between">
+            <Skeleton
+              height={16}
+              width={70}
+            />{' '}
+            <Skeleton
+              height={16}
+              width={70}
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-[8px] w-[100%] h-[40px] mb-8">
+          <Skeleton height={40} />
+          <Skeleton height={40} />
+        </div>
+      </article>
+    );
+  }
+
+  if (!product) return <NotFoundPage />;
 
   const getImageScale = () => {
     const productName = product.name.toLowerCase();
@@ -54,18 +133,19 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
   return (
     <article
       className="
-    min-w-[229px] min-h-[440px] max-h-[530px] w-full
-    flex flex-col
-    p-4 tablet:p-6 desktop:p-8
-    border border-elements
-    relative z-0 hover:z-50
-    transition-transform duration-300 ease-in-out
-    hover:scale-107 transform-gpu will-change-transform
-  "
+      min-w-[229px] min-h-[440px] max-h-[530px] w-full
+      flex flex-col
+      p-4 tablet:p-6 desktop:p-8
+      border border-elements
+      relative z-0 hover:z-50
+      transition-transform duration-300 ease-in-out
+      hover:scale-107 transform-gpu will-change-transform
+    "
     >
       <div className="flex items-center justify-center mb-4 tablet:mb-6 h-full overflow-hidden">
         <Link
           to={`/${product.category}/${product.itemId}`}
+          state={{ fromSlider: true }}
           className="flex items-center justify-center w-full h-full"
         >
           <img
