@@ -1,7 +1,6 @@
 import { Logo } from '../../images/logos/Logo';
 import { NavLink } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
-
 import { PageNotFoundButton } from '../404Button';
 
 export const Header = () => {
@@ -22,7 +21,7 @@ export const Header = () => {
         <nav className="h-full flex flex-row items-center text-center gap-11 sticky top-0 bg-white z-10000">
           <NavLink
             to={'/'}
-            className="w-22 md:w-26 h-10 md:h-12"
+            className="w-16 md:w-20 h-7 m:h-[22px]"
           >
             <Logo />
           </NavLink>
