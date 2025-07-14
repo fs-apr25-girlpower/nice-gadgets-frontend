@@ -15,7 +15,7 @@ export const Footer = () => {
       >
         <NavLink
           to="/"
-          className="flex-shrink-0"
+          className="flex-shrink-0 w-24 md:w-28 h-12 md:h-14"
         >
           <Logo />
         </NavLink>
