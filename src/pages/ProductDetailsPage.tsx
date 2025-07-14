@@ -6,7 +6,7 @@ import { FavoriteButton } from '../components/FavoriteButton/FavoriteButton';
 import { ProductSlider } from '../components/ProductsSlider/ProductsSlider';
 import { ButtonMain } from '../components/ButtonMain';
 import { Loader } from '../components/Loader';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import type { ProductWithDetails } from '../types/ProductWithDetails';
 import { useProductsWithDetails } from '../context/ProductsWithDetailsContext';
@@ -25,15 +25,12 @@ export const ProductDetailsPage = () => {
   // Стани для вибору кольору, об'єму та зображення (якщо вони використовуються в дочірніх компонентах)
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedCapacity, setSelectedCapacity] = useState<string>('');
-  //   const [selectedImage, setSelectedImage] = useState<string>('')
 
   const currentProduct = allProducts.find(p => p.details?.id === itemId);
   const imagesForGallery = product?.details?.images || [];
   const availableColors: ColorKey[] =
     currentProduct?.details?.colorsAvailable || [];
   const availableCapacities = currentProduct?.details?.capacityAvailable || [];
-  const location = useLocation();
-  const isFromSlider = location.state?.fromSlider || false;
 
   useEffect(() => {
     if (
@@ -48,70 +45,73 @@ export const ProductDetailsPage = () => {
     setLoading(true);
     setError(false);
 
-    if (!currentProduct) {
-      //перевірка для TS
-      return;
-    }
-
-    const baseTitleId = currentProduct.itemId.split('-').slice(0, -2).join('-');
-
-    const preparedRelevantProducts = allProducts.filter(p =>
-      p.itemId.startsWith(baseTitleId),
-    );
-
-    let foundProduct = null;
-
-    if (selectedColor && selectedCapacity) {
-      foundProduct = preparedRelevantProducts.find(
-        p => p.color === selectedColor && p.capacity === selectedCapacity,
-      );
-    }
-
-    if (!foundProduct && selectedColor) {
-      foundProduct = preparedRelevantProducts.find(
-        p => p.color === selectedColor,
-      );
-    }
-
-    if (!foundProduct && selectedCapacity) {
-      foundProduct = preparedRelevantProducts.find(
-        p => p.capacity === selectedCapacity,
-      );
-    }
-
-    if (!foundProduct) {
-      foundProduct = allProducts.find(p => p.itemId === itemId);
-    }
+    const foundProduct = allProducts.find(p => p.itemId === itemId);
 
     if (foundProduct) {
       setProduct(foundProduct);
     } else {
-      setError(true); // Продукт не знайдено
+      setError(true);
     }
 
-    setLoading(false); // Завантаження завершено
-  }, [
-    allProducts,
-    itemId,
-    selectedColor,
-    selectedCapacity,
-    setLoading,
-    currentProduct,
-    navigate,
-  ]);
+    setLoading(false);
+  }, [allProducts, itemId]);
 
-  useEffect(() => {
-    setSelectedColor('');
-    setSelectedCapacity('');
-  }, [itemId]);
+  const handleSelectColor = (color: string) => {
+    setSelectedColor(color);
 
-  useEffect(() => {
-    if (!product || isFromSlider) return;
+    const base = product?.itemId.split('-').slice(0, -2).join('-');
+    if (!base) return;
 
-    if (product.itemId !== itemId) {
-      navigate(`/${product.category}/${product.itemId}`, { replace: true });
+    const targetProduct = allProducts.find(
+      p =>
+        p.color.replace(' ', '-') === color &&
+        p.capacity === (selectedCapacity || product?.capacity) &&
+        p.itemId.includes(base),
+    );
+
+    if (targetProduct) {
+      navigate(`/${targetProduct.category}/${targetProduct.itemId}`);
     }
-  }, [isFromSlider, itemId, navigate, product]);
+  };
+
+  const handleSelectCapacity = (capacity: string) => {
+    setSelectedCapacity(capacity);
+
+    const base = product?.itemId
+      .split('-')
+      .filter(item => {
+        let colorParts;
+        if (product.color.includes('-')) {
+          colorParts = product.color.toLowerCase().split('-');
+        } else {
+          colorParts = product.color.toLowerCase().split(' ');
+        }
+        return (
+          item !== product.capacity.toLowerCase() && !colorParts.includes(item)
+        );
+      })
+      .join('-');
+
+    if (!base) return;
+
+    const targetProduct = allProducts.find(
+      p =>
+        p.capacity === capacity &&
+        p.color === (selectedColor || product?.color) &&
+        p.itemId.includes(base),
+    );
+
+    if (targetProduct) {
+      navigate(`/${targetProduct.category}/${targetProduct.itemId}`);
+    }
+  };
+
+  useEffect(() => {
+    if (product) {
+      setSelectedColor(product.color);
+      setSelectedCapacity(product.capacity);
+    }
+  }, [itemId, product]);
 
   // --- Умовний рендеринг: Loader, Product Not Found ---
   if (loading) {
@@ -188,7 +188,7 @@ export const ProductDetailsPage = () => {
             <ColorSelector
               colors={availableColors}
               selectedColor={selectedColor}
-              onSelectColor={setSelectedColor}
+              onSelectColor={handleSelectColor}
             />
             <div className="h-px w-full bg-elements"></div>
 
@@ -200,7 +200,7 @@ export const ProductDetailsPage = () => {
             <CapacitySelector
               availableCapacities={availableCapacities}
               selectedCapacity={selectedCapacity}
-              onSelectCapacity={setSelectedCapacity}
+              onSelectCapacity={handleSelectCapacity}
             />
             <div className="h-px w-full bg-elements"></div>
 

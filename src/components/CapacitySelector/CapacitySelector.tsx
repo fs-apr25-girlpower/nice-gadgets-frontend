@@ -3,7 +3,7 @@ import clsx from 'clsx';
 export type CapacitySelectorProps = {
   availableCapacities: string[];
   selectedCapacity: string;
-  onSelectCapacity: React.Dispatch<React.SetStateAction<string>>;
+  onSelectCapacity: (capacity: string) => void;
 };
 
 export const CapacitySelector = ({
