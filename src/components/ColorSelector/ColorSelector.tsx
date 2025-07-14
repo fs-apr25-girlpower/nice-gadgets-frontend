@@ -6,7 +6,7 @@ import { appleColorsHex } from '../../constants/constants';
 export type ColorSelectorProps = {
   colors: ColorKey[];
   selectedColor: string;
-  onSelectColor: React.Dispatch<React.SetStateAction<string>>;
+  onSelectColor: (color: ColorKey) => void;
 };
 
 export const ColorSelector = ({
@@ -27,7 +27,7 @@ export const ColorSelector = ({
         {colors.map(color => (
           <RadioGroup.Item
             key={color}
-            value={color}
+            value={color.replace(' ', '-')}
             className={clsx(
               'w-7 h-7 rounded-full bg-white',
               'flex items-center justify-center',

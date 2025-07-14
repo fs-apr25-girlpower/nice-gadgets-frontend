@@ -66,7 +66,6 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
       <div className="flex items-center justify-center mb-4 tablet:mb-6 h-full overflow-hidden">
         <Link
           to={`/${product.category}/${product.itemId}`}
-          state={{ fromSlider: true }} //для відстеження у ProductdetailsPage
           className="flex items-center justify-center w-full h-full"
         >
           <img
