@@ -1,6 +1,7 @@
 import { Logo } from '../../images/logos/Logo';
 import { NavLink } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
+import { PageNotFoundButton } from '../404Button';
 
 export const Header = () => {
   const headerClass =
@@ -59,7 +60,7 @@ export const Header = () => {
             </li>
           </ul>
         </nav>
-
+        <PageNotFoundButton />
         <CustomerBar />
       </header>
     </>
