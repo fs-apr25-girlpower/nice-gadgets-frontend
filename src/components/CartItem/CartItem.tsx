@@ -1,6 +1,6 @@
 import type { Product } from '../../types/Product';
 import { useCart } from '../../hooks/useCart';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface Props {
   product: Product;
@@ -47,20 +47,24 @@ export const CartItem: React.FC<Props> = ({ product }) => {
           className="product-image-wrapper w-20 h-20 flex-shrink-0 cursor-pointer mobile:order-2"
           onClick={handleNavigateToProduct}
         >
-          <img
-            src={`${import.meta.env.BASE_URL}${product.image}`}
-            alt={product.name}
-            className="product-image w-full h-full object-contain"
-          />
+          <Link to={`/${product.category}/${product.itemId}`}>
+            <img
+              src={`${import.meta.env.BASE_URL}${product.image}`}
+              alt={product.name}
+              className="product-image w-full h-full object-contain"
+            />
+          </Link>
         </div>
 
         <div
           className="product-name-wrapper flex-1 min-w-0 cursor-pointer mobile:order-3"
           onClick={handleNavigateToProduct}
         >
-          <h3 className="product-name text-default text-primary hover:text-secondary transition-colors mobile:text-lg">
-            {product.name}
-          </h3>
+          <Link to={`/${product.category}/${product.itemId}`}>
+            <h3 className="product-name text-default text-primary hover:text-secondary transition-colors mobile:text-lg">
+              {product.name}
+            </h3>
+          </Link>
         </div>
       </div>
 
