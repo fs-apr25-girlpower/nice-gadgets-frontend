@@ -11,7 +11,7 @@ export const Header = () => {
     `flex h-full w-full items-center relative before:content-[''] before:absolute before:bottom-[0] before:left-0 before:h-[3px] before:bg-black before:transition-all hover:before:w-full hover:text-primary focus:before:w-full focus:text-primary ${
       isActive
         ? 'text-black nav-active before:w-full'
-        : 'text-[#828282] before:w-0'
+        : 'text-secondary before:w-0'
     }`;
 
   return (
@@ -24,7 +24,7 @@ export const Header = () => {
           >
             <Logo />
           </NavLink>
-          <ul className="h-full flex flex-row justify-between gap-16 tablet:gap-12 items-center text-center uppercase text-[#828282] mobile:hidden tablet:flex">
+          <ul className="h-full flex flex-row justify-between gap-16 tablet:gap-12 items-center text-center uppercase text-secondary mobile:hidden tablet:flex">
             <li className={navItemClass}>
               <NavLink
                 to={'/'}

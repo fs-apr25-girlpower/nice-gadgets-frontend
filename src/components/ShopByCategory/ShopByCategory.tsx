@@ -29,8 +29,11 @@ export const ShopByCategory = () => {
               />
             </div>
 
-            <h4 className="h4 color-primary mb-1 hover:underline transition-all duration-200">
-              Mobile phones
+            <h4 className="color-primary mb-1">
+              <span className="relative inline-block group">
+                <span className="relative z-10">Mobile phones</span>
+                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
+              </span>
             </h4>
 
             <p className="color-secondary mb-6">{phonesLength} models</p>
@@ -48,8 +51,11 @@ export const ShopByCategory = () => {
               />
             </div>
 
-            <h4 className="h4 color-primary mb-1 hover:underline transition-all duration-200">
-              Tablets
+            <h4 className="color-primary mb-1">
+              <span className="relative inline-block group">
+                <span className="relative z-10">Tablets</span>
+                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
+              </span>
             </h4>
 
             <p className="color-secondary mb-6">{tabletsLength} models</p>
@@ -67,8 +73,11 @@ export const ShopByCategory = () => {
               />
             </div>
 
-            <h4 className="h4 color-primary mb-1 hover:underline transition-all duration-200">
-              Accessories
+            <h4 className="color-primary mb-1">
+              <span className="relative inline-block group">
+                <span className="relative z-10">Accessories</span>
+                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
+              </span>
             </h4>
 
             <p className="color-secondary">{accessoriesLength} models</p>
