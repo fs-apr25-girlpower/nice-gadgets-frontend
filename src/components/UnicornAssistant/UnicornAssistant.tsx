@@ -3,6 +3,7 @@ import './UnicornAssistant.css';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import unicornImage from '../../images/unicorn/unicorn-assistant-2.png';
+import { useLanguage } from '../../context/language/useLanguage';
 
 interface UnicornAssistantProps {
   messages: {
@@ -10,14 +11,16 @@ interface UnicornAssistantProps {
     ua: string[];
   };
   interval?: number;
-  currentLanguage: 'ua' | 'en'; //прибрати потім, коли буде перемикання через контекст
+  //currentLanguage: 'ua' | 'en'; прибрати потім, коли буде перемикання через контекст
 }
 
 export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
   messages,
   interval = 5000,
-  currentLanguage,
+  //currentLanguage,
 }) => {
+  const { currentLanguage } = useLanguage();
+
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
 
   // drag and drop states
