@@ -3,11 +3,16 @@ import { FacebookIcon } from '../images/icons/FacebookIcon';
 import { GithubIcon } from '../images/icons/GithubIcon';
 import { InstagramIcon } from '../images/icons/InstagramIcon';
 import { WhatsUpIcon } from '../images/icons/WhatsUpIcon';
+import { useLanguage } from '../context/language/useLanguage';
+import { contactsUsPageDictionary } from '../i18n/contactsUsPageDictionary';
 
 export const ContactsUsPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+
+  const { currentLanguage } = useLanguage();
+  const translations = contactsUsPageDictionary[currentLanguage];
 
   const isFormValid = name.trim() && email.trim() && message.trim();
 
@@ -44,7 +49,9 @@ export const ContactsUsPage = () => {
       <div className="flex justify-center">
         <section className="w-full max-w-4xl px-4 sm:px-8 mt-8 mb-16">
           <div className="flex flex-col items-center">
-            <h2 className="text-3xl font-bold mb-6 text-center">Contact Us</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center">
+              {translations.title}
+            </h2>
             <div className="h-1 w-24 bg-elements mb-8" />
 
             <div className="flex flex-col md:flex-row gap-12 w-full">
@@ -80,22 +87,19 @@ export const ContactsUsPage = () => {
                   </a>
                 </div>
                 <p className="text-primary text-sm">
-                  Vexillologist vape microdosing freegan pork belly deep v
-                  direct trade cray single-origin coffee street art. Viral
-                  shaman mustache master cleanse, pop-over affogato poutine
-                  copper mug marfa fanny pack normcore. Lo-fi pop-up banjo
-                  portland, echo park hammock.
+                  {translations.socialText}
                 </p>
                 <div className="text-primary text-base font-medium">
-                  (415) 823-7934
+                  {translations.phone}
+                </div>
+                <div
+                  className="text-primary text-base font-medium"
+                  style={{ whiteSpace: 'pre-line' }}
+                >
+                  {translations.address}
                 </div>
                 <div className="text-primary text-base font-medium">
-                  725 Green St
-                  <br />
-                  San Francisco, California(CA), 94133
-                </div>
-                <div className="text-primary text-base font-medium">
-                  ouremailaddress@email.com
+                  {translations.email}
                 </div>
               </div>
 
@@ -106,21 +110,21 @@ export const ContactsUsPage = () => {
                 <div className="flex gap-4">
                   <input
                     type="text"
-                    placeholder="Your name"
+                    placeholder={translations.placeholderName}
                     value={name}
                     onChange={e => setName(e.target.value)}
                     className="flex-1 border border-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
                   />
                   <input
                     type="email"
-                    placeholder="Your e-mail"
+                    placeholder={translations.placeholderEmail}
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     className="flex-1 border border-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
                   />
                 </div>
                 <textarea
-                  placeholder="Your message"
+                  placeholder={translations.placeholderMessage}
                   value={message}
                   onChange={e => setMessage(e.target.value)}
                   className="border border-elements rounded px-4 py-2 min-h-[100px] focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none"
@@ -136,7 +140,7 @@ export const ContactsUsPage = () => {
                       : 'bg-elements text-secondary cursor-not-allowed'
                   }`}
                 >
-                  Send
+                  {translations.buttonSend}
                 </button>
               </form>
             </div>

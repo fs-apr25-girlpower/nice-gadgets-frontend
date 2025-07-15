@@ -4,12 +4,17 @@ import { ProductsList } from '../components/ProductsList';
 import { getProducts } from '../api/getProducts';
 import type { Product } from '../types';
 import { NotFoundPage } from './NotFoundPage';
+import { useLanguage } from '../context/language/useLanguage';
+import { phonePageDictionary } from '../i18n/phonePageDictionary';
 
 export const PhonesPage = () => {
   const [phones, setPhones] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const hasNotProducts = phones.length === 0 && !isLoading;
+
+  const { currentLanguage } = useLanguage();
+  const translations = phonePageDictionary[currentLanguage];
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,11 +36,11 @@ export const PhonesPage = () => {
     <div>
       <Breadcrumbs />
 
-      <h2 className="mt-6 mb-2 tablet:mt-10">Mobile phones</h2>
+      <h2 className="mt-6 mb-2 tablet:mt-10">{translations.title}</h2>
 
       {error && <NotFoundPage />}
 
-      {hasNotProducts && <p>There are no phones yet</p>}
+      {hasNotProducts && <p>{translations.empty}</p>}
 
       <ProductsList
         products={phones}

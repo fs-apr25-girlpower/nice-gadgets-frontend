@@ -5,16 +5,23 @@ import phonesImage from '/img/categories/category-accessories.webp';
 import { usePhones } from '../../context/PhonesContext';
 import { useTablets } from '../../context/TabletsContext';
 import { useAccessories } from '../../context/AccessoriesContext';
+import { useLanguage } from '../../context/language/useLanguage';
+import { shopByCategoryDictionary } from '../../i18n/shopByCategoryDictionary';
 
 export const ShopByCategory = () => {
   const phonesLength = usePhones().length;
   const tabletsLength = useTablets().length;
   const accessoriesLength = useAccessories().length;
 
+  const { currentLanguage } = useLanguage();
+  const translations = shopByCategoryDictionary[currentLanguage];
+
   return (
     <section className="mt-14 tablet:mt-16 desktop:mt-20">
       <div className="flex flex-col">
-        <h2 className="h2 color-primary mb-5 self-start">Shop by category</h2>
+        <h2 className="h2 color-primary mb-5 self-start">
+          {translations.title}
+        </h2>
 
         <div className="flex flex-col tablet:flex-row gap-[22px]">
           <NavLink
@@ -31,12 +38,14 @@ export const ShopByCategory = () => {
 
             <h4 className="color-primary mb-1">
               <span className="relative inline-block group">
-                <span className="relative z-10">Mobile phones</span>
+                <span className="relative z-10">{translations.phones}</span>
                 <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
               </span>
             </h4>
 
-            <p className="color-secondary mb-6">{phonesLength} models</p>
+            <p className="color-secondary mb-6">
+              {phonesLength} {translations.models}
+            </p>
           </NavLink>
 
           <NavLink
@@ -53,12 +62,14 @@ export const ShopByCategory = () => {
 
             <h4 className="color-primary mb-1">
               <span className="relative inline-block group">
-                <span className="relative z-10">Tablets</span>
+                <span className="relative z-10">{translations.tablets}</span>
                 <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
               </span>
             </h4>
 
-            <p className="color-secondary mb-6">{tabletsLength} models</p>
+            <p className="color-secondary mb-6">
+              {tabletsLength} {translations.models}
+            </p>
           </NavLink>
 
           <NavLink
@@ -75,12 +86,16 @@ export const ShopByCategory = () => {
 
             <h4 className="color-primary mb-1">
               <span className="relative inline-block group">
-                <span className="relative z-10">Accessories</span>
+                <span className="relative z-10">
+                  {translations.accessories}
+                </span>
                 <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
               </span>
             </h4>
 
-            <p className="color-secondary">{accessoriesLength} models</p>
+            <p className="color-secondary">
+              {accessoriesLength} {translations.models}
+            </p>
           </NavLink>
         </div>
       </div>

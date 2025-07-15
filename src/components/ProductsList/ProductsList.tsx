@@ -3,58 +3,60 @@ import { useQueryParams } from '../../utils/useQueryParams';
 import { DropDown } from '../DropDown';
 import { Pagination } from '../Pagination';
 import { ProductCard } from '../ProductCard';
+import { useLanguage } from '../../context/language/useLanguage';
+import { productsListDictionary } from '../../i18n/productsListDictionary';
 
 export type ProductsListProps = {
   products: Product[];
   isLoading: boolean;
 };
 
-const optionsSortTypes = [
-  { label: 'Newest', value: 'byDate' },
-  { label: 'Price', value: 'byPrice' },
-  { label: 'Name', value: 'byName' },
-];
-
-const getOptionsItemsPerPage = () => [
-  { label: '4', value: '4' },
-  { label: '8', value: '8' },
-  { label: '16', value: '16' },
-  { label: 'All', value: 'all' },
-];
-
-type SortTypes = (typeof optionsSortTypes)[number]['value'];
-
 export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
+  const { currentLanguage } = useLanguage();
+  const translations = productsListDictionary[currentLanguage];
+
+  const optionsSortTypes = [
+    { label: translations.sortNewest, value: 'byDate' },
+    { label: translations.sortPrice, value: 'byPrice' },
+    { label: translations.sortName, value: 'byName' },
+  ];
+
+  const getOptionsItemsPerPage = () => [
+    { label: '4', value: '4' },
+    { label: '8', value: '8' },
+    { label: '16', value: '16' },
+    { label: translations.allItemsLabel, value: 'all' },
+  ];
+
   const { sort, perPage, page, refreshParams } = useQueryParams('phones');
   const validatedSortValues = optionsSortTypes.map(opt => opt.value);
   const sortTypeSelected =
     typeof sort === 'string' && validatedSortValues.includes(sort)
-      ? (sort as SortTypes)
+      ? (sort as (typeof optionsSortTypes)[number]['value'])
       : 'byDate';
+
   const itemsToShow = perPage === null ? 'all' : String(perPage);
   const optionsItemsPerPage = getOptionsItemsPerPage();
+
   const pageNumber = page !== null ? parseInt(page, 10) : 1;
   const perPageNumber = perPage !== null ? parseInt(perPage, 10) : 8;
+
   const toSortProducts = (
     products: Product[],
-    sortBy: SortTypes,
+    sortBy: (typeof optionsSortTypes)[number]['value'],
   ): Product[] => {
     const result = [...products].sort((a, b) => {
       switch (sortBy) {
         case 'byDate':
           return a.year - b.year;
-
         case 'byName':
           return a.name.localeCompare(b.name);
-
         case 'byPrice':
           return a.fullPrice - b.fullPrice;
-
         default:
           return 0;
       }
     });
-
     return result;
   };
 
@@ -74,17 +76,19 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
 
   return (
     <>
-      <p className="body-text mb-8 tablet:mb-10">{products.length} models</p>
+      <p className="body-text mb-8 tablet:mb-10">
+        {translations.modelsCount(products.length)}
+      </p>
 
       <div className="w-full min-h-20 flex items-center gap-4">
         <DropDown
-          label="sortBy"
+          label={translations.sortByLabel}
           options={optionsSortTypes}
           value={sortTypeSelected}
           onChange={handleSortChange}
         />
         <DropDown
-          label="Items on page"
+          label={translations.itemsOnPageLabel}
           options={optionsItemsPerPage}
           value={itemsToShow}
           onChange={handleItemsPerPageChange}
