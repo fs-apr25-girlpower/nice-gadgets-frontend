@@ -68,7 +68,8 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
          min-w-[229px] min-h-[440px] max-h-[530px] w-full
           flex flex-col
           p-4 tablet:p-6 desktop:p-8
-          border border-elements
+          border border-elements dark:border-dark-elements
+          bg-card-background dark:bg-dark-card-background
           relative z-0
           
         "
@@ -84,7 +85,7 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
           />
         </div>
 
-        <div className="py-3 border-b border-elements flex items-center gap-x-2 mb-4">
+        <div className="py-3 border-b border-elements dark:border-dark-elements flex items-center gap-x-2 mb-4">
           <Skeleton
             height={24}
             width={60}
@@ -146,7 +147,8 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
       min-w-[229px] min-h-[440px] max-h-[530px] w-full
       flex flex-col
       p-4 tablet:p-6 desktop:p-8
-      border border-elements
+      border border-elements dark:border-dark-elements
+      bg-card-background dark:bg-dark-card-background
       relative z-0 hover:z-50
       transition-transform duration-300 ease-in-out
       hover:scale-107 transform-gpu will-change-transform
@@ -169,13 +171,17 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
         <NavLink
           to={`/${product!.category}/${product!.itemId}`}
           className={({ isActive }) =>
-            isActive ? 'body-text text-blue-500' : 'body-text text-black'
+            isActive
+              ? 'body-text text-button-active dark:text-dark-button-active'
+              : 'body-text text-primary dark:text-dark-primary'
           }
         >
-          <div className="body-text min-h-[42px]">{product!.name}</div>
+          <div className="body-text min-h-[42px] text-primary dark:text-dark-primary">
+            {product!.name}
+          </div>
         </NavLink>
 
-        <div className="py-3 border-b border-elements flex items-center gap-x-2 mb-4">
+        <div className="py-3 border-b border-elements dark:border-dark-elements flex items-center gap-x-2 mb-4">
           <div className="font-mont text-primary dark:text-dark-primary text-price font-bold">
             ${product!.price}
           </div>

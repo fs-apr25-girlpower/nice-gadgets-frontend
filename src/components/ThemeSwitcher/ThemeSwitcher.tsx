@@ -12,7 +12,7 @@ export const ThemeSwitcher = () => {
 
   if (!mounted) {
     return (
-      <div className="w-10 h-10 rounded-full border border-elements dark:border-gray-600 bg-white dark:bg-gray-700"></div>
+      <div className="w-10 h-10 rounded-full border border-elements dark:border-dark-border bg-white dark:bg-dark-card-background"></div>
     );
   }
 
@@ -24,7 +24,7 @@ export const ThemeSwitcher = () => {
   return (
     <button
       onClick={handleClick}
-      className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-elements dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-hover dark:hover:bg-gray-600 transition-colors shadow-md"
+      className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-elements dark:border-dark-border bg-white dark:bg-dark-card-background hover:bg-hover dark:hover:bg-dark-hover transition-colors shadow-md"
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
     >

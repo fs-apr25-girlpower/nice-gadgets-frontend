@@ -35,13 +35,13 @@ export const CartItem: React.FC<Props> = ({ product }) => {
 
   return (
     <div
-      className="cart-item-card w-full min-w-[288px] bg-white border
-      border-elements shadow-sm p-4 relative flex flex-col tablet:flex-row 
+      className="cart-item-card w-full min-w-[288px] bg-card-background dark:bg-dark-card-background border
+      border-elements dark:border-dark-elements shadow-sm p-4 relative flex flex-col tablet:flex-row 
       mobile:items-center mobile:justify-between mobile:gap-4"
     >
       <div className="cart-item-header w-full flex items-center gap-4 tablet:gap-6 desktop:gap-8">
         <button
-          className="remove-button w-8 h-8 flex items-center justify-center text-elements hover:text-red-500 transition-colors text-xl font-bold cursor-pointer mobile:order-1"
+          className="remove-button w-8 h-8 flex items-center justify-center text-elements dark:text-dark-elements hover:text-red-500 transition-colors text-xl font-bold cursor-pointer mobile:order-1"
           onClick={handleRemove}
         >
           ×
@@ -72,16 +72,16 @@ export const CartItem: React.FC<Props> = ({ product }) => {
         <div className="quantity-controls flex items-center gap-2">
           <button
             onClick={handleDecrease}
-            className="quantity-button-decrease w-8 h-8 flex items-center justify-center border border-elements rounded hover:bg-elements cursor-pointer"
+            className="quantity-button-decrease w-8 h-8 flex items-center justify-center border border-elements dark:border-dark-elements rounded hover:bg-elements dark:hover:bg-dark-elements cursor-pointer text-primary dark:text-dark-primary"
           >
             −
           </button>
-          <span className="quantity-display w-8 text-center text-default font-medium">
+          <span className="quantity-display w-8 text-center text-default font-medium text-primary dark:text-dark-primary">
             {quantity}
           </span>
           <button
             onClick={handleIncrease}
-            className="quantity-button-increase w-8 h-8 flex items-center justify-center border border-elements rounded hover:bg-elements cursor-pointer"
+            className="quantity-button-increase w-8 h-8 flex items-center justify-center border border-elements dark:border-dark-elements rounded hover:bg-elements dark:hover:bg-dark-elements cursor-pointer text-primary dark:text-dark-primary"
           >
             +
           </button>

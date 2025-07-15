@@ -11,7 +11,7 @@ export const App = () => {
   //const { currentLanguage } = useLanguage();
   return (
     <Providers>
-      <div className="App dark:bg-gray-900 dark:text-white">
+      <div className="App dark:bg-dark-background dark:text-dark-primary">
         <div className="wrapper min-h-screen flex flex-col">
           <Header />
           <main className="grow max-w-[1200px] w-full mx-auto mobile:px-4 tablet:px-6 desktop:px-8">

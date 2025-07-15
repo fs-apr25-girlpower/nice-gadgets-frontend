@@ -15,7 +15,7 @@ export const Header = () => {
   };
 
   const headerClass =
-    'header flex flex-row sticky top-0 justify-between items-center w-full gap-12 bg-white dark:bg-gray-800 z-10000 mobile:h-12 desktop:h-16 pl-[18px] border-b border-elements dark:border-gray-700 font-bold text-[12px]';
+    'header flex flex-row sticky top-0 justify-between items-center w-full gap-12 bg-white dark:bg-dark-background z-10000 mobile:h-12 desktop:h-16 pl-[18px] border-b border-elements dark:border-dark-border font-bold text-[12px]';
   const navItemClass =
     'flex items-center h-full relative hover:text-primary dark:hover:text-white';
 
@@ -29,7 +29,7 @@ export const Header = () => {
   return (
     <>
       <header className={headerClass}>
-        <nav className="h-full flex flex-row items-center text-center gap-11 sticky top-0 bg-white dark:bg-gray-800 z-10000">
+        <nav className="h-full flex flex-row items-center text-center gap-11 sticky top-0 bg-white dark:bg-dark-background z-10000">
           <NavLink
             to={'/'}
             className="w-16 md:w-20 h-7 m:h-[22px]"
@@ -81,13 +81,13 @@ export const Header = () => {
           <div className="language-switcher flex gap-2">
             <button
               onClick={() => handleLanguageChange('ua')}
-              className={`px-3 py-1 rounded ${currentLanguage === 'ua' ? 'bg-blue-600' : 'bg-gray-600 hover:bg-gray-700'}`}
+              className={`px-3 py-1 rounded text-white ${currentLanguage === 'ua' ? 'bg-button-active dark:bg-dark-button-active' : 'bg-button-inactive dark:bg-dark-button-inactive hover:bg-button-hover dark:hover:bg-dark-button-hover'}`}
             >
               UA
             </button>
             <button
               onClick={() => handleLanguageChange('en')}
-              className={`px-3 py-1 rounded ${currentLanguage === 'en' ? 'bg-blue-600' : 'bg-gray-600 hover:bg-gray-700'}`}
+              className={`px-3 py-1 rounded text-white ${currentLanguage === 'en' ? 'bg-button-active dark:bg-dark-button-active' : 'bg-button-inactive dark:bg-dark-button-inactive hover:bg-button-hover dark:hover:bg-dark-button-hover'}`}
             >
               EN
             </button>

@@ -21,7 +21,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   return (
     <div className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-[10001]">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 border-2 border-elements shadow-lg">
+      <div className="bg-card-background dark:bg-dark-card-background rounded-lg p-6 max-w-md w-full mx-4 border-2 border-elements dark:border-dark-elements shadow-lg">
         <h2 className="text-xl font-bold mb-4 text-center text-primary dark:text-dark-primary">
           Checkout
         </h2>
@@ -56,7 +56,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
           <button
             onClick={onClose}
-            className="w-full bg-elements text-primary dark:text-dark-primary py-3 px-6 rounded hover:bg-hover transition-colors"
+            className="w-full bg-elements dark:bg-dark-elements text-primary dark:text-dark-primary py-3 px-6 rounded hover:bg-hover dark:hover:bg-dark-hover transition-colors"
           >
             Cancel
           </button>

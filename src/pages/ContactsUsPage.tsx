@@ -24,7 +24,7 @@ export const ContactsUsPage = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-hover dark:bg-dark-background">
       <div
         className="w-full"
         style={{ minHeight: 400, maxHeight: 500 }}
@@ -44,8 +44,10 @@ export const ContactsUsPage = () => {
       <div className="flex justify-center">
         <section className="w-full max-w-4xl px-4 sm:px-8 mt-8 mb-16">
           <div className="flex flex-col items-center">
-            <h2 className="text-3xl font-bold mb-6 text-center">Contact Us</h2>
-            <div className="h-1 w-24 bg-elements mb-8" />
+            <h2 className="text-3xl font-bold mb-6 text-center text-primary dark:text-dark-primary">
+              Contact Us
+            </h2>
+            <div className="h-1 w-24 bg-elements dark:bg-dark-elements mb-8" />
 
             <div className="flex flex-col md:flex-row gap-12 w-full">
               <div className="flex-1 flex flex-col items-start gap-4">
@@ -109,21 +111,21 @@ export const ContactsUsPage = () => {
                     placeholder="Your name"
                     value={name}
                     onChange={e => setName(e.target.value)}
-                    className="flex-1 border border-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                    className="flex-1 border border-elements dark:border-dark-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-form-focus dark:focus:ring-dark-form-focus bg-form-background dark:bg-dark-form-background text-primary dark:text-dark-primary"
                   />
                   <input
                     type="email"
                     placeholder="Your e-mail"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    className="flex-1 border border-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                    className="flex-1 border border-elements dark:border-dark-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-form-focus dark:focus:ring-dark-form-focus bg-form-background dark:bg-dark-form-background text-primary dark:text-dark-primary"
                   />
                 </div>
                 <textarea
                   placeholder="Your message"
                   value={message}
                   onChange={e => setMessage(e.target.value)}
-                  className="border border-elements rounded px-4 py-2 min-h-[100px] focus:outline-none focus:ring-2 focus:ring-gray-300 resize-none"
+                  className="border border-elements dark:border-dark-elements rounded px-4 py-2 min-h-[100px] focus:outline-none focus:ring-2 focus:ring-form-focus dark:focus:ring-dark-form-focus resize-none bg-form-background dark:bg-dark-form-background text-primary dark:text-dark-primary"
                 />
 
                 <button
@@ -132,8 +134,8 @@ export const ContactsUsPage = () => {
                   className={`self-end px-8 py-2 rounded transition
                   ${
                     isFormValid
-                      ? 'bg-primary text-white hover:bg-secondary cursor-pointer'
-                      : 'bg-elements text-secondary dark:text-dark-secondary cursor-not-allowed'
+                      ? 'bg-primary dark:bg-dark-primary text-white dark:text-black hover:bg-secondary dark:hover:bg-dark-secondary cursor-pointer'
+                      : 'bg-elements dark:bg-dark-elements text-secondary dark:text-dark-secondary cursor-not-allowed'
                   }`}
                 >
                   Send
