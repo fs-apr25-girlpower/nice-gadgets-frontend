@@ -1,8 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import { Logo } from '../../images/logos/Logo';
 import { BackToTopButton } from '../BackToTopButton';
+import { useLanguage } from '../../context/language/useLanguage';
+import { footerDictionaty } from '../../i18n/footerDictionary';
 
 export const Footer = () => {
+  const { currentLanguage } = useLanguage(); // Використовуємо хук для доступу до мови та її зміни
+
+  // const handleLanguageChange = (lang: 'ua' | 'en') => {
+  //     setLanguage(lang);
+  // };
+
   return (
     <footer className="border-t border-elements py-8 min-w-[288px] sm:min-w-[192px]">
       <div
@@ -45,7 +53,8 @@ export const Footer = () => {
                 to="contacts"
                 className="hover:text-black"
               >
-                Contacts
+                {/* Contacts */}
+                {footerDictionaty[currentLanguage].contacts}
               </NavLink>
             </li>
             <li>
@@ -53,14 +62,18 @@ export const Footer = () => {
                 to="rights"
                 className="hover:text-black"
               >
-                Rights
+                {/* Rights */}
+                {footerDictionaty[currentLanguage].rights}
               </NavLink>
             </li>
           </ul>
         </nav>
 
         <div className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-end">
-          <span className="text-secondary text-base">Back to top</span>
+          <span className="text-secondary text-base">
+            {/* Back to top */}
+            {footerDictionaty[currentLanguage].backToTop}
+          </span>
           <BackToTopButton />
         </div>
       </div>
