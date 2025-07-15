@@ -3,7 +3,7 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { ProductsList } from '../components/ProductsList';
 import { getProducts } from '../api/getProducts';
 import type { Product } from '../types';
-import { NotFoundPage } from './NotFoundPage';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 export const PhonesPage = () => {
   const [phones, setPhones] = useState<Product[]>([]);
@@ -33,14 +33,16 @@ export const PhonesPage = () => {
 
       <h2 className="mt-6 mb-2 tablet:mt-10">Mobile phones</h2>
 
-      {error && <NotFoundPage />}
+      {error && <ErrorMessage text={'Something went wrong!'} />}
 
-      {hasNotProducts && <p>There are no phones yet</p>}
-
-      <ProductsList
-        products={phones}
-        isLoading={isLoading}
-      />
+      {hasNotProducts ? (
+        <ErrorMessage text={'There are no phones yet'} />
+      ) : (
+        <ProductsList
+          products={phones}
+          isLoading={isLoading}
+        />
+      )}
     </div>
   );
 };
