@@ -31,7 +31,9 @@ export const AccessoriesPage = () => {
     <div>
       <Breadcrumbs />
 
-      <h2 className="mt-6 mb-2 tablet:mt-10">Accessories</h2>
+      <h2 className="mt-6 mb-2 tablet:mt-10 text-primary dark:text-dark-primary">
+        Accessories
+      </h2>
 
       {error && <ErrorMessage text={'Something went wrong!'} />}
 

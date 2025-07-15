@@ -8,8 +8,7 @@ export const ThemeSwitcher = () => {
   // Уникаємо hydration mismatch
   useEffect(() => {
     setMounted(true);
-    console.log('ThemeSwitcher mounted, initial theme:', theme);
-  }, [theme]);
+  }, []);
 
   if (!mounted) {
     return (
@@ -18,18 +17,8 @@ export const ThemeSwitcher = () => {
   }
 
   const handleClick = () => {
-    console.log('Current theme:', theme);
     const newTheme = theme === 'dark' ? 'light' : 'dark';
-    console.log('Switching to:', newTheme);
     setTheme(newTheme);
-
-    // Також перевіримо, чи клас додається до html
-    setTimeout(() => {
-      console.log(
-        'HTML classes after theme change:',
-        document.documentElement.className,
-      );
-    }, 100);
   };
 
   return (

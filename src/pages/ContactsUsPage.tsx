@@ -86,15 +86,15 @@ export const ContactsUsPage = () => {
                   copper mug marfa fanny pack normcore. Lo-fi pop-up banjo
                   portland, echo park hammock.
                 </p>
-                <div className="text-primary dark:text-dark-primary text-base font-medium">
+                <div className="text-primary dark:text-dark-primary text-base">
                   (415) 823-7934
                 </div>
-                <div className="text-primary dark:text-dark-primary text-base font-medium">
+                <div className="text-primary dark:text-dark-primary text-base">
                   725 Green St
                   <br />
                   San Francisco, California(CA), 94133
                 </div>
-                <div className="text-primary dark:text-dark-primary text-base font-medium">
+                <div className="text-primary dark:text-dark-primary text-base">
                   ouremailaddress@email.com
                 </div>
               </div>
@@ -133,7 +133,7 @@ export const ContactsUsPage = () => {
                   ${
                     isFormValid
                       ? 'bg-primary text-white hover:bg-secondary cursor-pointer'
-                      : 'bg-elements text-secondary cursor-not-allowed'
+                      : 'bg-elements text-secondary dark:text-dark-secondary cursor-not-allowed'
                   }`}
                 >
                   Send

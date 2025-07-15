@@ -42,21 +42,21 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         <div className="flex flex-col gap-3">
           <button
             onClick={onConfirm}
-            className="w-full bg-green text-white py-3 px-6 rounded hover:opacity-90 transition-opacity font-medium"
+            className="w-full bg-green text-white py-3 px-6 rounded hover:opacity-90 transition-opacity"
           >
             Confirm Order
           </button>
 
           <button
             onClick={onClearCart}
-            className="w-full bg-red text-white py-3 px-6 rounded hover:opacity-90 transition-opacity font-medium"
+            className="w-full bg-red text-white py-3 px-6 rounded hover:opacity-90 transition-opacity"
           >
             Clear Cart
           </button>
 
           <button
             onClick={onClose}
-            className="w-full bg-elements text-primary py-3 px-6 rounded hover:bg-hover transition-colors font-medium"
+            className="w-full bg-elements text-primary dark:text-dark-primary py-3 px-6 rounded hover:bg-hover transition-colors"
           >
             Cancel
           </button>

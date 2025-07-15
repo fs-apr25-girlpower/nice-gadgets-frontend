@@ -74,7 +74,9 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
 
   return (
     <>
-      <p className="body-text mb-8 tablet:mb-10">{products.length} models</p>
+      <p className="body-text mb-8 tablet:mb-10 text-secondary dark:text-dark-secondary">
+        {products.length} models
+      </p>
 
       <div className="w-full min-h-20 flex items-center gap-4">
         <DropDown

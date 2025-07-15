@@ -157,14 +157,14 @@ export const ProductDetailsPage = () => {
       <div className="mb-6 tablet:mb-8">
         <button
           onClick={() => navigate(-1)} // Використовуємо useNavigate
-          className="flex items-center gap-2 text-secondary hover:text-primary transition-colors"
+          className="flex items-center gap-2 text-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-dark-primary transition-colors"
         >
           <span className="text-base tablet:text-lg">←</span>
           <span className="text-xs tablet:text-sm font-semibold">Back</span>
         </button>
       </div>
 
-      <h1 className="text-xl tablet:text-2xl desktop:text-[28px] font-bold text-primary mb-8 tablet:mb-10 desktop:mb-12">
+      <h1 className="text-xl tablet:text-2xl desktop:text-[28px] font-bold text-primary dark:text-dark-primary mb-8 tablet:mb-10 desktop:mb-12">
         {product.name}
       </h1>
 
@@ -173,11 +173,11 @@ export const ProductDetailsPage = () => {
           <ProductGallery images={imagesForGallery} />
         </div>
         <div className="flex-1 min-w-0 justify-between relative">
-          <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider absolute top-0 right-0 ">
+          <p className="text-xs tablet:text-sm text-secondary dark:text-dark-secondary font-semibold uppercase tracking-wider absolute top-0 right-0 ">
             ID: {product.id}
           </p>
           <div className="min-w-0 space-y-4 tablet:space-y-6 desktop:max-w-80">
-            <p className="text-xs tablet:text-sm text-secondary font-semibold tracking-wider mb-2">
+            <p className="text-xs tablet:text-sm text-secondary dark:text-dark-secondary font-semibold tracking-wider mb-2">
               Available colors
             </p>
             <ColorSelector
@@ -188,7 +188,7 @@ export const ProductDetailsPage = () => {
             <div className="h-px w-full bg-elements"></div>
 
             <div className="space-y-1">
-              <p className="text-xs tablet:text-sm text-secondary font-semibold uppercase tracking-wider">
+              <p className="text-xs tablet:text-sm text-secondary dark:text-dark-secondary font-semibold uppercase tracking-wider">
                 Select capacity
               </p>
             </div>
@@ -200,10 +200,10 @@ export const ProductDetailsPage = () => {
             <div className="h-px w-full bg-elements"></div>
 
             <div className="flex items-baseline gap-3 py-4">
-              <span className="text-2xl tablet:text-3xl desktop:text-[32px] font-bold text-primary">
+              <span className="text-2xl tablet:text-3xl desktop:text-[32px] font-bold text-primary dark:text-dark-primary">
                 ${product.price}
               </span>
-              <span className="text-lg tablet:text-xl desktop:text-[22px] text-secondary line-through">
+              <span className="text-lg tablet:text-xl desktop:text-[22px] text-secondary dark:text-dark-secondary line-through">
                 ${product.fullPrice}
               </span>
             </div>
@@ -216,30 +216,38 @@ export const ProductDetailsPage = () => {
             <div className="space-y-2 pt-6">
               <div className="flex flex-col gap-y-2 text-xs tablet:text-sm">
                 <div className="flex justify-between">
-                  <span className="text-secondary">Screen</span>
-                  <span className="text-primary font-medium">
+                  <span className="text-secondary dark:text-dark-secondary">
+                    Screen
+                  </span>
+                  <span className="text-primary dark:text-dark-primary font-medium">
                     {product.screen}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-secondary">Resolution</span>
-                  <span className="text-primary font-medium">
+                  <span className="text-secondary dark:text-dark-secondary">
+                    Resolution
+                  </span>
+                  <span className="text-primary dark:text-dark-primary font-medium">
                     {product.details && 'resolution' in product.details
                       ? product.details.resolution
                       : 'N/A'}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-secondary">Processor</span>
-                  <span className="text-primary font-medium">
+                  <span className="text-secondary dark:text-dark-secondary">
+                    Processor
+                  </span>
+                  <span className="text-primary dark:text-dark-primary font-medium">
                     {product.details && 'processor' in product.details
                       ? product.details.processor
                       : 'N/A'}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-secondary">RAM</span>
-                  <span className="text-primary font-medium">
+                  <span className="text-secondary dark:text-dark-secondary">
+                    RAM
+                  </span>
+                  <span className="text-primary dark:text-dark-primary font-medium">
                     {product.ram}
                   </span>
                 </div>
@@ -251,16 +259,16 @@ export const ProductDetailsPage = () => {
 
       <div className="flex flex-col desktop:flex-row gap-8 desktop:gap-16 mb-16 desktop:mb-20">
         <div className="flex-1 min-w-0 w-full desktop:w-auto">
-          <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary">
+          <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary dark:text-dark-primary">
             About
           </h2>
           <div className="h-px w-full bg-elements mt-4 mb-8"></div>
-          <div className="space-y-6 text-secondary text-default">
+          <div className="space-y-6 text-secondary dark:text-dark-secondary text-default">
             {product.details?.description &&
             product.details.description.length > 0 ? (
               product.details.description.map((section, index) => (
                 <div key={index}>
-                  <h3 className="font-semibold mb-3 text-primary">
+                  <h3 className="font-semibold mb-3 text-primary dark:text-dark-primary">
                     {section.title}
                   </h3>
                   {section.text.map((paragraph, pIndex) => (
@@ -275,7 +283,7 @@ export const ProductDetailsPage = () => {
               ))
             ) : (
               <div>
-                <h3 className="font-semibold mb-3 text-primary">
+                <h3 className="font-semibold mb-3 text-primary dark:text-dark-primary">
                   About {product.name}
                 </h3>
                 <p className="leading-relaxed">
@@ -288,60 +296,76 @@ export const ProductDetailsPage = () => {
         </div>
 
         <div className="flex-1 min-w-0 w-full desktop:w-auto mt-8 desktop:mt-0">
-          <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary">
+          <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary dark:text-dark-primary">
             Tech specs
           </h2>
           <div className="h-px w-full bg-elements mb-7"></div>
           <div className="space-y-0">
             <div className="flex justify-between py-3">
-              <span className="text-secondary text-sm">Screen</span>
-              <span className="text-primary text-sm font-medium">
+              <span className="text-secondary dark:text-dark-secondary text-sm">
+                Screen
+              </span>
+              <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.screen}
               </span>
             </div>
             <div className="flex justify-between py-3">
-              <span className="text-secondary text-sm">Resolution</span>
-              <span className="text-primary text-sm font-medium">
+              <span className="text-secondary dark:text-dark-secondary text-sm">
+                Resolution
+              </span>
+              <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.details?.resolution || 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3">
-              <span className="text-secondary text-sm">Processor</span>
-              <span className="text-primary text-sm font-medium">
+              <span className="text-secondary dark:text-dark-secondary text-sm">
+                Processor
+              </span>
+              <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.details?.processor || 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3">
-              <span className="text-secondary text-sm">RAM</span>
-              <span className="text-primary text-sm font-medium">
+              <span className="text-secondary dark:text-dark-secondary text-sm">
+                RAM
+              </span>
+              <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.ram}
               </span>
             </div>
             <div className="flex justify-between py-3">
-              <span className="text-secondary text-sm">Built in memory</span>
-              <span className="text-primary text-sm font-medium">
+              <span className="text-secondary dark:text-dark-secondary text-sm">
+                Built in memory
+              </span>
+              <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.capacity}
               </span>
             </div>
             <div className="flex justify-between py-3">
-              <span className="text-secondary text-sm">Camera</span>
-              <span className="text-primary text-sm font-medium">
+              <span className="text-secondary dark:text-dark-secondary text-sm">
+                Camera
+              </span>
+              <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.details && 'camera' in product.details
                   ? product.details.camera
                   : 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3">
-              <span className="text-secondary text-sm">Zoom</span>
-              <span className="text-primary text-sm font-medium">
+              <span className="text-secondary dark:text-dark-secondary text-sm">
+                Zoom
+              </span>
+              <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.details && 'zoom' in product.details
                   ? product.details.zoom
                   : 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3">
-              <span className="text-secondary text-sm">Cell</span>
-              <span className="text-primary text-sm font-medium">
+              <span className="text-secondary dark:text-dark-secondary text-sm">
+                Cell
+              </span>
+              <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.details && 'cell' in product.details
                   ? product.details.cell.join(', ')
                   : 'N/A'}

@@ -104,15 +104,18 @@ export const DropDown = ({
 
   const baseWrapper =
     'dropdown-wrapper flex flex-col items-start justify-center text-start h-15 mobile:w-34 tablet:w-44';
-  const baseLabel = 'block text-nav leading-[100%] text-[#89939A] mb-1';
+  const baseLabel =
+    'block text-nav leading-[100%] text-secondary dark:text-dark-secondary mb-1';
   const baseTriggerBtn =
-    'w-34 mobile:w-34 tablet:w-44 h-10 px-3 bg-white border border-[#B4BDC3] hover:border-black flex items-center justify-between';
+    'w-34 mobile:w-34 tablet:w-44 h-10 px-3 bg-white dark:bg-gray-800 border border-[#B4BDC3] dark:border-gray-600 hover:border-black dark:hover:border-gray-400 flex items-center justify-between text-primary dark:text-dark-primary';
   const baseDropdownContent =
-    'bg-white shadow-lg border border-[#B4BDC3] z-50 overflow-hidden mobile:w-34 tablet:w-44 text-2 focus:outline-none';
+    'bg-white dark:bg-gray-800 shadow-lg border border-[#B4BDC3] dark:border-gray-600 z-50 overflow-hidden mobile:w-34 tablet:w-44 text-2 focus:outline-none';
   const baseDropdownItem =
-    'px-3 py-2 text-sm cursor-pointer outline-none w-full text-[#89939A] transition-colors hover:bg-elements';
-  const activeDropdownItem = 'bg-gray-100 text-[#313237]';
-  const focusedDropdownItem = 'bg-gray-200 text-[#000000]';
+    'px-3 py-2 text-sm cursor-pointer outline-none w-full text-secondary dark:text-dark-secondary transition-colors hover:bg-elements dark:hover:bg-gray-700';
+  const activeDropdownItem =
+    'bg-elements dark:bg-gray-600 text-primary dark:text-dark-primary';
+  const focusedDropdownItem =
+    'bg-hover dark:bg-gray-700 text-primary dark:text-dark-primary';
 
   return (
     <div className={clsx(baseWrapper, className)}>

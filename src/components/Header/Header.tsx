@@ -22,8 +22,8 @@ export const Header = () => {
   const isActive = ({ isActive }: { isActive: boolean }) =>
     `flex h-full w-full items-center relative before:content-[''] before:absolute before:bottom-[0] before:left-0 before:h-[3px] before:bg-black dark:before:bg-white before:transition-all hover:before:w-full hover:text-primary dark:hover:text-white focus:before:w-full focus:text-primary dark:focus:text-white ${
       isActive
-        ? 'text-black dark:text-white nav-active before:w-full'
-        : 'text-secondary dark:text-gray-300 before:w-0'
+        ? 'text-primary dark:text-dark-primary nav-active before:w-full'
+        : 'text-secondary dark:text-dark-secondary before:w-0'
     }`;
 
   return (
@@ -36,7 +36,7 @@ export const Header = () => {
           >
             <Logo />
           </NavLink>
-          <ul className="h-full flex flex-row justify-between gap-16 tablet:gap-12 items-center text-center uppercase text-secondary mobile:hidden tablet:flex">
+          <ul className="h-full flex flex-row justify-between gap-16 tablet:gap-12 items-center text-center uppercase text-secondary dark:text-dark-secondary mobile:hidden tablet:flex">
             <li className={navItemClass}>
               <NavLink
                 to={'/'}
