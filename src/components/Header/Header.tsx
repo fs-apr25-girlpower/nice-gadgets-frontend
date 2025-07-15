@@ -1,13 +1,15 @@
 import { Logo } from '../../images/logos/Logo';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
 import { PageNotFoundButton } from '../404Button';
 import { useLanguage } from '../../context/language/useLanguage';
 import { headerDictionary } from '../../i18n/headerDictionary';
+import { GlassIcon } from '../../images/icons/GlassIcon';
 //import { useLanguage } from '../../context/language/LanguageContext';
 
 export const Header = () => {
   const { currentLanguage, setLanguage } = useLanguage(); // Використовуємо хук для доступу до мови та її зміни
+  const { pathname } = useLocation();
 
   const handleLanguageChange = (lang: 'ua' | 'en') => {
     setLanguage(lang);
@@ -23,6 +25,12 @@ export const Header = () => {
         ? 'text-black nav-active before:w-full'
         : 'text-secondary before:w-0'
     }`;
+
+  const isVisibleGlassButton =
+    !pathname.includes('phones') &&
+    !pathname.includes('tablets') &&
+    !pathname.includes('accessories') &&
+    !pathname.includes('allProducts');
 
   return (
     <>
@@ -74,6 +82,12 @@ export const Header = () => {
           </ul>
         </nav>
         <PageNotFoundButton />
+
+        {isVisibleGlassButton && (
+          <NavLink to={'/allProducts'}>
+            <GlassIcon />
+          </NavLink>
+        )}
 
         <div className="language-switcher flex gap-2">
           <button
