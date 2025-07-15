@@ -1,21 +1,66 @@
 import { CartItem } from '../components/CartItem';
 import { CheckoutModal } from '../components/CheckoutModal';
 import { useCart } from '../hooks/useCart';
-import type { Product } from '../types/Product';
 import unicornWithBusket from '../images/unicorn/unicornWithBusket.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/language/useLanguage';
 import { cartPageDictionary } from '../i18n/cartPageDictionary';
+import { SortableItem } from '../components/Sortable/SortableItem';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import type { DragEndEvent } from '@dnd-kit/core';
+
+import {
+  SortableContext,
+  arrayMove,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 
 export const CartPage = () => {
   const { cartItems, getTotalPrice, getTotalItems, clearCart } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const { currentLanguage } = useLanguage();
   const translations = cartPageDictionary[currentLanguage];
 
   const totalPrice = getTotalPrice();
   const itemsCount = getTotalItems();
+  //dnd
+  const [items, setItems] = useState<string[]>(
+    cartItems.map(p => p.id.toString()),
+  );
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 100,
+        tolerance: 5,
+      },
+    }),
+  );
+  useEffect(() => {
+    setItems(cartItems.map(p => p.id.toString()));
+  }, [cartItems]);
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = items.indexOf(active.id.toString());
+    const newIndex = items.indexOf(over.id.toString());
+
+    if (oldIndex === -1 || newIndex === -1) return;
+
+    const newOrder = arrayMove(items, oldIndex, newIndex);
+    setItems(newOrder);
+  };
+  //dnd
 
   const handleCheckout = () => {
     setIsModalOpen(true);
@@ -57,15 +102,29 @@ export const CartPage = () => {
     <div className="max-w-7xl mx-auto px-4 py-6">
       <h2 className="text-2xl font-bold mb-6">{translations.title}</h2>
       <div className="flex flex-col desktop:flex-row gap-4 desktop:gap-6">
-        <div className="flex flex-col gap-4">
-          {cartItems.map((product: Product) => (
-            <CartItem
-              key={product.id}
-              product={product}
-            />
-          ))}
-        </div>
-
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={items}
+            strategy={verticalListSortingStrategy}
+          >
+            <div className="flex flex-col gap-4 ">
+              {items.map(id => {
+                const product = cartItems.find(p => p.id.toString() === id);
+                return product ? (
+                  <SortableItem
+                    key={product.id}
+                    id={product.id.toString()}
+                    value={<CartItem product={product} />}
+                  />
+                ) : null;
+              })}
+            </div>
+          </SortableContext>
+        </DndContext>
         <div className="w-full desktop:w-80">
           <div className="bg-white border border-gray-200 p-4 sm:p-6 sticky top-16 desktop:top-20">
             <div className="text-center mb-6">
