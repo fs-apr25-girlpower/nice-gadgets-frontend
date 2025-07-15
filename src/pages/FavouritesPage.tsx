@@ -16,7 +16,9 @@ export const FavouritesPage = () => {
             alt="unicorn"
             className="mx-auto mb-4 w-[300px] h-[300px] transform -translate-x-1/6"
           />
-          <p className="text-secondary text-lg">Ніхто мене не любить</p>
+          <p className="text-secondary dark:text-dark-secondary text-lg">
+            Ніхто мене не любить
+          </p>
         </div>
       </div>
     );

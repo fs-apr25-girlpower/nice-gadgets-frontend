@@ -4,44 +4,88 @@
   color: #313237;
 }
 
+:global(.dark) .color-primary {
+  color: #ffffff;
+}
+
 .color-primary-bg {
   background-color: #313237;
+}
+
+:global(.dark) .color-primary-bg {
+  background-color: #ffffff;
 }
 
 .color-secondary {
   color: #89939a;
 }
 
+:global(.dark) .color-secondary {
+  color: #9ca3af;
+}
+
 .color-secondary-bg {
   background-color: #89939a;
+}
+
+:global(.dark) .color-secondary-bg {
+  background-color: #9ca3af;
 }
 
 .color-icons {
   color: #b4bdc3;
 }
 
+:global(.dark) .color-icons {
+  color: #6b7280;
+}
+
 .color-icons-bg {
   background-color: #b4bdc3;
+}
+
+:global(.dark) .color-icons-bg {
+  background-color: #6b7280;
 }
 
 .color-elements {
   color: #e2e6e9;
 }
 
+:global(.dark) .color-elements {
+  color: #374151;
+}
+
 .color-elements-bg {
   background-color: #e2e6e9;
+}
+
+:global(.dark) .color-elements-bg {
+  background-color: #374151;
 }
 
 .color-hoverAndBG {
   color: #fafbfc;
 }
 
+:global(.dark) .color-hoverAndBG {
+  color: #1f2937;
+}
+
 .color-white {
   color: #ffffff;
 }
 
+:global(.dark) .color-white {
+  color: #000000;
+}
+
 .color-white-bg {
   background-color: #ffffff;
+}
+
+:global(.dark) .color-white-bg {
+  background-color: #000000;
 }
 
 .color-green {

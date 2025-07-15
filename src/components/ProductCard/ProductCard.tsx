@@ -176,11 +176,11 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
         </NavLink>
 
         <div className="py-3 border-b border-elements flex items-center gap-x-2 mb-4">
-          <div className="font-mont text-primary text-price font-bold">
+          <div className="font-mont text-primary dark:text-dark-primary text-price font-bold">
             ${product!.price}
           </div>
           {hasDiscount && (
-            <div className="font-mont text-secondary text-price font-light line-through">
+            <div className="font-mont text-secondary dark:text-dark-secondary text-price font-light line-through">
               ${product!.fullPrice}
             </div>
           )}
@@ -188,22 +188,30 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
 
         <div className="flex-grow space-y-2 mb-4">
           <div className="flex justify-between">
-            <p className="small-text text-secondary">Screen</p>
-            <p className="text-[12px] text-primary font-bold">
+            <p className="small-text text-secondary dark:text-dark-secondary">
+              Screen
+            </p>
+            <p className="text-[12px] text-primary dark:text-dark-primary font-bold">
               {product!.screen}
             </p>
           </div>
 
           <div className="flex justify-between">
-            <p className="small-text text-secondary">Capacity</p>
-            <p className="text-[12px] text-primary font-bold">
+            <p className="small-text text-secondary dark:text-dark-secondary">
+              Capacity
+            </p>
+            <p className="text-[12px] text-primary dark:text-dark-primary font-bold">
               {product!.capacity}
             </p>
           </div>
 
           <div className="flex justify-between">
-            <p className="small-text text-secondary">RAM</p>
-            <p className="text-[12px] text-primary font-bold">{product!.ram}</p>
+            <p className="small-text text-secondary dark:text-dark-secondary">
+              RAM
+            </p>
+            <p className="text-[12px] text-primary dark:text-dark-primary font-bold">
+              {product!.ram}
+            </p>
           </div>
         </div>
 

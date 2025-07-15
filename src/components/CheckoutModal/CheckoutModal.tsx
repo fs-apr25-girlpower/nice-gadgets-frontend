@@ -22,20 +22,20 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   return (
     <div className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-[10001]">
       <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 border-2 border-elements shadow-lg">
-        <h2 className="text-xl font-bold mb-4 text-center text-primary">
+        <h2 className="text-xl font-bold mb-4 text-center text-primary dark:text-dark-primary">
           Checkout
         </h2>
 
         <div className="text-center mb-6">
-          <div className="text-2xl font-bold text-primary mb-2">
+          <div className="text-2xl font-bold text-primary dark:text-dark-primary mb-2">
             ${totalPrice}
           </div>
-          <div className="text-sm text-secondary">
+          <div className="text-sm text-secondary dark:text-dark-secondary">
             Total for {itemsCount} {itemsCount === 1 ? 'item' : 'items'}
           </div>
         </div>
 
-        <p className="text-secondary mb-6 text-center">
+        <p className="text-secondary dark:text-dark-secondary mb-6 text-center">
           Are you ready to proceed with your order?
         </p>
 

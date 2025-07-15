@@ -79,22 +79,22 @@ export const ContactsUsPage = () => {
                     />
                   </a>
                 </div>
-                <p className="text-primary text-sm">
+                <p className="text-primary dark:text-dark-primary text-sm">
                   Vexillologist vape microdosing freegan pork belly deep v
                   direct trade cray single-origin coffee street art. Viral
                   shaman mustache master cleanse, pop-over affogato poutine
                   copper mug marfa fanny pack normcore. Lo-fi pop-up banjo
                   portland, echo park hammock.
                 </p>
-                <div className="text-primary text-base font-medium">
+                <div className="text-primary dark:text-dark-primary text-base font-medium">
                   (415) 823-7934
                 </div>
-                <div className="text-primary text-base font-medium">
+                <div className="text-primary dark:text-dark-primary text-base font-medium">
                   725 Green St
                   <br />
                   San Francisco, California(CA), 94133
                 </div>
-                <div className="text-primary text-base font-medium">
+                <div className="text-primary dark:text-dark-primary text-base font-medium">
                   ouremailaddress@email.com
                 </div>
               </div>

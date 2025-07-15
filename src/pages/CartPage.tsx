@@ -42,7 +42,9 @@ export const CartPage = () => {
             alt="unicorn"
             className="mx-auto mb-4 w-[400px] h-[300px]"
           />
-          <p className="text-secondary text-lg">Your cart is empty</p>
+          <p className="text-secondary dark:text-dark-secondary text-lg">
+            Your cart is empty
+          </p>
         </div>
       </div>
     );

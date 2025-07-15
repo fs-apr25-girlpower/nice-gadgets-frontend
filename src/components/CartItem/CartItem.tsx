@@ -62,7 +62,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
           className="product-name-wrapper flex-1 min-w-0 cursor-pointer mobile:order-3"
           onClick={handleNavigateToProduct}
         >
-          <h3 className="product-name text-default text-primary hover:text-secondary transition-colors mobile:text-lg">
+          <h3 className="product-name text-default text-primary dark:text-dark-primary hover:text-secondary dark:hover:text-dark-secondary transition-colors mobile:text-lg">
             {product.name}
           </h3>
         </div>
@@ -88,7 +88,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
         </div>
 
         <div className="product-price-wrapper text-right">
-          <div className="product-price text-price font-bold text-primary w-16 text-right">
+          <div className="product-price text-price font-bold text-primary dark:text-dark-primary w-16 text-right">
             ${product.price * quantity}
           </div>
         </div>

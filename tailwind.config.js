@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  darkMode: 'class',
   theme: {
     screens: {
       mobile: '320px',
@@ -9,13 +10,20 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#313237',
-        secondary: '#89939a',
-        icons: '#b4bdc3',
-        elements: '#e2e6e9',
-        hover: '#fafbfc',
-        green: '#27ae60',
-        red: '#eb5757',
+        'primary': '#313237',
+        'secondary': '#89939a',
+        'icons': '#b4bdc3',
+        'elements': '#e2e6e9',
+        'hover': '#fafbfc',
+        'green': '#27ae60',
+        'red': '#eb5757',
+        // Dark theme colors
+        'dark-primary': '#ffffff',
+        'dark-secondary': '#9ca3af',
+        'dark-icons': '#6b7280',
+        'dark-elements': '#374151',
+        'dark-hover': '#1f2937',
+        'dark-white': '#000000',
       },
 
       fontFamily: {
