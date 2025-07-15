@@ -11,18 +11,17 @@ import { useState, useEffect } from 'react';
 import type { ProductWithDetails } from '../types/ProductWithDetails';
 import { useProductsWithDetails } from '../context/ProductsWithDetailsContext';
 import type { ColorKey } from '../types/ColorKey';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 export const ProductDetailsPage = () => {
   const allProducts = useProductsWithDetails();
   const { itemId } = useParams<{ itemId: string }>();
   const navigate = useNavigate();
 
-  // Стан для конкретного продукту, який ми знайдемо
   const [product, setProduct] = useState<ProductWithDetails | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false); // Додаємо стан для помилок
+  const [error, setError] = useState(false);
 
-  // Стани для вибору кольору, об'єму та зображення (якщо вони використовуються в дочірніх компонентах)
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedCapacity, setSelectedCapacity] = useState<string>('');
 
@@ -31,6 +30,7 @@ export const ProductDetailsPage = () => {
   const availableColors: ColorKey[] =
     currentProduct?.details?.colorsAvailable || [];
   const availableCapacities = currentProduct?.details?.capacityAvailable || [];
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     if (
@@ -44,6 +44,9 @@ export const ProductDetailsPage = () => {
 
     setLoading(true);
     setError(false);
+
+    setProduct(null);
+    setShowMessage(false);
 
     const foundProduct = allProducts.find(p => p.itemId === itemId);
 
@@ -71,6 +74,8 @@ export const ProductDetailsPage = () => {
 
     if (targetProduct) {
       navigate(`/${targetProduct.category}/${targetProduct.itemId}`);
+    } else {
+      setShowMessage(true);
     }
   };
 
@@ -103,6 +108,8 @@ export const ProductDetailsPage = () => {
 
     if (targetProduct) {
       navigate(`/${targetProduct.category}/${targetProduct.itemId}`);
+    } else {
+      setShowMessage(true);
     }
   };
 
@@ -113,7 +120,6 @@ export const ProductDetailsPage = () => {
     }
   }, [itemId, product]);
 
-  // --- Умовний рендеринг: Loader, Product Not Found ---
   if (loading) {
     return (
       <div className="min-w-[320px] max-w-[1136px] mx-auto flex justify-center items-center h-64">
@@ -122,30 +128,14 @@ export const ProductDetailsPage = () => {
     );
   }
 
-  // Якщо продукт не знайдено або він null після завантаження
-  if (error || !product) {
-    return (
-      <div className="min-w-[320px] max-w-[1136px] mx-auto">
-        <div className="flex flex-col items-center justify-center py-16">
-          <h1 className="text-2xl font-bold text-primary mb-4">
-            Product not found
-          </h1>
-          <p className="text-secondary mb-6">
-            The product you&apos;re looking for doesn&apos;t exist.
-          </p>
-          <button
-            onClick={() => navigate(-1)} // Використовуємо navigate(-1)
-            className="px-6 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-colors"
-          >
-            Go Back
-          </button>
-        </div>
-      </div>
-    );
+  if (error) {
+    return <ErrorMessage text={'Something went wrong!'} />;
   }
 
   const recommendedProducts = allProducts
-    .filter(p => p.itemId !== product.itemId && p.category === product.category)
+    .filter(
+      p => p.itemId !== product?.itemId && p.category === product?.category,
+    )
     .slice(0, 10);
 
   const sliderConfig = {
@@ -153,7 +143,12 @@ export const ProductDetailsPage = () => {
     marginTop: 'mt-16',
   };
 
-  return (
+  return !product || showMessage ? (
+    <ErrorMessage
+      text={'Product was not found'}
+      back={true}
+    />
+  ) : (
     <div className="min-w-[320px] max-w-[1136px] mx-auto">
       <div className="mb-4 tablet:mb-6">
         <Breadcrumbs />

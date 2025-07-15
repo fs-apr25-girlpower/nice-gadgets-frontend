@@ -3,7 +3,7 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { ProductsList } from '../components/ProductsList';
 import { getProducts } from '../api/getProducts';
 import type { Product } from '../types';
-import { NotFoundPage } from './NotFoundPage';
+import { ErrorMessage } from '../components/ErrorMessage';
 import { useLanguage } from '../context/language/useLanguage';
 import { accessoriesPageDictionary } from '../i18n/accessoriesPageDictionary';
 
@@ -38,14 +38,16 @@ export const AccessoriesPage = () => {
 
       <h2 className="mt-6 mb-2 tablet:mt-10">{translations.title}</h2>
 
-      {error && <NotFoundPage />}
+      {error && <ErrorMessage text={'Something went wrong!'} />}
 
-      {hasNotProducts && <p>{translations.empty}</p>}
-
-      <ProductsList
-        products={accessories}
-        isLoading={isLoading}
-      />
+      {hasNotProducts ? (
+        <ErrorMessage text={translations.empty} />
+      ) : (
+        <ProductsList
+          products={accessories}
+          isLoading={isLoading}
+        />
+      )}
     </div>
   );
 };
