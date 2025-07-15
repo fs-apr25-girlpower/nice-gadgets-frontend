@@ -10,7 +10,7 @@ interface HeaderTranslations {
   en: HeaderNames;
 }
 
-export const headerDictionaty: HeaderTranslations = {
+export const headerDictionary: HeaderTranslations = {
   en: {
     main: `Home`,
     phones: `Phones`,

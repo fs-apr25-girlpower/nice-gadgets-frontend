@@ -29,14 +29,27 @@ export function Pagination<T>({
   const endIndex = startIndex + itemsPerPage;
   const currentItems = items.slice(startIndex, endIndex);
   const updatePageAndScroll = (page: number) => {
+    const paginationEl = document.querySelector('.pagination-container');
+    const currentScrollPos = window.pageYOffset;
+    const paginationOffset = paginationEl
+      ? paginationEl.getBoundingClientRect().top + currentScrollPos
+      : 0;
+
     refreshParams({ page: page === 1 ? null : page });
 
     setTimeout(() => {
-      const el = document.querySelector('.pagination-container');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+      const newPaginationOffset = paginationEl
+        ? paginationEl.getBoundingClientRect().top + window.pageYOffset
+        : 0;
+      const scrollDifference = newPaginationOffset - paginationOffset;
+
+      if (Math.abs(scrollDifference) > 10) {
+        window.scrollTo({
+          top: currentScrollPos + scrollDifference,
+          behavior: 'instant',
+        });
       }
-    }, 100);
+    }, 50);
   };
 
   const handlePageClick = (page: number) => {

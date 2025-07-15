@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
 import { PageNotFoundButton } from '../404Button';
 import { useLanguage } from '../../context/language/useLanguage';
-import { headerDictionaty } from '../../i18n/headerDictionary';
+import { headerDictionary } from '../../i18n/headerDictionary';
 import { GlassIcon } from '../../images/icons/GlassIcon';
 //import { useLanguage } from '../../context/language/LanguageContext';
 
@@ -49,7 +49,7 @@ export const Header = () => {
                 className={isActive}
               >
                 {/* home */}
-                {headerDictionaty[currentLanguage].main}
+                {headerDictionary[currentLanguage].main}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -58,7 +58,7 @@ export const Header = () => {
                 className={isActive}
               >
                 {/* phones */}
-                {headerDictionaty[currentLanguage].phones}
+                {headerDictionary[currentLanguage].phones}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -67,7 +67,7 @@ export const Header = () => {
                 className={isActive}
               >
                 {/* tablets */}
-                {headerDictionaty[currentLanguage].tablets}
+                {headerDictionary[currentLanguage].tablets}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -76,7 +76,7 @@ export const Header = () => {
                 className={isActive}
               >
                 {/* accessories */}
-                {headerDictionaty[currentLanguage].accessories}
+                {headerDictionary[currentLanguage].accessories}
               </NavLink>
             </li>
           </ul>
