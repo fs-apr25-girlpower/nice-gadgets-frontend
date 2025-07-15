@@ -1,11 +1,11 @@
-import logo from '../../images/logos/logo.svg';
+import logo from '../../images/logos/NewLogo.svg';
 
 export const Logo = () => {
   return (
     <img
       src={logo}
       alt="logo"
-      className="w-full h-full max-w-20"
+      className="w-full h-full"
     />
   );
 };

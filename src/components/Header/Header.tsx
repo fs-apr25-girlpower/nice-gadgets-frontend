@@ -2,8 +2,17 @@ import { Logo } from '../../images/logos/Logo';
 import { NavLink } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
 import { PageNotFoundButton } from '../404Button';
+import { useLanguage } from '../../context/language/useLanguage';
+import { headerDictionaty } from '../../i18n/headerDictionary';
+//import { useLanguage } from '../../context/language/LanguageContext';
 
 export const Header = () => {
+  const { currentLanguage, setLanguage } = useLanguage(); // Використовуємо хук для доступу до мови та її зміни
+
+  const handleLanguageChange = (lang: 'ua' | 'en') => {
+    setLanguage(lang);
+  };
+
   const headerClass =
     'header flex flex-row sticky top-0 justify-between items-center w-full gap-12 bg-white z-10000 mobile:h-12 desktop:h-16 pl-[18px] border-b border-elements font-bold text-[12px]';
   const navItemClass = 'flex items-center h-full relative hover:text-primary';
@@ -31,7 +40,8 @@ export const Header = () => {
                 to={'/'}
                 className={isActive}
               >
-                home
+                {/* home */}
+                {headerDictionaty[currentLanguage].main}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -39,7 +49,8 @@ export const Header = () => {
                 to={'/phones'}
                 className={isActive}
               >
-                phones
+                {/* phones */}
+                {headerDictionaty[currentLanguage].phones}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -47,7 +58,8 @@ export const Header = () => {
                 to={'/tablets'}
                 className={isActive}
               >
-                tablets
+                {/* tablets */}
+                {headerDictionaty[currentLanguage].tablets}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -55,12 +67,29 @@ export const Header = () => {
                 to={'/accessories'}
                 className={isActive}
               >
-                accessories
+                {/* accessories */}
+                {headerDictionaty[currentLanguage].accessories}
               </NavLink>
             </li>
           </ul>
         </nav>
         <PageNotFoundButton />
+
+        <div className="language-switcher flex gap-2">
+          <button
+            onClick={() => handleLanguageChange('ua')}
+            className={`px-3 py-1 rounded ${currentLanguage === 'ua' ? 'bg-blue-600' : 'bg-gray-600 hover:bg-gray-700'}`}
+          >
+            UA
+          </button>
+          <button
+            onClick={() => handleLanguageChange('en')}
+            className={`px-3 py-1 rounded ${currentLanguage === 'en' ? 'bg-blue-600' : 'bg-gray-600 hover:bg-gray-700'}`}
+          >
+            EN
+          </button>
+        </div>
+
         <CustomerBar />
       </header>
     </>

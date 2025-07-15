@@ -15,21 +15,26 @@ const optionsSortTypes = [
   { label: 'Name', value: 'byName' },
 ];
 
-const getOptionsItemsPerPage = (totalPagesCount: number) => [
+const getOptionsItemsPerPage = () => [
   { label: '4', value: '4' },
   { label: '8', value: '8' },
   { label: '16', value: '16' },
-  { label: 'All', value: String(totalPagesCount) },
+  { label: 'All', value: 'all' },
 ];
 
 type SortTypes = (typeof optionsSortTypes)[number]['value'];
 
 export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
   const { sort, perPage, page, refreshParams } = useQueryParams('phones');
-  const sortTypeSelected = sort as SortTypes;
-  const itemsToShow = String(perPage);
-  const optionsItemsPerPage = getOptionsItemsPerPage(products.length);
-
+  const validatedSortValues = optionsSortTypes.map(opt => opt.value);
+  const sortTypeSelected =
+    typeof sort === 'string' && validatedSortValues.includes(sort)
+      ? (sort as SortTypes)
+      : 'byDate';
+  const itemsToShow = perPage === null ? 'all' : String(perPage);
+  const optionsItemsPerPage = getOptionsItemsPerPage();
+  const pageNumber = page !== null ? parseInt(page, 10) : 1;
+  const perPageNumber = perPage !== null ? parseInt(perPage, 10) : 8;
   const toSortProducts = (
     products: Product[],
     sortBy: SortTypes,
@@ -60,7 +65,7 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
   };
 
   const handleItemsPerPageChange = (newValue: string) => {
-    if (parseInt(newValue) === products.length) {
+    if (newValue === 'all') {
       refreshParams({ perPage: null, page: null });
     } else {
       refreshParams({ perPage: newValue, page: 1 });
@@ -96,13 +101,22 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
             />
           ))}
         </div>
+      ) : perPage === null ? (
+        <div className="grid gap-4 mobile:grid-cols-[repeat(auto-fill,_minmax(230px,288px))] mobile:justify-center tablet:grid-cols-[repeat(auto-fill,_minmax(230px,1fr))] mt-6 mb-6 tablet:mb-10">
+          {sortedProducts.map(product => (
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
+          ))}
+        </div>
       ) : (
         <Pagination
           isLoading={false}
           refreshParams={refreshParams}
           items={sortedProducts}
-          itemsPerPage={+itemsToShow}
-          currentPage={page}
+          itemsPerPage={perPageNumber}
+          currentPage={pageNumber}
           onPageChange={newPage => refreshParams({ page: newPage })}
           renderItem={(product: Product) => <ProductCard product={product} />}
         />

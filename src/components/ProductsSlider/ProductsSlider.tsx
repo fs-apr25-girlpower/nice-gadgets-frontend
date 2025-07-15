@@ -33,8 +33,6 @@ export const ProductSlider = ({
 
   useEffect(() => {
     if (swiperRef.current && prevRef.current && nextRef.current) {
-      // swiperRef.current.el.style.overflow = 'visible';
-
       const navigationParams = swiperRef.current.params.navigation;
 
       if (navigationParams && typeof navigationParams !== 'boolean') {
@@ -93,13 +91,13 @@ export const ProductSlider = ({
             setIsBeginning(swiper.isBeginning);
             setIsEnd(swiper.isEnd);
           }}
-          spaceBetween={16}
+          spaceBetween={0}
           slidesPerView="auto"
         >
           {products.map(product => (
             <SwiperSlide
               key={product.id}
-              className="max-w-53 tablet:max-w-60 desktop:max-w-68"
+              className="max-w-53 tablet:max-w-60 desktop:max-w-68 py-5 px-3"
             >
               <ProductCard product={product} />
             </SwiperSlide>

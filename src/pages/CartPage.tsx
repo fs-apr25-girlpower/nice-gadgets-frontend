@@ -1,13 +1,36 @@
 import { CartItem } from '../components/CartItem';
+import { CheckoutModal } from '../components/CheckoutModal';
 import { useCart } from '../hooks/useCart';
 import type { Product } from '../types/Product';
 import unicornWithBusket from '../images/unicorn/unicornWithBusket.png';
+import { useState } from 'react';
 
 export const CartPage = () => {
-  const { cartItems, getTotalPrice, getTotalItems } = useCart();
+  const { cartItems, getTotalPrice, getTotalItems, clearCart } = useCart();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const totalPrice = getTotalPrice();
   const itemsCount = getTotalItems();
+
+  const handleCheckout = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleConfirmOrder = () => {
+    // Тут можна додати логіку для обробки замовлення
+    alert('Order confirmed! Thank you for your purchase!');
+    clearCart();
+    setIsModalOpen(false);
+  };
+
+  const handleClearCart = () => {
+    clearCart();
+    setIsModalOpen(false);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -39,7 +62,7 @@ export const CartPage = () => {
         </div>
 
         <div className="w-full desktop:w-80">
-          <div className="bg-white border border-gray-200 p-4 sm:p-6 sticky top-4">
+          <div className="bg-white border border-gray-200 p-4 sm:p-6 sticky top-16 desktop:top-20">
             <div className="text-center mb-6">
               <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                 ${totalPrice}
@@ -49,12 +72,24 @@ export const CartPage = () => {
               </div>
             </div>
 
-            <button className="w-full bg-gray-900 text-white py-3 px-6 rounded hover:bg-gray-800 transition-colors font-medium text-sm sm:text-base cursor-pointer">
+            <button
+              onClick={handleCheckout}
+              className="w-full bg-gray-900 text-white py-3 px-6 rounded hover:bg-gray-800 transition-colors font-medium text-sm sm:text-base cursor-pointer"
+            >
               Checkout
             </button>
           </div>
         </div>
       </div>
+
+      <CheckoutModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmOrder}
+        onClearCart={handleClearCart}
+        totalPrice={totalPrice}
+        itemsCount={itemsCount}
+      />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import './UnicornAssistant.css';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import unicornImage from '../../images/unicorn/unicorn-assistant-2.png';
+import { useLanguage } from '../../context/language/useLanguage';
 
 interface UnicornAssistantProps {
   messages: {
@@ -10,24 +11,24 @@ interface UnicornAssistantProps {
     ua: string[];
   };
   interval?: number;
-  currentLanguage: 'ua' | 'en'; //прибрати потім, коли буде перемикання через контекст
+  //currentLanguage: 'ua' | 'en'; прибрати потім, коли буде перемикання через контекст
 }
 
 export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
   messages,
   interval = 5000,
-  currentLanguage,
+  //currentLanguage,
 }) => {
+  const { currentLanguage } = useLanguage();
+
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
 
-  //стани для перетягування
+  // drag and drop states
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ bottom: 20, right: 20 });
-  const offset = useRef({ x: 0, y: 0 }); // Для зберігання зсуву миші відносно елемента
-  const assistantRef = useRef<HTMLDivElement>(null); // Референс на сам елемент-контейнер
+  const offset = useRef({ x: 0, y: 0 }); // to store the mouse offset relative to an element
+  const assistantRef = useRef<HTMLDivElement>(null); // a reference to the container element itself
 
-  // Вибираємо правильний масив повідомлень на основі поточної мови
-  // Використовуємо фоллбек на англійську, якщо для поточної мови немає перекладів
   const currentLanguageMessages = messages[currentLanguage] || messages.en;
 
   useEffect(() => {
@@ -44,49 +45,42 @@ export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
     return () => clearInterval(timer);
   }, [currentLanguageMessages, interval]);
 
-  // --- Нова логіка для перетягування ---
-
-  // Обробник початку перетягування (натискання кнопки миші)
   const onMouseDown = useCallback((event: React.MouseEvent) => {
     if (assistantRef.current) {
       setIsDragging(true);
 
-      // Визначаємо зсув між курсором миші та верхнім лівим кутом елемента
       const rect = assistantRef.current.getBoundingClientRect();
       offset.current = {
         x: event.clientX - rect.left,
         y: event.clientY - rect.top,
       };
 
-      // Змінюємо z-index, щоб перетягуваний елемент був над іншими
       assistantRef.current.style.zIndex = '1001';
-      assistantRef.current.style.cursor = 'grabbing'; // Змінюємо курсор
+      assistantRef.current.style.cursor = 'grabbing';
     }
   }, []);
 
-  // Обробник переміщення миші (під час перетягування)
+  // mouse movement handler (drag and drop)
   const onMouseMove = useCallback(
     (event: MouseEvent) => {
       if (!isDragging || !assistantRef.current) return;
 
-      // Отримуємо розміри вікна
+      // get the window dimensions
       const clientWidth = document.documentElement.clientWidth;
       const clientHeight = document.documentElement.clientHeight;
 
-      // Отримуємо розміри елемента
+      // get the dimensions of the element
       const rect = assistantRef.current.getBoundingClientRect();
       const elementWidth = rect.width;
       const elementHeight = rect.height;
 
-      // Обчислюємо нові top/left позиції
       let newLeft = event.clientX - offset.current.x;
       let newTop = event.clientY - offset.current.y;
 
-      // Обмежуємо позицію, щоб елемент не виходив за межі екрану
+      // constrain the position so that the element does not go beyond the screen
       newLeft = Math.max(0, Math.min(newLeft, clientWidth - elementWidth));
       newTop = Math.max(0, Math.min(newTop, clientHeight - elementHeight));
 
-      // Перераховуємо в bottom/right, якщо елемент позиціонований відносно них
       const newRight = clientWidth - (newLeft + elementWidth);
       const newBottom = clientHeight - (newTop + elementHeight);
 
@@ -98,16 +92,16 @@ export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
     [isDragging],
   );
 
-  // Обробник закінчення перетягування (відпускання кнопки миші)
+  // drag end handler (mouse button release)
   const onMouseUp = useCallback(() => {
     setIsDragging(false);
     if (assistantRef.current) {
-      assistantRef.current.style.zIndex = '1000'; // Повертаємо звичайний z-index
-      assistantRef.current.style.cursor = 'grab'; // Повертаємо курсор
+      assistantRef.current.style.zIndex = '1000'; // return normal z-index
+      assistantRef.current.style.cursor = 'grab'; // return cursor
     }
   }, []);
 
-  // Додаємо/видаляємо глобальні слухачі подій миші
+  // add/remove global mouse event listeners
   useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', onMouseMove);
@@ -129,25 +123,32 @@ export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
 
   return (
     <div
-      ref={assistantRef} // Прив'язуємо референс до контейнера
-      className="unicorn-assistant"
-      // Динамічно встановлюємо стилі позиції
+      ref={assistantRef}
+      className="unicorn-assistant fixed flex flex-col items-end z-[1000]
+        pointer-events-auto touch-action-none
+        select-none will-change-[bottom,right] transition-none"
       style={{
         bottom: position.bottom,
         right: position.right,
-        cursor: isDragging ? 'grabbing' : 'grab', // Змінюємо курсор
+        cursor: isDragging ? 'grabbing' : 'grab',
       }}
-      onMouseDown={onMouseDown} // Обробник початку перетягування
+      onMouseDown={onMouseDown}
     >
-      <div className="message-bubble">
-        <p className="message-text">
+      <div
+        className="message-bubble bg-white border border-gray-200 rounded-bl-xl rounded-t-xl rounded-br-lg
+          p-3 px-4 shadow-lg max-w-[250px] text-right
+          mr-5 -mb-2.5 relative
+          font-sans
+          pointer-events-none animate-jump"
+      >
+        <p className="message-text text-sm text-gray-700 leading-normal">
           {currentLanguageMessages[currentMessageIndex]}
         </p>
       </div>
       <img
         src={unicornImage}
         alt="Friendly Unicorn Assistant"
-        className="unicorn-image"
+        className="unicorn-image w-30 h-auto mb-2.5 pointer-events-none animate-jump origin-bottom"
         draggable="false"
       />
     </div>

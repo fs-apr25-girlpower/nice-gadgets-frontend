@@ -17,5 +17,5 @@ export const unicornMessages: UnicornTranslations = {
     `Check out our catalog!`,
     `Find your dream!`,
     `We're here to help!`,
-  ],
+  ], //second
 };
