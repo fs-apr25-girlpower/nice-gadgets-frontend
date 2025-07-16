@@ -19,7 +19,7 @@ export const ShopByCategory = () => {
   return (
     <section className="mt-14 tablet:mt-16 desktop:mt-20">
       <div className="flex flex-col">
-        <h2 className="h2 color-primary mb-5 self-start">
+        <h2 className="h2 text-primary dark:text-dark-primary mb-5 self-start">
           {translations.title}
         </h2>
 
@@ -36,14 +36,14 @@ export const ShopByCategory = () => {
               />
             </div>
 
-            <h4 className="color-primary mb-1">
+            <h4 className="text-primary dark:text-dark-primary mb-1">
               <span className="relative inline-block group">
                 <span className="relative z-10">{translations.phones}</span>
                 <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
               </span>
             </h4>
 
-            <p className="color-secondary mb-6">
+            <p className="text-secondary dark:text-dark-secondary mb-6">
               {phonesLength} {translations.models}
             </p>
           </NavLink>
@@ -60,14 +60,14 @@ export const ShopByCategory = () => {
               />
             </div>
 
-            <h4 className="color-primary mb-1">
+            <h4 className="text-primary dark:text-dark-primary mb-1">
               <span className="relative inline-block group">
                 <span className="relative z-10">{translations.tablets}</span>
                 <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
               </span>
             </h4>
 
-            <p className="color-secondary mb-6">
+            <p className="text-secondary dark:text-dark-secondary mb-6">
               {tabletsLength} {translations.models}
             </p>
           </NavLink>
@@ -84,7 +84,7 @@ export const ShopByCategory = () => {
               />
             </div>
 
-            <h4 className="color-primary mb-1">
+            <h4 className="text-primary dark:text-dark-primary mb-1">
               <span className="relative inline-block group">
                 <span className="relative z-10">
                   {translations.accessories}
@@ -93,7 +93,7 @@ export const ShopByCategory = () => {
               </span>
             </h4>
 
-            <p className="color-secondary">
+            <p className="text-secondary dark:text-dark-secondary">
               {accessoriesLength} {translations.models}
             </p>
           </NavLink>

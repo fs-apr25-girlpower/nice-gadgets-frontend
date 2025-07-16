@@ -8,6 +8,7 @@ import { ProductsWithDetailsContext } from '../../context/ProductsWithDetailsCon
 import { useLoading } from '../../hooks/useLoading';
 import { Loader } from '../Loader';
 import { LanguageProvider } from '../../context/language/LanguageProvider';
+import { ThemeProvider } from 'next-themes';
 //import { LanguageProvider } from '../../context/language/LanguageContext';
 
 interface ProvidersProps {
@@ -29,20 +30,27 @@ export const Providers = ({ children }: ProvidersProps) => {
   }
 
   return (
-    <LanguageProvider>
-      <CartProvider>
-        <ProductsWithDetailsContext.Provider value={productsWithDetails}>
-          <ProductsContext.Provider value={products}>
-            <PhonesContext.Provider value={phones}>
-              <TabletsContext.Provider value={tablets}>
-                <AccessoriesContext.Provider value={accessories}>
-                  {children}
-                </AccessoriesContext.Provider>
-              </TabletsContext.Provider>
-            </PhonesContext.Provider>
-          </ProductsContext.Provider>
-        </ProductsWithDetailsContext.Provider>
-      </CartProvider>
-    </LanguageProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="light"
+      themes={['light', 'dark']}
+      enableSystem={false}
+    >
+      <LanguageProvider>
+        <CartProvider>
+          <ProductsWithDetailsContext.Provider value={productsWithDetails}>
+            <ProductsContext.Provider value={products}>
+              <PhonesContext.Provider value={phones}>
+                <TabletsContext.Provider value={tablets}>
+                  <AccessoriesContext.Provider value={accessories}>
+                    {children}
+                  </AccessoriesContext.Provider>
+                </TabletsContext.Provider>
+              </PhonesContext.Provider>
+            </ProductsContext.Provider>
+          </ProductsWithDetailsContext.Provider>
+        </CartProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 };

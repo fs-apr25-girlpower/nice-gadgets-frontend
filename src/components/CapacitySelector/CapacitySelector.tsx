@@ -27,7 +27,7 @@ export const CapacitySelector = ({
               'transition-colors',
               isSelected
                 ? 'bg-primary text-white border-primary'
-                : 'bg-white text-primary border-elements hover:border-secondary',
+                : 'bg-white text-primary dark:text-dark-primary border-elements hover:border-secondary',
             )}
           >
             <input

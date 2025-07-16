@@ -87,7 +87,7 @@ export const Breadcrumbs = () => {
             // Home icon
             <Link
               to="/"
-              className="text-secondary hover:text-primary transition-colors"
+              className="text-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-dark-primary transition-colors"
             >
               <HomeIcon />
             </Link>
@@ -99,7 +99,7 @@ export const Breadcrumbs = () => {
                 viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 text-secondary mx-2"
+                className="w-4 h-4 text-secondary dark:text-dark-secondary mx-2"
               >
                 <path
                   d="M6 12L10 8L6 4"
@@ -113,12 +113,12 @@ export const Breadcrumbs = () => {
               {breadcrumb.path ? (
                 <Link
                   to={breadcrumb.path}
-                  className="text-secondary hover:text-primary transition-colors text-small"
+                  className="text-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-dark-primary transition-colors"
                 >
                   {breadcrumb.label}
                 </Link>
               ) : (
-                <span className="text-secondary text-small">
+                <span className="text-secondary dark:text-dark-secondary">
                   {breadcrumb.label}
                 </span>
               )}

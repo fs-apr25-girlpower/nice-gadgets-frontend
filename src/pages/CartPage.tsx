@@ -126,12 +126,12 @@ export const CartPage = () => {
           </SortableContext>
         </DndContext>
         <div className="w-full desktop:w-80">
-          <div className="bg-white border border-gray-200 p-4 sm:p-6 sticky top-16 desktop:top-20">
+          <div className="bg-card-background dark:bg-dark-card-background border border-card-border dark:border-dark-elements p-4 sm:p-6 sticky top-16 desktop:top-20">
             <div className="text-center mb-6">
-              <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+              <div className="text-2xl sm:text-3xl font-bold text-primary dark:text-dark-primary mb-2">
                 ${totalPrice}
               </div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-secondary dark:text-dark-secondary">
                 {translations.totalLabel(itemsCount)}
               </div>
             </div>
