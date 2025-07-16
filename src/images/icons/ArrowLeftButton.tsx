@@ -8,18 +8,21 @@ export const ArrowLeftButton = ({ isDisabled }: ArrowLeftButtonProps) => (
     width={32}
     height={32}
     fill="none"
-    className={isDisabled ? 'stroke-[#B4BDC4]' : ''}
   >
     <path
       className={
         isDisabled
-          ? 'stroke-[#B4BDC4]'
-          : 'group-hover:stroke-[#313237] stroke-[#B4BDC4]'
+          ? 'stroke-arrow-border-disabled dark:stroke-dark-arrow-border-disabled'
+          : 'group-hover:stroke-secondary dark:group-hover:stroke-purple stroke-arrow-border-active dark:stroke-dark-arrow-border-active'
       }
       d="M.5.5h31v31H.5z"
     />
     <path
-      fill="#313237"
+      className={
+        isDisabled
+          ? 'fill-arrow-disabled dark:fill-dark-arrow-disabled'
+          : 'fill-arrow-active dark:fill-dark-arrow-active'
+      }
       fillRule="evenodd"
       d="M18.471 11.529a.667.667 0 0 0-.943 0l-4 4a.667.667 0 0 0 0 .942l4 4a.667.667 0 1 0 .943-.942L14.943 16l3.528-3.529a.667.667 0 0 0 0-.942Z"
       clipRule="evenodd"

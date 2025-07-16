@@ -157,7 +157,7 @@ export const ProductDetailsPage = () => {
       <div className="mb-6 tablet:mb-8">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-dark-primary transition-colors"
+          className="flex items-center gap-2 text-primary dark:text-dark-primary hover:text-secondary dark:hover:text-purple transition-colors"
         >
           <span className="text-base tablet:text-lg">←</span>
           <span className="text-xs tablet:text-sm font-semibold">Back</span>
