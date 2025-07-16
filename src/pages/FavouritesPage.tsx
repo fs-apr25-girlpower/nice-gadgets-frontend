@@ -4,6 +4,7 @@ import { ProductCard } from '../components/ProductCard';
 import unicornImage from '../images/unicorn/unicorn.png';
 import { useLanguage } from '../context/language/useLanguage';
 import { favouritesPageDictionary } from '../i18n/favouritesPageDictionary';
+import { Breadcrumbs } from '../components/Breadcrumbs';
 
 export const FavouritesPage = () => {
   const { favorites } = useCart();
@@ -13,7 +14,10 @@ export const FavouritesPage = () => {
   if (favorites.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <h2 className="text-2xl font-bold mb-6">{translations.title}</h2>
+        <Breadcrumbs />
+        <h2 className="text-2xl font-bold mb-2 mt-6 tablet:mt-10">
+          {translations.title}
+        </h2>
         <div className="text-center py-12">
           <img
             src={unicornImage}
@@ -28,7 +32,11 @@ export const FavouritesPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
+      <Breadcrumbs />
       <h2 className="text-2xl font-bold mb-6">{translations.title}</h2>
+      <p className="text-secondary body-text mt-2 mb-8 tablet:mb-10">
+        {favorites.length} items
+      </p>
       <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(230px,272px))] mobile:justify-center mx-auto mt-6 mb-6 tablet:mb-10">
         {favorites.map((product: Product) => (
           <ProductCard

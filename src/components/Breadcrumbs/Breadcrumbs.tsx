@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { HomeIcon } from '../../images/icons/HomeIcon';
 
 interface BreadcrumbItem {
@@ -8,14 +8,14 @@ interface BreadcrumbItem {
 
 export const Breadcrumbs = () => {
   const location = useLocation();
-  const { itemId } = useParams();
-
-  if (!itemId) return;
+  const itemId = location.pathname.split('/')[2];
 
   const nameProduct = itemId
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
+    ? itemId
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ')
+    : undefined;
 
   const getPathSegments = () => {
     const pathnames = location.pathname.split('/').filter(x => x);
@@ -55,7 +55,7 @@ export const Breadcrumbs = () => {
         pathnames[index - 1] === 'tablets' ||
         pathnames[index - 1] === 'accessories'
       ) {
-        label = nameProduct;
+        label = nameProduct ?? label;
       }
 
       segments.push({
@@ -75,7 +75,7 @@ export const Breadcrumbs = () => {
 
   return (
     <nav
-      className="flex items-center text-small"
+      className="flex items-center text-small my-6"
       aria-label="Breadcrumb"
     >
       {breadcrumbs.map((breadcrumb, index) => (

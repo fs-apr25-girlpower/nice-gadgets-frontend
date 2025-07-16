@@ -28,7 +28,7 @@ export const productsListDictionary: ProductsListDictionary = {
     sortNewest: 'Нові',
     sortPrice: 'Ціна',
     sortName: 'Назва',
-    itemsOnPageLabel: 'Елементів на сторінці',
+    itemsOnPageLabel: 'На сторінці',
     allItemsLabel: 'Всі',
     modelsCount: count => `${count} моделей`,
   },
