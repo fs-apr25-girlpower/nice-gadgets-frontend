@@ -41,7 +41,7 @@ export const Footer = () => {
             <li>
               <a
                 href="https://github.com/fs-apr25-girlpower/nice-gadgets-frontend"
-                className="hover:text-black"
+                className="hover:text-primary dark:hover:text-purple"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -51,7 +51,7 @@ export const Footer = () => {
             <li>
               <NavLink
                 to="contacts"
-                className="hover:text-black"
+                className="hover:text-primary dark:hover:text-purple"
               >
                 {/* Contacts */}
                 {footerDictionaty[currentLanguage].contacts}
@@ -60,7 +60,7 @@ export const Footer = () => {
             <li>
               <NavLink
                 to="rights"
-                className="hover:text-black"
+                className="hover:text-primary dark:hover:text-purple"
               >
                 {/* Rights */}
                 {footerDictionaty[currentLanguage].rights}

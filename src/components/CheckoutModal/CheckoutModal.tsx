@@ -61,7 +61,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
           <button
             onClick={onClose}
-            className="w-full bg-elements dark:bg-dark-elements text-primary dark:text-dark-primary py-3 px-6 rounded hover:bg-hover dark:hover:bg-dark-hover transition-colors"
+            className="w-full bg-primary dark:bg-dark-button-purple text-white py-3 px-6 rounded hover:bg-secondary dark:hover:bg-dark-button-purple-hover transition-colors"
           >
             {translations.cancel}
           </button>

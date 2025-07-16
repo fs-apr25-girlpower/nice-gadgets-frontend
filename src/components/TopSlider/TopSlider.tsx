@@ -17,14 +17,14 @@ export const TopSlider = () => {
     <div className="w-full flex items-center justify-center px-0 sm:px-[10px] mb-[28px]">
       <div className="relative aspect-square sm:aspect-[2/1] w-full min-w-[320px] max-w-[1040px] min-h-[320px] max-h-[432px] mx-0 sm:mx-[60px]">
         <button
-          className="swiper-button-prev-custom absolute -left-15 top-1/2 -translate-y-1/2 h-full max-h-[432px] w-[32px] items-center justify-center bg-white/90 dark:bg-gray-800/90 hover:bg-hover dark:hover:bg-dark-hover transition z-10 text-3xl border-1 border-elements dark:border-dark-elements hidden sm:flex cursor-pointer text-primary dark:text-dark-primary"
+          className="swiper-button-prev-custom absolute -left-15 top-1/2 -translate-y-1/2 h-full max-h-[432px] w-[32px] items-center justify-center border border-arrow-border-active dark:border-dark-arrow-border-active hover:border-primary dark:hover:border-purple transition z-10 text-3xl hidden sm:flex cursor-pointer text-arrow-active dark:text-dark-arrow-active"
           disabled={isLoading}
         >
           {isLoading ? <Skeleton height="100%" /> : '‹'}
         </button>
 
         <button
-          className="swiper-button-next-custom absolute -right-15 top-1/2 -translate-y-1/2 h-full max-h-[432px] w-[32px] items-center justify-center bg-white/90 dark:bg-gray-800/90 hover:bg-hover dark:hover:bg-dark-hover transition z-10 text-3xl border-1 border-elements dark:border-dark-elements hidden sm:flex cursor-pointer text-primary dark:text-dark-primary"
+          className="swiper-button-next-custom absolute -right-15 top-1/2 -translate-y-1/2 h-full max-h-[432px] w-[32px] items-center justify-center border border-arrow-border-active dark:border-dark-arrow-border-active hover:border-primary dark:hover:border-purple transition z-10 text-3xl hidden sm:flex cursor-pointer text-arrow-active dark:text-dark-arrow-active"
           disabled={isLoading}
         >
           {isLoading ? <Skeleton height="100%" /> : '›'}

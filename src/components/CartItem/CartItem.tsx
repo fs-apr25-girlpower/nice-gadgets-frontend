@@ -41,7 +41,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
     >
       <div className="cart-item-header w-full flex items-center gap-4 tablet:gap-6 desktop:gap-8">
         <button
-          className="remove-button w-8 h-8 flex items-center justify-center text-elements dark:text-dark-elements hover:text-red-500 transition-colors text-xl font-bold cursor-pointer mobile:order-1"
+          className="remove-button w-8 h-8 flex items-center justify-center border border-transparent text-elements dark:text-dark-elements hover:text-error-red dark:hover:text-error-red transition-colors text-xl font-bold cursor-pointer mobile:order-1 bg-transparent rounded-none"
           onClick={handleRemove}
         >
           ×
@@ -72,7 +72,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
         <div className="quantity-controls flex items-center gap-2">
           <button
             onClick={handleDecrease}
-            className="quantity-button-decrease w-8 h-8 flex items-center justify-center border border-elements dark:border-dark-elements rounded hover:bg-elements dark:hover:bg-dark-elements cursor-pointer text-primary dark:text-dark-primary"
+            className="w-8 h-8 flex items-center justify-center border border-elements dark:border-dark-elements hover:border-primary dark:hover:border-purple cursor-pointer text-primary dark:text-dark-primary transition-colors bg-transparent p-0 rounded-none"
           >
             −
           </button>
@@ -81,7 +81,7 @@ export const CartItem: React.FC<Props> = ({ product }) => {
           </span>
           <button
             onClick={handleIncrease}
-            className="quantity-button-increase w-8 h-8 flex items-center justify-center border border-elements dark:border-dark-elements rounded hover:bg-elements dark:hover:bg-dark-elements cursor-pointer text-primary dark:text-dark-primary"
+            className="w-8 h-8 flex items-center justify-center border border-elements dark:border-dark-elements hover:border-primary dark:hover:border-purple cursor-pointer text-primary dark:text-dark-primary transition-colors bg-transparent p-0 rounded-none"
           >
             +
           </button>
