@@ -5,6 +5,8 @@ import { useLanguage } from '../../context/language/useLanguage';
 import { headerDictionary } from '../../i18n/headerDictionary';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
 import { GlassIcon } from '../../images/icons/GlassIcon';
+import * as Switch from '@radix-ui/react-switch';
+import clsx from 'clsx';
 //import { useLanguage } from '../../context/language/LanguageContext';
 
 export const Header = () => {
@@ -90,19 +92,35 @@ export const Header = () => {
         )}
 
         <div className="flex items-center gap-4">
-          <div className="language-switcher flex gap-2">
-            <button
-              onClick={() => handleLanguageChange('ua')}
-              className={`px-3 py-1 rounded text-white ${currentLanguage === 'ua' ? 'bg-button-active dark:bg-dark-button-active' : 'bg-button-inactive dark:bg-dark-button-inactive hover:bg-button-hover dark:hover:bg-dark-button-hover'}`}
-            >
-              UA
-            </button>
-            <button
-              onClick={() => handleLanguageChange('en')}
-              className={`px-3 py-1 rounded text-white ${currentLanguage === 'en' ? 'bg-button-active dark:bg-dark-button-active' : 'bg-button-inactive dark:bg-dark-button-inactive hover:bg-button-hover dark:hover:bg-dark-button-hover'}`}
+          {/* переключатель мови */}
+          <div className="flex items-center gap-2">
+            <span
+              className={clsx(
+                'text-sm font-bold',
+                currentLanguage === 'en' ? 'text-primary' : 'text-secondary',
+              )}
             >
               EN
-            </button>
+            </span>
+
+            <Switch.Root
+              checked={currentLanguage === 'ua'}
+              onCheckedChange={() =>
+                handleLanguageChange(currentLanguage === 'en' ? 'ua' : 'en')
+              }
+              className="w-12 h-6 bg-secondary rounded-full relative data-[state=checked]:bg-secondary transition-colors cursor-pointer"
+            >
+              <Switch.Thumb className="block w-5 h-5 bg-white rounded-full shadow-md transition-transform translate-x-1 data-[state=checked]:translate-x-6" />
+            </Switch.Root>
+
+            <span
+              className={clsx(
+                'text-sm font-bold',
+                currentLanguage === 'ua' ? 'text-primary' : 'text-secondary',
+              )}
+            >
+              UA
+            </span>
           </div>
 
           <ThemeSwitcher />
