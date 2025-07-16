@@ -17,10 +17,12 @@ interface UseLoadingReturn {
   tablets: Tablet[];
   accessories: Accessory[];
   productsWithDetails: ProductWithDetails[];
+  error: boolean;
 }
 
 export const useLoading = (): UseLoadingReturn => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [phones, setPhones] = useState<Phone[]>([]);
   const [tablets, setTablets] = useState<Tablet[]>([]);
@@ -54,6 +56,7 @@ export const useLoading = (): UseLoadingReturn => {
         setTablets(tabletsData);
         setAccessories(accessoriesData);
       } catch (error) {
+        setError(true);
         console.error('Error loading data:', error);
       } finally {
         setIsLoading(false);
@@ -70,5 +73,6 @@ export const useLoading = (): UseLoadingReturn => {
     tablets,
     accessories,
     productsWithDetails,
+    error,
   };
 };

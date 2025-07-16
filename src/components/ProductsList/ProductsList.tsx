@@ -11,13 +11,16 @@ import { useLocation } from 'react-router-dom';
 import { Xmark } from '../../images/icons/XmarkIcon';
 import { ErrorMessage } from '../ErrorMessage';
 import { getVisibleProducts } from '../../utils/getVisibleProducts';
+import { useLoading } from '../../hooks/useLoading';
+import { ErrorMessageEnum } from '../../types/ErrorMessage';
 
 export type ProductsListProps = {
   products: Product[];
-  isLoading: boolean;
 };
 
-export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
+export const ProductsList = ({ products }: ProductsListProps) => {
+  const { isLoading, error } = useLoading();
+
   const { currentLanguage } = useLanguage();
   const translations = productsListDictionary[currentLanguage];
 
@@ -81,7 +84,6 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
     }
   };
 
-  // const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
 
@@ -89,8 +91,6 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedQuery: string = event.target.value.trimStart();
-
-    // setQuery(trimmedQuery);
     refreshParams({ search: trimmedQuery });
   };
 
@@ -155,8 +155,21 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
         </form>
       </div>
 
-      {visibleProducts.length === 0 && !isLoading && (
-        <ErrorMessage text={'There are no products matching the query'} />
+      {error && (
+        <ErrorMessage
+          text={ErrorMessageEnum.SomethingWentWrong}
+          path={true}
+        />
+      )}
+
+      {products.length === 0 && !error && (
+        <ErrorMessage text={ErrorMessageEnum.NoPhonesYet} />
+      )}
+
+      {visibleProducts.length === 0 && !error && (
+        <ErrorMessage
+          text={ErrorMessageEnum.ThereAreNoProductsMatchingTheQuery}
+        />
       )}
 
       {isLoading ? (
