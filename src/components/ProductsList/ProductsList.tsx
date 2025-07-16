@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import type { Product } from '../../types';
 import { useQueryParams } from '../../utils/useQueryParams';
 import { DropDown } from '../DropDown';
@@ -34,7 +34,8 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
     { label: translations.allItemsLabel, value: 'all' },
   ];
 
-  const { sort, perPage, page, refreshParams } = useQueryParams('phones');
+  const { sort, perPage, page, search, refreshParams } =
+    useQueryParams('phones');
   const validatedSortValues = optionsSortTypes.map(opt => opt.value);
   const sortTypeSelected =
     typeof sort === 'string' && validatedSortValues.includes(sort)
@@ -80,30 +81,30 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
     }
   };
 
-  const [query, setQuery] = useState('');
+  // const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const { pathname, search } = useLocation();
+  const location = useLocation();
 
-  const visibleProducts = getVisibleProducts(query, sortedProducts);
+  const visibleProducts = getVisibleProducts(search, sortedProducts);
 
   const handleQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedQuery: string = event.target.value.trimStart();
 
-    setQuery(trimmedQuery);
     refreshParams({ search: trimmedQuery });
   };
 
   useEffect(() => {
-    if (pathname.includes('allProducts') && inputRef.current) {
+    if (location.pathname.includes('allProducts') && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [pathname]);
+  }, [location.pathname]);
 
+  // видаляємо searchParams, коли юзер видалив свій запит без кнопки
   useEffect(() => {
-    if (!query && search.includes('search')) {
+    if (!search && location.search.includes('search')) {
       refreshParams({ search: null });
     }
-  }, [query, refreshParams, search]);
+  }, [location.search, refreshParams, search]);
 
   return (
     <>
@@ -132,7 +133,7 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
               type="text"
               className="w-full pl-10 pr-8 py-2 border border-[#B4BDC3] rounded focus:outline-none focus:border-black"
               placeholder="Search..."
-              value={query}
+              value={search}
               onChange={handleQuery}
               ref={inputRef}
             />
@@ -141,10 +142,10 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
               <GlassIcon />
             </span>
 
-            {query && (
+            {search && (
               <button
                 type="button"
-                onClick={() => setQuery(' ')}
+                onClick={() => refreshParams({ search: null })}
                 className="absolute inset-y-0 right-2 flex items-center text-gray-300 hover:text-gray-600"
               >
                 <Xmark />
