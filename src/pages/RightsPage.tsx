@@ -7,9 +7,9 @@ export const RightsPage = () => {
   const translations = rightsPageDictionary[currentLanguage];
 
   return (
-    <>
+    <div className="m-auto text-default text-center text-black tracking-wide leading-relaxed">
       <div className="m-10">{translations.content}</div>
       <TeamMembers />
-    </>
+    </div>
   );
 };
