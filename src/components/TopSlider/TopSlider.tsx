@@ -17,14 +17,14 @@ export const TopSlider = () => {
     <div className="w-full flex items-center justify-center px-0 sm:px-[10px] mb-[28px]">
       <div className="relative aspect-square sm:aspect-[2/1] w-full min-w-[320px] max-w-[1040px] min-h-[320px] max-h-[432px] mx-0 sm:mx-[60px]">
         <button
-          className="swiper-button-prev-custom absolute -left-15 top-1/2 -translate-y-1/2 h-full max-h-[432px] w-[32px] items-center justify-center bg-white/90 hover:bg-hover transition z-10 text-3xl border-1 border-elements hidden sm:flex cursor-pointer"
+          className="swiper-button-prev-custom absolute -left-15 top-1/2 -translate-y-1/2 h-full max-h-[432px] w-[32px] items-center justify-center bg-white/90 dark:bg-gray-800/90 hover:bg-hover dark:hover:bg-dark-hover transition z-10 text-3xl border-1 border-elements dark:border-dark-elements hidden sm:flex cursor-pointer text-primary dark:text-dark-primary"
           disabled={isLoading}
         >
           {isLoading ? <Skeleton height="100%" /> : '‹'}
         </button>
 
         <button
-          className="swiper-button-next-custom absolute -right-15 top-1/2 -translate-y-1/2 h-full max-h-[432px] w-[32px] items-center justify-center bg-white/90 hover:bg-hover transition z-10 text-3xl border-1 border-elements hidden sm:flex cursor-pointer"
+          className="swiper-button-next-custom absolute -right-15 top-1/2 -translate-y-1/2 h-full max-h-[432px] w-[32px] items-center justify-center bg-white/90 dark:bg-gray-800/90 hover:bg-hover dark:hover:bg-dark-hover transition z-10 text-3xl border-1 border-elements dark:border-dark-elements hidden sm:flex cursor-pointer text-primary dark:text-dark-primary"
           disabled={isLoading}
         >
           {isLoading ? <Skeleton height="100%" /> : '›'}
@@ -46,13 +46,14 @@ export const TopSlider = () => {
                 clickable: true,
                 el: '.swiper-pagination-custom',
                 bulletClass:
-                  'bg-gray-500 opacity-70 w-[14px] h-[4px] ml-[14px] transition-colors transition-transform duration-200 cursor-pointer',
-                bulletActiveClass: '!bg-black !opacity-100 !scale-110',
+                  'bg-gray-500 dark:bg-gray-400 opacity-70 w-[14px] h-[4px] ml-[14px] transition-colors transition-transform duration-200 cursor-pointer',
+                bulletActiveClass:
+                  '!bg-black dark:!bg-white !opacity-100 !scale-110',
               }}
               className="overflow-hidden h-full"
             >
               <SwiperSlide>
-                <div className="w-full h-full flex border-1 border-gray-300 bg-neutral-50 items-center justify-center text-3xl">
+                <div className="w-full h-full flex border-1 border-gray-300 dark:border-dark-elements bg-neutral-50 dark:bg-dark-hover items-center justify-center text-3xl">
                   <img
                     className="w-full h-full object-center object-cover"
                     src="./img/start-banner-3.png"
@@ -62,7 +63,7 @@ export const TopSlider = () => {
               </SwiperSlide>
 
               <SwiperSlide>
-                <div className="w-full h-full flex border-1 border-elements bg-hover items-center justify-center text-3xl">
+                <div className="w-full h-full flex border-1 border-elements dark:border-dark-elements bg-hover dark:bg-dark-hover items-center justify-center text-3xl">
                   <img
                     className="w-full h-full object-center object-cover"
                     src="./img/banner-accessories.png"
@@ -72,7 +73,7 @@ export const TopSlider = () => {
               </SwiperSlide>
 
               <SwiperSlide>
-                <div className="w-full h-full flex border-1 border-elements bg-hover items-center justify-center text-3xl">
+                <div className="w-full h-full flex border-1 border-elements dark:border-dark-elements bg-hover dark:bg-dark-hover items-center justify-center text-3xl">
                   <img
                     className="w-full h-full object-center object-cover"
                     src="./img/banner-phones.png"
@@ -82,7 +83,7 @@ export const TopSlider = () => {
               </SwiperSlide>
 
               <SwiperSlide>
-                <div className="w-full h-full flex border-1 border-elements bg-hover items-center justify-center text-3xl">
+                <div className="w-full h-full flex border-1 border-elements dark:border-dark-elements bg-hover dark:bg-dark-hover items-center justify-center text-3xl">
                   <img
                     className="w-full h-full object-center object-cover"
                     src="./img/banner-tablets.png"

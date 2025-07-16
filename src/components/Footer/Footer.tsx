@@ -33,7 +33,7 @@ export const Footer = () => {
             className="
             flex flex-col gap-2 
             sm:flex-row sm:gap-12
-            font-semibold text-secondary
+            font-semibold text-secondary dark:text-dark-secondary
             uppercase tracking-wide
             items-start sm:items-center
           "
@@ -70,7 +70,7 @@ export const Footer = () => {
         </nav>
 
         <div className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-end">
-          <span className="text-secondary text-base">
+          <span className="text-secondary dark:text-dark-secondary text-base">
             {/* Back to top */}
             {footerDictionaty[currentLanguage].backToTop}
           </span>

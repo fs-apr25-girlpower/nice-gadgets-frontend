@@ -43,7 +43,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <h1 className="color-primary mb-6 tablet:mb-8 desktop:mb-14 tablet:mt-2 desktop:mt-8">
+      <h1 className="text-primary dark:text-dark-primary mb-6 tablet:mb-8 desktop:mb-14 tablet:mt-2 desktop:mt-8">
         {translations.welcomeTitle}
       </h1>
 

@@ -15,10 +15,10 @@ export const CustomerBar = () => {
   const cartCount = cartContext.getTotalItems();
 
   return (
-    <div className="customerBar flex flex-row items-center  h-full  border-l border-r border-elements">
+    <div className="customerBar flex flex-row items-center  h-full  border-l border-r border-elements dark:border-gray-700">
       <NavLink
         to={'/favourites'}
-        className="flex justify-center items-center w-12 h-full tablet:w-12 desktop:w-16  border-r border-elements mobile:hidden tablet:flex"
+        className="flex justify-center items-center w-12 h-full tablet:w-12 desktop:w-16  border-r border-elements dark:border-gray-700 mobile:hidden tablet:flex"
       >
         <LikeIcon favouritesCount={favouritesCount} />
       </NavLink>
