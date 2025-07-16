@@ -21,7 +21,7 @@ export function Pagination<T>({
   currentPage,
   onPageChange,
   refreshParams,
-  pageRangeDisplayed = 3,
+  pageRangeDisplayed = 5, // Змінено з 3 на 5
   marginPagesDisplayed = 1,
 }: PaginationProps<T>) {
   const totalPages = Math.ceil(items.length / itemsPerPage);
