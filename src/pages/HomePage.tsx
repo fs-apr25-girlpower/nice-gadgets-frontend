@@ -3,10 +3,14 @@ import { ProductSlider } from '../components/ProductsSlider';
 import { ShopByCategory } from '../components/ShopByCategory';
 import { TopSlider } from '../components/TopSlider';
 import { useProducts } from '../context/ProductsContext';
+import { useLanguage } from '../context/language/useLanguage';
+import { homePageDictionary } from '../i18n/homePageDictionary';
 
 export const HomePage = () => {
   //hook Context
   const products = useProducts();
+  const { currentLanguage } = useLanguage();
+  const translations = homePageDictionary[currentLanguage];
 
   const isLoading = !products || !Array.isArray(products);
   if (isLoading) {
@@ -28,20 +32,21 @@ export const HomePage = () => {
     .slice(0, 10);
 
   const productsSliderConfig = {
-    titleForBrand: 'Brand new models',
+    titleForBrand: translations.brandNewModels,
     marginTop: 'mt-21 tablet:mt-23 desktop:mt-27',
   };
 
   const hotPricesSliderConfig = {
-    titleForBrand: 'Hot prices',
+    titleForBrand: translations.hotPrices,
     marginTop: 'mt-14 tablet:mt-16 desktop:mt-20',
   };
 
   return (
     <>
       <h1 className="text-primary dark:text-dark-primary mb-6 tablet:mb-8 desktop:mb-14 tablet:mt-2 desktop:mt-8">
-        Welcome to Nice Gadgets store!
+        {translations.welcomeTitle}
       </h1>
+
       <TopSlider />
 
       <ProductSlider

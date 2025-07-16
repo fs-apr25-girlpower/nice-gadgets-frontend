@@ -1,14 +1,7 @@
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { useTheme } from '../../hooks/useTheme';
 
 export const ThemeSwitcher = () => {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-
-  // Уникаємо hydration mismatch
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const { theme, setTheme, mounted } = useTheme();
 
   if (!mounted) {
     return (

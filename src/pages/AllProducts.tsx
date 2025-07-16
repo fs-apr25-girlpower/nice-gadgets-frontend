@@ -4,26 +4,18 @@ import { ProductsList } from '../components/ProductsList';
 import { getProducts } from '../api/getProducts';
 import type { Product } from '../types';
 import { ErrorMessage } from '../components/ErrorMessage';
-import { useLanguage } from '../context/language/useLanguage';
-import { accessoriesPageDictionary } from '../i18n/accessoriesPageDictionary';
 
-export const AccessoriesPage = () => {
-  const [accessories, setAccessories] = useState<Product[]>([]);
+export const AllProductsPage = () => {
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const hasNotProducts = accessories.length === 0 && !isLoading;
-
-  const { currentLanguage } = useLanguage();
-  const translations = accessoriesPageDictionary[currentLanguage];
+  const hasNotProducts = allProducts.length === 0 && !isLoading;
 
   useEffect(() => {
     setIsLoading(true);
     getProducts()
       .then(productsFromApi => {
-        const filtered = productsFromApi.filter(
-          product => product.category === 'accessories',
-        );
-        setAccessories(filtered);
+        setAllProducts(productsFromApi);
         setIsLoading(false);
       })
       .catch(err => {
@@ -36,15 +28,15 @@ export const AccessoriesPage = () => {
     <div>
       <Breadcrumbs />
 
-      <h2 className="mt-6 mb-2 tablet:mt-10">{translations.title}</h2>
+      <h2 className="mt-6 mb-2 tablet:mt-10">All Products</h2>
 
       {error && <ErrorMessage text={'Something went wrong!'} />}
 
       {hasNotProducts ? (
-        <ErrorMessage text={translations.empty} />
+        <ErrorMessage text={'There are no products yet'} />
       ) : (
         <ProductsList
-          products={accessories}
+          products={allProducts}
           isLoading={isLoading}
         />
       )}

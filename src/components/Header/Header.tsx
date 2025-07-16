@@ -1,14 +1,16 @@
 import { Logo } from '../../images/logos/Logo';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
 import { PageNotFoundButton } from '../404Button';
 import { useLanguage } from '../../context/language/useLanguage';
-import { headerDictionaty } from '../../i18n/headerDictionary';
+import { headerDictionary } from '../../i18n/headerDictionary';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
+import { GlassIcon } from '../../images/icons/GlassIcon';
 //import { useLanguage } from '../../context/language/LanguageContext';
 
 export const Header = () => {
   const { currentLanguage, setLanguage } = useLanguage(); // Використовуємо хук для доступу до мови та її зміни
+  const { pathname } = useLocation();
 
   const handleLanguageChange = (lang: 'ua' | 'en') => {
     setLanguage(lang);
@@ -25,6 +27,12 @@ export const Header = () => {
         ? 'text-primary dark:text-dark-primary nav-active before:w-full'
         : 'text-secondary dark:text-dark-secondary before:w-0'
     }`;
+
+  const isVisibleGlassButton =
+    !pathname.includes('phones') &&
+    !pathname.includes('tablets') &&
+    !pathname.includes('accessories') &&
+    !pathname.includes('allProducts');
 
   return (
     <>
@@ -43,7 +51,7 @@ export const Header = () => {
                 className={isActive}
               >
                 {/* home */}
-                {headerDictionaty[currentLanguage].main}
+                {headerDictionary[currentLanguage].main}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -52,7 +60,7 @@ export const Header = () => {
                 className={isActive}
               >
                 {/* phones */}
-                {headerDictionaty[currentLanguage].phones}
+                {headerDictionary[currentLanguage].phones}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -61,7 +69,7 @@ export const Header = () => {
                 className={isActive}
               >
                 {/* tablets */}
-                {headerDictionaty[currentLanguage].tablets}
+                {headerDictionary[currentLanguage].tablets}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -70,12 +78,18 @@ export const Header = () => {
                 className={isActive}
               >
                 {/* accessories */}
-                {headerDictionaty[currentLanguage].accessories}
+                {headerDictionary[currentLanguage].accessories}
               </NavLink>
             </li>
           </ul>
         </nav>
         <PageNotFoundButton />
+
+        {isVisibleGlassButton && (
+          <NavLink to={'/allProducts'}>
+            <GlassIcon />
+          </NavLink>
+        )}
 
         <div className="flex items-center gap-4">
           <div className="language-switcher flex gap-2">
