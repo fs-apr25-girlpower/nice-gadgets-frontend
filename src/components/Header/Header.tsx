@@ -7,11 +7,16 @@ import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
 import { GlassIcon } from '../../images/icons/GlassIcon';
 import * as Switch from '@radix-ui/react-switch';
 import clsx from 'clsx';
+import { ArrowDown } from '../../images/icons/ArrowDown';
+import { useState } from 'react';
 //import { useLanguage } from '../../context/language/LanguageContext';
 
 export const Header = () => {
-  const { currentLanguage, setLanguage } = useLanguage(); // Використовуємо хук для доступу до мови та її зміни
+  const { currentLanguage, setLanguage } = useLanguage();
   const { pathname } = useLocation();
+
+  // Стан для контролю видимості дропдауну
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleLanguageChange = (lang: 'ua' | 'en') => {
     setLanguage(lang);
@@ -85,68 +90,136 @@ export const Header = () => {
           </ul>
         </nav>
 
-        {isVisibleGlassButton && (
-          <NavLink
-            to={'/allProducts'}
-            className="flex items-center justify-center p-2 rounded transition-colors hover:bg-secondary dark:hover:bg-dark-button-purple-hover"
-            aria-label="Search"
-          >
-            <GlassIcon />
-          </NavLink>
-        )}
-
-        <div className="flex items-center gap-4">
-          {/* переключатель мови */}
-
-          <div className="flex items-center gap-2">
-            <span
-              className={clsx(
-                'text-sm font-bold select-none',
-                currentLanguage === 'en'
-                  ? 'text-primary dark:text-purple'
-                  : 'text-secondary dark:text-dark-secondary',
-              )}
+        <div className="right-container flex flex-row h-full">
+          {isVisibleGlassButton && (
+            <NavLink
+              to={'/allProducts'}
+              className="flex items-center justify-center p-2 rounded transition-colors hover:bg-secondary dark:hover:bg-dark-button-purple-hover"
+              aria-label="Search"
             >
-              EN
-            </span>
+              <GlassIcon />
+            </NavLink>
+          )}
 
-            <Switch.Root
-              checked={currentLanguage === 'ua'}
-              onCheckedChange={() =>
-                handleLanguageChange(currentLanguage === 'en' ? 'ua' : 'en')
-              }
-              className={clsx(
-                'w-12 h-6 rounded-full relative transition-colors duration-200 cursor-pointer outline-none border-2',
-                'bg-elements dark:bg-dark-elements border-elements dark:border-dark-elements',
-                'hover:bg-secondary dark:hover:bg-dark-button-purple-hover',
-              )}
-            >
-              <Switch.Thumb
+          {/* <div className="flex items-center gap-4">
+           
+
+            <div className="flex items-center gap-2">
+              <span
                 className={clsx(
-                  'block w-5 h-5 rounded-full shadow-md transition-transform duration-200',
-                  currentLanguage === 'ua'
-                    ? 'bg-white translate-x-6'
-                    : 'bg-white translate-x-1',
+                  'text-sm font-bold select-none',
+                  currentLanguage === 'en'
+                    ? 'text-primary dark:text-purple'
+                    : 'text-secondary dark:text-dark-secondary',
                 )}
-              />
-            </Switch.Root>
+              >
+                EN
+              </span>
 
-            <span
-              className={clsx(
-                'text-sm font-bold select-none',
-                currentLanguage === 'ua'
-                  ? 'text-primary dark:text-purple'
-                  : 'text-secondary dark:text-dark-secondary',
-              )}
+              <Switch.Root
+                checked={currentLanguage === 'ua'}
+                onCheckedChange={() =>
+                  handleLanguageChange(currentLanguage === 'en' ? 'ua' : 'en')
+                }
+                className={clsx(
+                  'w-12 h-6 rounded-full relative transition-colors duration-200 cursor-pointer outline-none border-2',
+                  'bg-elements dark:bg-dark-elements border-elements dark:border-dark-elements',
+                  'hover:bg-secondary dark:hover:bg-dark-button-purple-hover',
+                )}
+              >
+                <Switch.Thumb
+                  className={clsx(
+                    'block w-5 h-5 rounded-full shadow-md transition-transform duration-200',
+                    currentLanguage === 'ua'
+                      ? 'bg-white translate-x-6'
+                      : 'bg-white translate-x-1',
+                  )}
+                />
+              </Switch.Root>
+
+              <span
+                className={clsx(
+                  'text-sm font-bold select-none',
+                  currentLanguage === 'ua'
+                    ? 'text-primary dark:text-purple'
+                    : 'text-secondary dark:text-dark-secondary',
+                )}
+              >
+                UA
+              </span>
+            </div>
+
+            <ThemeSwitcher />
+          </div> */}
+
+          {/* Дропдаун для інших кнопок */}
+          <div className="dropdown-icon relative">
+            <button
+              aria-label="More options"
+              className="flex items-center justify-center p-2 rounded h-full transition-colors hover:bg-secondary dark:hover:bg-dark-button-purple-hover focus:outline-none"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              UA
-            </span>
+              <ArrowDown className="h-5 w-5" />
+            </button>
           </div>
 
-          <ThemeSwitcher />
-        </div>
+          {isDropdownOpen && (
+            <div className="absolute right-20 mt-12 desktop:mt-16 w-35 bg-white dark:bg-dark-background border border-elements dark:border-dark-border rounded-md shadow-lg z-20000">
+              {/* переключатель мови */}
+              <div className="flex items-center gap-2 p-2">
+                <span
+                  className={clsx(
+                    'text-sm font-bold select-none',
+                    currentLanguage === 'en'
+                      ? 'text-primary dark:text-purple'
+                      : 'text-secondary dark:text-dark-secondary',
+                  )}
+                >
+                  EN
+                </span>
 
-        <CustomerBar />
+                <Switch.Root
+                  checked={currentLanguage === 'ua'}
+                  onCheckedChange={() =>
+                    handleLanguageChange(currentLanguage === 'en' ? 'ua' : 'en')
+                  }
+                  className={clsx(
+                    'w-12 h-6 rounded-full relative transition-colors duration-200 cursor-pointer outline-none border-2',
+                    'bg-elements dark:bg-dark-elements border-elements dark:border-dark-elements',
+                    'hover:bg-secondary dark:hover:bg-dark-button-purple-hover',
+                  )}
+                >
+                  <Switch.Thumb
+                    className={clsx(
+                      'block w-5 h-5 rounded-full shadow-md transition-transform duration-200',
+                      currentLanguage === 'ua'
+                        ? 'bg-white translate-x-6'
+                        : 'bg-white translate-x-1',
+                    )}
+                  />
+                </Switch.Root>
+
+                <span
+                  className={clsx(
+                    'text-sm font-bold select-none',
+                    currentLanguage === 'ua'
+                      ? 'text-primary dark:text-purple'
+                      : 'text-secondary dark:text-dark-secondary',
+                  )}
+                >
+                  UA
+                </span>
+              </div>
+
+              {/* Перемикач теми */}
+              <div className="p-2">
+                <ThemeSwitcher />
+              </div>
+            </div>
+          )}
+
+          <CustomerBar />
+        </div>
       </header>
     </>
   );
