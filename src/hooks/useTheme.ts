@@ -6,7 +6,6 @@ export const useTheme = () => {
   const [theme, setThemeState] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
-  // Инициализация темы из localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
