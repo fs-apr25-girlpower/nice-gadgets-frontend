@@ -2,7 +2,7 @@ import tetianaPhoto from './photos/tetiana-1.jpg';
 import tetianaUnicornPhoto from './photos/tetiana-3.png';
 import artemPhoto from './photos/artem-1.jpg';
 import artemUnicornPhoto from './photos/artem-4.png';
-import bogdanPhoto from './photos/bogdan-3.webp';
+import bogdanPhoto from './photos/bogdan-5.jpg';
 import bogdanUnicornPhoto from './photos/bogdan-4.png';
 import andriyPhoto from './photos/andriy-4.jpg';
 import andriyUnicornPhoto from './photos/andriy-3.png';
@@ -68,7 +68,7 @@ export const teamMembersData: TeamMember[] = [
   {
     id: 2,
     name: {
-      en: `Artem Demianovskui`,
+      en: `Artem Demianovskyi`,
       ua: `Артем Дем'яновський`,
     },
     role: {
