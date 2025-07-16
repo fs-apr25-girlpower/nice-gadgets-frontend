@@ -6,6 +6,7 @@ export const useQueryParams = (defaultCategory: string) => {
   const perPage = searchParams.get('perPage') ?? '8';
   const page = searchParams.get('page') ?? '1';
   const category = searchParams.get('category') ?? defaultCategory;
+  const search = searchParams.get('search') ?? '';
 
   const refreshParams = (updates: Record<string, string | number | null>) => {
     const newParams = new URLSearchParams(searchParams);
@@ -31,5 +32,6 @@ export const useQueryParams = (defaultCategory: string) => {
     page,
     refreshParams,
     sort,
+    search,
   };
 };
