@@ -1,19 +1,24 @@
-import { useEffect, useState } from 'react';
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-} from 'firebase/auth';
+import { useEffect, useState, useCallback } from 'react';
+import { getAuth, signInWithPopup, signOut } from 'firebase/auth';
 import { app } from './firebase';
 import { Loader } from './components/Loader/Loader';
+import { googleAuthProvider } from './GoogleAuthProvider';
 import type { User } from 'firebase/auth';
-export const googleAuthProvider = new GoogleAuthProvider();
 
 export const AuthProvider = () => {
   const auth = getAuth(app);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const handleSignIn = useCallback(async () => {
+    try {
+      setLoading(true);
+      const credentials = await signInWithPopup(auth, googleAuthProvider);
+      setUser(credentials.user);
+    } catch (err) {
+      console.error('Sign in error:', err);
+      setLoading(false);
+    }
+  }, [auth]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(maybeUser => {
@@ -32,18 +37,7 @@ export const AuthProvider = () => {
     });
 
     return unsubscribe;
-  }, [auth]);
-
-  const handleSignIn = async () => {
-    try {
-      setLoading(true);
-      const credentials = await signInWithPopup(auth, googleAuthProvider);
-      setUser(credentials.user);
-    } catch (err) {
-      console.error('Sign in error:', err);
-      setLoading(false);
-    }
-  };
+  }, [auth, handleSignIn]);
 
   const handleSignOut = async () => {
     try {
