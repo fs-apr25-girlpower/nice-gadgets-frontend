@@ -56,7 +56,7 @@ export const TopSlider = () => {
                 <div className="w-full h-full flex border-1 border-gray-300 dark:border-dark-elements bg-neutral-50 dark:bg-dark-hover items-center justify-center text-3xl">
                   <img
                     className="w-full h-full object-center object-cover"
-                    src="./img/start-banner-3.png"
+                    src="./img/main-banner.png"
                     alt="slide-1"
                   />
                 </div>
@@ -66,7 +66,7 @@ export const TopSlider = () => {
                 <div className="w-full h-full flex border-1 border-elements dark:border-dark-elements bg-hover dark:bg-dark-hover items-center justify-center text-3xl">
                   <img
                     className="w-full h-full object-center object-cover"
-                    src="./img/banner-accessories.png"
+                    src="./img/banner-ph.png"
                     alt="slide-1"
                   />
                 </div>
@@ -76,7 +76,7 @@ export const TopSlider = () => {
                 <div className="w-full h-full flex border-1 border-elements dark:border-dark-elements bg-hover dark:bg-dark-hover items-center justify-center text-3xl">
                   <img
                     className="w-full h-full object-center object-cover"
-                    src="./img/banner-phones.png"
+                    src="./img/banner-tab-2.png"
                     alt="slide-2"
                   />
                 </div>
@@ -86,7 +86,7 @@ export const TopSlider = () => {
                 <div className="w-full h-full flex border-1 border-elements dark:border-dark-elements bg-hover dark:bg-dark-hover items-center justify-center text-3xl">
                   <img
                     className="w-full h-full object-center object-cover"
-                    src="./img/banner-tablets.png"
+                    src="./img/banner-acc.png"
                     alt="slide-3"
                   />
                 </div>
