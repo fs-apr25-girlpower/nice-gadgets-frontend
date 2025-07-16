@@ -55,7 +55,7 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
     const result = [...products].sort((a, b) => {
       switch (sortBy) {
         case 'byDate':
-          return a.year - b.year;
+          return b.year - a.year;
         case 'byName':
           return a.name.localeCompare(b.name);
         case 'byPrice':
