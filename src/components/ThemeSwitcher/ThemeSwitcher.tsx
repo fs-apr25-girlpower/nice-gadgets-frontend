@@ -17,7 +17,7 @@ export const ThemeSwitcher = () => {
   return (
     <button
       onClick={handleClick}
-      className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-elements dark:border-dark-border bg-white dark:bg-dark-card-background hover:bg-hover dark:hover:bg-dark-hover transition-colors shadow-md"
+      className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-elements dark:border-dark-border bg-white dark:bg-dark-card-background cursor-pointer hover:border-primary dark:hover:border-purple hover:bg-hover dark:hover:bg-dark-hover transition-colors shadow-md"
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
     >

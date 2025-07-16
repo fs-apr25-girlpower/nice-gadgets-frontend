@@ -17,10 +17,20 @@ module.exports = {
         'hover': '#fafbfc',
         'green': '#27ae60',
         'red': '#eb5757',
+        // Purple colors for interactions
+        'purple': '#8b5cf6',
+        'purple-hover': '#7c3aed',
         // Button colors
         'button-active': '#2563eb',
         'button-inactive': '#4b5563',
         'button-hover': '#374151',
+        'button-purple': '#8b5cf6',
+        'button-purple-hover': '#7c3aed',
+        // Arrow colors
+        'arrow-active': '#313237',
+        'arrow-disabled': '#374151',
+        'arrow-border-active': '#b4bdc3',
+        'arrow-border-disabled': '#b4bdc3',
         // Form colors
         'form-background': '#ffffff',
         'form-border': '#e5e7eb',
@@ -28,6 +38,7 @@ module.exports = {
         // Pagination colors
         'pagination-text': '#6b7280',
         // Error colors
+        'error-red': '#eb5757',
         'error-background-from': '#e0f2fe',
         'error-background-to': '#bfdbfe',
         'error-text': '#1e3a8a',
@@ -56,6 +67,15 @@ module.exports = {
         'dark-button-active': '#3b82f6',
         'dark-button-inactive': '#374151',
         'dark-button-hover': '#4b5563',
+        'dark-button-purple': '#8b5cf6',
+        'dark-button-purple-hover': '#7c3aed',
+        'dark-purple': '#a78bfa',
+        'dark-purple-hover': '#8b5cf6',
+        // Dark arrow colors
+        'dark-arrow-active': '#ffffff',
+        'dark-arrow-disabled': '#374151',
+        'dark-arrow-border-active': '#6b7280',
+        'dark-arrow-border-disabled': '#6b7280',
         'dark-form-background': '#374151',
         'dark-form-border': '#4b5563',
         'dark-form-focus': '#6b7280',

@@ -65,13 +65,12 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
     >
       <article
         className="
-         min-w-[229px] min-h-[440px] max-h-[530px] w-full
+        min-w-[229px] min-h-[440px] max-h-[530px] w-full
           flex flex-col
           p-4 tablet:p-6 desktop:p-8
           border border-elements dark:border-dark-elements
           bg-card-background dark:bg-dark-card-background
           relative z-0
-          
         "
       >
         <div className="flex items-center justify-center mb-4 tablet:mb-6 h-[200px]">
@@ -151,7 +150,7 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
       bg-card-background dark:bg-dark-card-background
       relative z-0 hover:z-50
       transition-transform duration-300 ease-in-out
-      hover:scale-107 transform-gpu will-change-transform
+      hover:scale-105 transform-gpu will-change-transform
     "
       >
         <div className="flex items-center justify-center mb-4 tablet:mb-6 h-full overflow-hidden">

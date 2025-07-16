@@ -54,7 +54,7 @@ export const ProductSlider = ({
           <button
             ref={prevRef}
             disabled={isBeginning}
-            className={clsx('group', {
+            className={clsx('group w-8 h-8', {
               'cursor-pointer': !isBeginning,
               'cursor-not-allowed': isBeginning,
             })}
@@ -65,7 +65,7 @@ export const ProductSlider = ({
           <button
             ref={nextRef}
             disabled={isEnd}
-            className={clsx('group', {
+            className={clsx('group w-8 h-8', {
               'cursor-pointer': !isEnd,
               'cursor-not-allowed': isEnd,
             })}

@@ -138,7 +138,7 @@ export const CartPage = () => {
 
             <button
               onClick={handleCheckout}
-              className="w-full bg-gray-900 text-white py-3 px-6 rounded hover:bg-gray-800 transition-colors font-medium text-sm sm:text-base cursor-pointer"
+              className="w-full bg-primary dark:bg-dark-button-purple text-white py-3 px-6 rounded hover:bg-secondary dark:hover:bg-dark-button-purple-hover transition-colors font-medium text-sm sm:text-base cursor-pointer"
             >
               {translations.checkoutButton}
             </button>
