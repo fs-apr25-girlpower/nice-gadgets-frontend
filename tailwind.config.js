@@ -64,6 +64,13 @@ module.exports = {
         'dark-slider-button': '#1f2937',
         'dark-slider-inactive': '#9ca3af',
         'dark-slider-active': '#6b7280',
+        'dnd': '#FEF7FB',
+        'dnd-hover': '#FDF2F8',
+        'dark-dnd': '#EDE9FE',
+        'dark-dnd-hover': '#E3DCFE',
+      },
+      cursor: {
+        'grab-custom': "url('/src/images/icons/cursor-grab.png') 0 0, grab",
       },
 
       fontFamily: {

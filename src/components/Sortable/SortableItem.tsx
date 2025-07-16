@@ -26,7 +26,7 @@ export function SortableItem({ id, value }: SortableItemProps) {
     >
       <div
         {...listeners}
-        className="cursor-grab p-2 relative"
+        className="cursor-grab-custom  p-2  relative  w-full  bg-dnd  hover:bg-dnd-hover  dark:bg-dark-dnd  hover:dark:bg-dark-dnd-hover  transition-colors"
       >
         <DndIcon />
       </div>
