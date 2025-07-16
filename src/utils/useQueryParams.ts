@@ -3,9 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 export const useQueryParams = (defaultCategory: string) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get('sort');
-  const perPage = searchParams.get('perPage');
-
-  const page = searchParams.get('page');
+  const perPage = searchParams.get('perPage') ?? '8';
+  const page = searchParams.get('page') ?? '1';
   const category = searchParams.get('category') ?? defaultCategory;
 
   const refreshParams = (updates: Record<string, string | number | null>) => {

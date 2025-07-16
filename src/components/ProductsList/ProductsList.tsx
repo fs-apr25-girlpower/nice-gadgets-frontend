@@ -41,7 +41,7 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
       ? (sort as (typeof optionsSortTypes)[number]['value'])
       : 'byDate';
 
-  const itemsToShow = perPage === null ? 'all' : String(perPage);
+  const itemsToShow = perPage === null ? '8' : perPage;
   const optionsItemsPerPage = getOptionsItemsPerPage();
 
   const pageNumber = page !== null ? parseInt(page, 10) : 1;
@@ -74,7 +74,7 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
 
   const handleItemsPerPageChange = (newValue: string) => {
     if (newValue === 'all') {
-      refreshParams({ perPage: null, page: null });
+      refreshParams({ perPage: 'all', page: null });
     } else {
       refreshParams({ perPage: newValue, page: 1 });
     }
@@ -167,7 +167,7 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
             />
           ))}
         </div>
-      ) : perPage === null ? (
+      ) : perPage === 'all' ? (
         <div className="grid gap-4 mobile:grid-cols-[repeat(auto-fill,_minmax(230px,288px))] mobile:justify-center tablet:grid-cols-[repeat(auto-fill,_minmax(230px,1fr))] mt-6 mb-6 tablet:mb-10">
           {visibleProducts.map(product => (
             <ProductCard
@@ -180,7 +180,7 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
         <Pagination
           isLoading={false}
           refreshParams={refreshParams}
-          items={sortedProducts}
+          items={visibleProducts}
           itemsPerPage={perPageNumber}
           currentPage={pageNumber}
           onPageChange={newPage => refreshParams({ page: newPage })}

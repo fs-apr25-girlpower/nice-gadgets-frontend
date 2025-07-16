@@ -2,9 +2,7 @@
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
-@import './colors.css';
 @import './typography.css';
-@import './breakpoints.css';
 @config '../../tailwind.config.js';
 
 * {
@@ -26,7 +24,6 @@ html {
 
 body {
   display: block;
-  background-color: white;
 }
 
 #root {
