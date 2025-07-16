@@ -130,7 +130,7 @@ export const ProductsList = ({ products, isLoading }: ProductsListProps) => {
           <div className="relative w-full mt-4">
             <input
               type="text"
-              className="w-full pl-10 pr-8 py-2 border border-[#B4BDC3] rounded focus:outline-none focus:border-black"
+              className="w-full pl-10 pr-8 py-2 border border-elements dark:border-dark-border rounded bg-white dark:bg-dark-card-background text-primary dark:text-dark-primary focus:outline-none focus:border-primary dark:focus:border-purple placeholder:text-secondary dark:placeholder:text-dark-secondary transition-colors"
               placeholder="Search..."
               value={query}
               onChange={handleQuery}

@@ -86,18 +86,25 @@ export const Header = () => {
         </nav>
 
         {isVisibleGlassButton && (
-          <NavLink to={'/allProducts'}>
+          <NavLink
+            to={'/allProducts'}
+            className="flex items-center justify-center p-2 rounded transition-colors hover:bg-secondary dark:hover:bg-dark-button-purple-hover"
+            aria-label="Search"
+          >
             <GlassIcon />
           </NavLink>
         )}
 
         <div className="flex items-center gap-4">
           {/* переключатель мови */}
+
           <div className="flex items-center gap-2">
             <span
               className={clsx(
-                'text-sm font-bold',
-                currentLanguage === 'en' ? 'text-primary' : 'text-secondary',
+                'text-sm font-bold select-none',
+                currentLanguage === 'en'
+                  ? 'text-primary dark:text-purple'
+                  : 'text-secondary dark:text-dark-secondary',
               )}
             >
               EN
@@ -108,15 +115,28 @@ export const Header = () => {
               onCheckedChange={() =>
                 handleLanguageChange(currentLanguage === 'en' ? 'ua' : 'en')
               }
-              className="w-12 h-6 bg-secondary rounded-full relative data-[state=checked]:bg-secondary transition-colors cursor-pointer"
+              className={clsx(
+                'w-12 h-6 rounded-full relative transition-colors duration-200 cursor-pointer outline-none border-2',
+                'bg-elements dark:bg-dark-elements border-elements dark:border-dark-elements',
+                'hover:bg-secondary dark:hover:bg-dark-button-purple-hover',
+              )}
             >
-              <Switch.Thumb className="block w-5 h-5 bg-white rounded-full shadow-md transition-transform translate-x-1 data-[state=checked]:translate-x-6" />
+              <Switch.Thumb
+                className={clsx(
+                  'block w-5 h-5 rounded-full shadow-md transition-transform duration-200',
+                  currentLanguage === 'ua'
+                    ? 'bg-white translate-x-6'
+                    : 'bg-white translate-x-1',
+                )}
+              />
             </Switch.Root>
 
             <span
               className={clsx(
-                'text-sm font-bold',
-                currentLanguage === 'ua' ? 'text-primary' : 'text-secondary',
+                'text-sm font-bold select-none',
+                currentLanguage === 'ua'
+                  ? 'text-primary dark:text-purple'
+                  : 'text-secondary dark:text-dark-secondary',
               )}
             >
               UA

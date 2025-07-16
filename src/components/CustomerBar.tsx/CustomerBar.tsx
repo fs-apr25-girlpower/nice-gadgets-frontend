@@ -18,18 +18,18 @@ export const CustomerBar = () => {
     <div className="customerBar flex flex-row items-center  h-full  border-l border-r border-elements dark:border-gray-700">
       <NavLink
         to={'/favourites'}
-        className="flex justify-center items-center w-12 h-full tablet:w-12 desktop:w-16  border-r border-elements dark:border-gray-700 mobile:hidden tablet:flex"
+        className="flex justify-center items-center w-12 h-full tablet:w-12 desktop:w-16 mobile:hidden tablet:flex transition-colors border border-elements dark:border-dark-elements hover:border-primary dark:hover:border-purple"
+        aria-label="Favourites"
       >
         <LikeIcon favouritesCount={favouritesCount} />
       </NavLink>
-
       <NavLink
         to={'/cart'}
-        className="flex justify-center items-center w-12 h-full tablet:w-12  desktop:w-16   mobile:hidden tablet:flex"
+        className="flex justify-center items-center w-12 h-full tablet:w-12 desktop:w-16 mobile:hidden tablet:flex transition-colors border border-elements dark:border-dark-elements hover:border-primary dark:hover:border-purple"
+        aria-label="Cart"
       >
         <CartIcon cartCount={cartCount} />
       </NavLink>
-
       <BurgerMenu
         favouritesCount={favouritesCount}
         cartCount={cartCount}

@@ -29,7 +29,7 @@ export const ContactsUsPage = () => {
   };
 
   return (
-    <div className="bg-hover dark:bg-dark-background">
+    <div className="bg-form-background dark:bg-dark-background">
       <div
         className="w-full"
         style={{ minHeight: 400, maxHeight: 500 }}

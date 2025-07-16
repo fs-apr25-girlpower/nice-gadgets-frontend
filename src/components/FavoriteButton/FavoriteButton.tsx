@@ -23,13 +23,8 @@ export const FavoriteButton: React.FC<Props> = ({ product }) => {
   return (
     <button
       onClick={handleToggle}
-      className="
-        w-[40px] h-[40px] px-3
-        border border-icons
-        hover:border-black
-        transition duration-300 ease-in-out
-        cursor-pointer
-      "
+      className="w-[40px] h-[40px] px-3 border border-icons dark:border-dark-icons hover:border-primary dark:hover:border-purple transition duration-300 ease-in-out cursor-pointer"
+      aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
     >
       {isFavorite ? <FilledHeart /> : <Heart />}
     </button>
