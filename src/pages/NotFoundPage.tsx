@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/language/useLanguage';
 import { notFoundPageDictionary } from '../i18n/notFoundPageDictionary';
 
@@ -16,12 +17,12 @@ export const NotFoundPage = () => {
         <br />
         {translations.subtitle}
       </p>
-      <a
-        href="/"
+      <Link
+        to="/"
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition"
       >
         {translations.goHome}
-      </a>
+      </Link>
       <button
         className="mt-8 text-blue-700 underline hover:text-pink-500"
         onClick={() => alert(translations.secretAlert)}

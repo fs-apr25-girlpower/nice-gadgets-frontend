@@ -1,7 +1,6 @@
 import { Logo } from '../../images/logos/Logo';
 import { NavLink, useLocation } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
-import { PageNotFoundButton } from '../404Button';
 import { useLanguage } from '../../context/language/useLanguage';
 import { headerDictionary } from '../../i18n/headerDictionary';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
@@ -83,7 +82,6 @@ export const Header = () => {
             </li>
           </ul>
         </nav>
-        <PageNotFoundButton />
 
         {isVisibleGlassButton && (
           <NavLink to={'/allProducts'}>
