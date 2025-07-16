@@ -167,11 +167,13 @@ export function Pagination<T>({
             <button
               key={page}
               onClick={() => handlePageClick(page)}
-              className={`w-8 h-8 cursor-pointer hover:bg-primary hover:border-1 hover:border-secondary hover:text-white ${
+              className={clsx(
+                'w-8 h-8 cursor-pointer',
                 page === currentPage
                   ? 'bg-primary border-1 border-secondary text-white'
-                  : 'bg-white text-black'
-              }`}
+                  : 'bg-white text-black',
+                'hover:bg-primary hover:border-1 hover:border-secondary hover:text-white',
+              )}
               aria-current={page === currentPage ? 'page' : undefined}
               aria-label={`Page ${page}`}
             >
