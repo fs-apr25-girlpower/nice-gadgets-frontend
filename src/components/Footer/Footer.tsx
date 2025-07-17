@@ -12,7 +12,7 @@ export const Footer = () => {
   // };
 
   return (
-    <footer className="border-t border-elements py-8 min-w-[288px] sm:min-w-[192px]">
+    <footer className="border-t border-elements dark:border-dark-elements border-[1.5px] py-8 min-w-[288px] sm:min-w-[192px]">
       <div
         className="
           max-w-[1440px] mx-auto
