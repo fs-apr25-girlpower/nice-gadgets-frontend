@@ -37,7 +37,7 @@ export const FavouritesPage = () => {
       <p className="text-secondary body-text mt-2 mb-8 tablet:mb-10">
         {favorites.length} {translations.items}
       </p>
-      <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(230px,272px))] mobile:justify-center mx-auto mt-6 mb-6 tablet:mb-10">
+      <div className="grid gap-4 mobile:grid-cols-[repeat(auto-fill,_minmax(230px,288px))] mobile:justify-center tablet:grid-cols-[repeat(auto-fill,_minmax(230px,1fr))] mt-6 mb-6 tablet:mb-10">
         {favorites.map((product: Product) => (
           <ProductCard
             key={product.id}
