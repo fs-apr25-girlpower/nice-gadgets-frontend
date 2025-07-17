@@ -1,5 +1,5 @@
 export const menuClassName =
-  'text-[#89939A] text-[12px] font-bold h-80vh  p-30';
+  'text-[#89939A] text-[12px] font-bold h-80vh  p-20';
 
 export const itemListClassName =
   'w-full flex flex-col items-center justify-start h-full text-center text-[16px] font-bold uppercase gap-4';
