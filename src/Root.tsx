@@ -24,7 +24,6 @@ const routeConfig: RouteConfig[] = [
   { path: 'contacts', element: <ContactsUsPage /> },
   { path: 'rights', element: <RightsPage /> },
   { path: 'allProducts', element: <AllProductsPage /> },
-  //{ path: 'product/:productId', element: <ProductDetailsPage /> },
   { path: ':category/:itemId', element: <ProductDetailsPage /> },
   { path: '*', element: <NotFoundPage /> },
 ];

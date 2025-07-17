@@ -11,13 +11,11 @@ interface UnicornAssistantProps {
     ua: string[];
   };
   interval?: number;
-  //currentLanguage: 'ua' | 'en'; прибрати потім, коли буде перемикання через контекст
 }
 
 export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
   messages,
   interval = 5000,
-  //currentLanguage,
 }) => {
   const { currentLanguage } = useLanguage();
 

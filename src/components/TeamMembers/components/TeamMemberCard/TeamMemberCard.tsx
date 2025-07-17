@@ -11,7 +11,7 @@ type Props = {
   };
   quote: string;
 };
-//
+
 export const TeamMemberCard = ({
   name,
   photoUrl,
