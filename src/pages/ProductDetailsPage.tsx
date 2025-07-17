@@ -13,10 +13,18 @@ import { useProductsWithDetails } from '../context/ProductsWithDetailsContext';
 import type { ColorKey } from '../types/ColorKey';
 import { ErrorMessage } from '../components/ErrorMessage';
 
+import { useLanguage } from '../context/language/useLanguage';
+import { productDetailsDictionary } from '../i18n/productDetailsDictionary';
+import type { ProductDetailsDictionary } from '../i18n/productDetailsDictionary';
+
 export const ProductDetailsPage = () => {
   const allProducts = useProductsWithDetails();
   const { itemId } = useParams<{ itemId: string }>();
   const navigate = useNavigate();
+
+  const { currentLanguage } = useLanguage();
+  const translations: ProductDetailsDictionary =
+    productDetailsDictionary[currentLanguage];
 
   const [product, setProduct] = useState<ProductWithDetails | null>(null);
   const [loading, setLoading] = useState(true);
@@ -129,7 +137,7 @@ export const ProductDetailsPage = () => {
   }
 
   if (error) {
-    return <ErrorMessage text={'Something went wrong!'} />;
+    return <ErrorMessage text={translations.somethingWentWrong} />;
   }
 
   const recommendedProducts = allProducts
@@ -139,13 +147,13 @@ export const ProductDetailsPage = () => {
     .slice(0, 10);
 
   const sliderConfig = {
-    titleForBrand: 'You may also like',
+    titleForBrand: translations.youMayAlsoLike,
     marginTop: 'mt-16',
   };
 
   return !product || showMessage ? (
     <ErrorMessage
-      text={'Product was not found'}
+      text={translations.productNotFound}
       back={true}
     />
   ) : (
@@ -159,8 +167,10 @@ export const ProductDetailsPage = () => {
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-primary dark:text-dark-primary hover:text-secondary dark:hover:text-purple transition-colors"
         >
-          <span className="text-base tablet:text-lg">←</span>
-          <span className="text-xs tablet:text-sm font-semibold">Back</span>
+          <span className="text-base tablet:text-lg cursor-pointer">←</span>
+          <span className="text-xs tablet:text-sm font-semibold cursor-pointer">
+            {translations.back}
+          </span>
         </button>
       </div>
 
@@ -178,7 +188,7 @@ export const ProductDetailsPage = () => {
           </p>
           <div className="min-w-0 space-y-4 tablet:space-y-6 desktop:max-w-80">
             <p className="text-xs tablet:text-sm text-secondary dark:text-dark-secondary font-semibold tracking-wider mb-2">
-              Available colors
+              {translations.availableColors}
             </p>
             <ColorSelector
               colors={availableColors}
@@ -188,8 +198,8 @@ export const ProductDetailsPage = () => {
             <div className="h-px w-full bg-elements"></div>
 
             <div className="space-y-1">
-              <p className="text-xs tablet:text-sm text-secondary dark:text-dark-secondary font-semibold uppercase tracking-wider">
-                Select capacity
+              <p className="text-xs tablet:text-sm text-secondary dark:text-dark-secondary font-semibold tracking-wider">
+                {translations.selectCapacity}
               </p>
             </div>
             <CapacitySelector
@@ -217,7 +227,7 @@ export const ProductDetailsPage = () => {
               <div className="flex flex-col gap-y-2 text-xs tablet:text-sm">
                 <div className="flex justify-between">
                   <span className="text-secondary dark:text-dark-secondary">
-                    Screen
+                    {translations.screen}
                   </span>
                   <span className="text-primary dark:text-dark-primary font-medium">
                     {product.screen}
@@ -225,7 +235,7 @@ export const ProductDetailsPage = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-secondary dark:text-dark-secondary">
-                    Resolution
+                    {translations.resolution}
                   </span>
                   <span className="text-primary dark:text-dark-primary font-medium">
                     {product.details && 'resolution' in product.details
@@ -235,7 +245,7 @@ export const ProductDetailsPage = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-secondary dark:text-dark-secondary">
-                    Processor
+                    {translations.processor}
                   </span>
                   <span className="text-primary dark:text-dark-primary font-medium">
                     {product.details && 'processor' in product.details
@@ -260,7 +270,7 @@ export const ProductDetailsPage = () => {
       <div className="flex flex-col desktop:flex-row gap-8 desktop:gap-16 mb-16 desktop:mb-20">
         <div className="flex-1 min-w-0 w-full desktop:w-auto">
           <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary dark:text-dark-primary">
-            About
+            {translations.about}
           </h2>
           <div className="h-px w-full bg-elements mt-4 mb-8"></div>
           <div className="space-y-6 text-secondary dark:text-dark-secondary text-default">
@@ -284,12 +294,9 @@ export const ProductDetailsPage = () => {
             ) : (
               <div>
                 <h3 className="font-semibold mb-3 text-primary dark:text-dark-primary">
-                  About {product.name}
+                  {translations.about} {product.name}
                 </h3>
-                <p className="leading-relaxed">
-                  Detailed information about this product is not available at
-                  the moment.
-                </p>
+                <p className="leading-relaxed">{translations.aboutFallback}</p>
               </div>
             )}
           </div>
@@ -297,13 +304,13 @@ export const ProductDetailsPage = () => {
 
         <div className="flex-1 min-w-0 w-full desktop:w-auto mt-8 desktop:mt-0">
           <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary dark:text-dark-primary">
-            Tech specs
+            {translations.techSpecs}
           </h2>
           <div className="h-px w-full bg-elements mb-7"></div>
           <div className="space-y-0">
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                Screen
+                {translations.screen}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.screen}
@@ -311,7 +318,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                Resolution
+                {translations.resolution}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.details?.resolution || 'N/A'}
@@ -319,7 +326,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                Processor
+                {translations.processor}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.details?.processor || 'N/A'}
@@ -335,7 +342,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                Built in memory
+                {translations.builtInMemory}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.capacity}
@@ -343,7 +350,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                Camera
+                {translations.camera}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.details && 'camera' in product.details
@@ -353,7 +360,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                Zoom
+                {translations.zoom}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.details && 'zoom' in product.details
@@ -363,7 +370,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                Cell
+                {translations.cell}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {product.details && 'cell' in product.details
