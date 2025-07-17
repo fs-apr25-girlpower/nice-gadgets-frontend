@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useLanguage } from '../context/language/useLanguage';
+import { useLanguage } from '../../context/language/useLanguage';
 import * as Switch from '@radix-ui/react-switch';
 
 export const LanguageSwitcher = () => {

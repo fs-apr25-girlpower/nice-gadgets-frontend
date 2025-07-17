@@ -8,8 +8,8 @@ import { GlassIcon } from '../../images/icons/GlassIcon';
 
 import { ArrowDown } from '../../images/icons/ArrowDown';
 import { useState } from 'react';
-import { AuthButton } from '../AuthButton';
-import { LanguageSwitcher } from '../LanguageSwitcher';
+import { AuthButton } from '../AuthButton/AuthButton';
+import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher';
 //import { useLanguage } from '../../context/language/LanguageContext';
 
 export const Header = () => {
