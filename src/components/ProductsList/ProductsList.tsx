@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { Product } from '../../types';
-import { useQueryParams } from '../../utils/useQueryParams';
+import { useQueryParams } from '../../hooks/useQueryParams';
 import { DropDown } from '../DropDown';
 import { Pagination } from '../Pagination';
 import { ProductCard } from '../ProductCard';
