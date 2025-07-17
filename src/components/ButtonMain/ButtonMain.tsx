@@ -35,7 +35,7 @@ export const ButtonMain: React.FC<Props> = ({ product }) => {
         'transition duration-300 ease-in-out',
         'text-default',
         isSelected
-          ? 'border-elements dark:border-dark-elements bg-white dark:bg-dark-background text-primary dark:text-dark-primary'
+          ? 'border-elements dark:border-dark-elements bg-white dark:bg-dark-background text-green dark:text-dark-primary'
           : 'bg-primary dark:bg-dark-button-purple text-white hover:bg-secondary dark:hover:bg-dark-button-purple-hover',
       )}
     >

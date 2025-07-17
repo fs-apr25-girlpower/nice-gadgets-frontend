@@ -20,32 +20,30 @@ export const TeamMembers = () => {
       <button
         type="button"
         onClick={toggleVisible}
-        className="
-            py-3 px-3
-            border border-icons
-            hover:border-black
-            transition duration-300 ease-in-out
-            cursor-pointer
-          "
+        className="py-3 px-3 border border-icons dark:border-dark-icons hover:border-primary dark:hover:border-purple bg-white dark:bg-dark-card-background text-primary dark:text-dark-primary transition duration-300 ease-in-out cursor-pointer"
       >
         {isTeamVisible ? <ArrowUp /> : <ArrowDown />}
       </button>
 
       {isTeamVisible && (
-        <section className="mt-2 tablet:mt-4 ">
-          <h2>This site was created:</h2>
+        <section className="mt-2 tablet:mt-4 bg-white dark:bg-dark-card-background text-primary dark:text-dark-primary rounded-xl shadow-md border border-elements dark:border-dark-border p-4 tablet:p-8">
+          <h2 className="text-3xl font-bold mb-6 text-primary dark:text-dark-primary">
+            This site was created:
+          </h2>
 
-          {teamMembersData.map(member => (
-            <TeamMemberCard
-              key={member.id}
-              name={member.name[currentLanguage]}
-              photoUrl={member.photoUrl}
-              unicornPhotoUrl={member.unicornPhotoUrl}
-              role={member.role[currentLanguage]}
-              strengths={member.strengths[currentLanguage]}
-              quote={member.quote[currentLanguage]}
-            />
-          ))}
+          <div className="flex flex-col gap-8">
+            {teamMembersData.map(member => (
+              <TeamMemberCard
+                key={member.id}
+                name={member.name[currentLanguage]}
+                photoUrl={member.photoUrl}
+                unicornPhotoUrl={member.unicornPhotoUrl}
+                role={member.role[currentLanguage]}
+                strengths={member.strengths[currentLanguage]}
+                quote={member.quote[currentLanguage]}
+              />
+            ))}
+          </div>
         </section>
       )}
     </>
