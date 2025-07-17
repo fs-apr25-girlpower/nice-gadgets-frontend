@@ -58,8 +58,6 @@ export const ProductDetailsPage = () => {
 
   const handleSelectColor = (color: string) => {
     const base = currentProduct?.itemId.split('-').slice(0, -2).join('-');
-    console.log('base', base);
-    console.log('color', color);
     if (!base) return;
 
     const targetProduct = allProducts.find(
