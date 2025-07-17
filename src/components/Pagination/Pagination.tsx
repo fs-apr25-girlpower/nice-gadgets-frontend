@@ -127,18 +127,16 @@ export function Pagination<T>({
     return `item-${index}`;
   };
   const getButtonStyles = (page: number, currentPage: number) => {
-    const baseStyles = 'w-8 h-8 cursor-pointer transition-colors duration-200';
-    const activeStyles = 'border-1 border-secondary   ';
-    const inactiveStyles =
-      'bg-pagination-background text-primary dark:text-dark-primary';
-    const hoverStyles =
-      'hover:bg-primary hover:border-secondary hover:text-hover   dark:hover:bg-dark-purple-hover dark:hover:border-dark-purple-hover dark:hover:text-white';
+    // Selected page: purple button (like Add to Cart)
+    const baseStyles =
+      'w-8 h-8 cursor-pointer transition duration-300 ease-in-out font-normal';
+    const selectedBtn =
+      'bg-primary dark:bg-dark-button-purple text-white border-none hover:bg-secondary dark:hover:bg-dark-button-purple-hover focus:bg-secondary focus:outline-none focus:ring-2 focus:ring-secondary';
+    // Unselected: white button with border, text-primary, hover changes border to purple
+    const unselectedBtn =
+      'bg-white dark:bg-dark-background text-primary dark:text-dark-primary border border-elements dark:border-dark-elements hover:border-purple dark:hover:border-purple';
 
-    return clsx(
-      baseStyles,
-      page === currentPage ? activeStyles : inactiveStyles,
-      hoverStyles,
-    );
+    return clsx(baseStyles, page === currentPage ? selectedBtn : unselectedBtn);
   };
   return (
     <>

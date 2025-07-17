@@ -49,14 +49,16 @@ export const TeamMemberCard = ({
             {role}
           </h4>
           <div className="strengths text-dark-secondary dark:text-dark-secondary">
-            <p>
-              <strong>{strengths.label}</strong>
+            <p className="text-primary dark:text-white/60">
+              <strong className="text-primary dark:text-white/80">
+                {strengths.label}
+              </strong>
               {strengths.text}
             </p>
           </div>
 
           <blockquote className="quote mt-2 text-white/80 dark:text-white/60 italic">
-            <strong>{quote}</strong>
+            <strong className="text-primary dark:text-white/60">{quote}</strong>
           </blockquote>
         </div>
       </div>
