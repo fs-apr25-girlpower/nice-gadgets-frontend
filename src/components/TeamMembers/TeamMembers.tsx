@@ -5,7 +5,6 @@ import { ArrowDown } from '../../images/icons/ArrowDown';
 import { ArrowUp } from '../../images/icons/ArrowUp';
 import { teamMembersData } from './data/teamMembersData';
 import { useLanguage } from '../../context/language/useLanguage';
-//
 
 export const TeamMembers = () => {
   const [isTeamVisible, setIsTeamVisible] = useState(false);
