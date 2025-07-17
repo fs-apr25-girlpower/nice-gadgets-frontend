@@ -1,5 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { HomeIcon } from '../../images/icons/HomeIcon';
+import { breadcrumbDictionary } from '../../i18n/breadcrumbDictionary';
+import { useLanguage } from '../../context/language/useLanguage';
 
 interface BreadcrumbItem {
   label: string;
@@ -7,6 +9,9 @@ interface BreadcrumbItem {
 }
 
 export const Breadcrumbs = () => {
+  const { currentLanguage } = useLanguage();
+  const translations = breadcrumbDictionary[currentLanguage];
+
   const location = useLocation();
   const itemId = location.pathname.split('/')[2];
 
@@ -24,7 +29,9 @@ export const Breadcrumbs = () => {
       return [];
     }
 
-    const segments: BreadcrumbItem[] = [{ label: 'Home', path: '/' }];
+    const segments: BreadcrumbItem[] = [
+      { label: translations.home, path: '/' },
+    ];
 
     let currentPath = '';
     pathnames.forEach((segment, index) => {
@@ -34,19 +41,19 @@ export const Breadcrumbs = () => {
 
       switch (segment) {
         case 'phones':
-          label = 'Phones';
+          label = translations.phones;
           break;
         case 'tablets':
-          label = 'Tablets';
+          label = translations.tablets;
           break;
         case 'accessories':
-          label = 'Accessories';
+          label = translations.accessories;
           break;
         case 'favourites':
-          label = 'Favourites';
+          label = translations.favourites;
           break;
         case 'cart':
-          label = 'Cart';
+          label = translations.cart;
           break;
       }
 
