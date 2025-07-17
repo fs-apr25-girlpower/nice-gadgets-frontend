@@ -90,7 +90,9 @@ module.exports = {
         'dark-dnd-hover': '#E3DCFE',
       },
       cursor: {
-        'grab-custom': "url('/src/images/icons/cursor-grab.png') 0 0, grab",
+        'grab-custom': "url('/cursors/cursor-grab.png') 0 0, grab",
+        'not-allowed-custom':
+          "url('/cursors/cursor-not-allowed.png') 0 0, not-allowed",
       },
 
       fontFamily: {
