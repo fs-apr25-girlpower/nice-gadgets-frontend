@@ -19,7 +19,7 @@ export type ProductsListProps = {
 };
 
 export const ProductsList = ({ products }: ProductsListProps) => {
-  const { isLoading, error } = useLoading();
+  const { isLoading, errors } = useLoading();
 
   const { currentLanguage } = useLanguage();
   const translations = productsListDictionary[currentLanguage];
@@ -106,8 +106,7 @@ export const ProductsList = ({ products }: ProductsListProps) => {
     }
   }, [location.search, refreshParams, search]);
 
-  console.log('isLoading', isLoading);
-  console.log('error', error);
+  const currentCategory = location.pathname.slice(1);
 
   return (
     <>
@@ -158,18 +157,18 @@ export const ProductsList = ({ products }: ProductsListProps) => {
         </form>
       </div>
 
-      {error && (
+      {errors.includes(currentCategory) && (
         <ErrorMessage
           text={ErrorMessageEnum.SomethingWentWrong}
           path={true}
         />
       )}
 
-      {products.length === 0 && !error && (
-        <ErrorMessage text={ErrorMessageEnum.NoPhonesYet} />
+      {products.length === 0 && !errors.includes(currentCategory) && (
+        <ErrorMessage text={`There are no ${currentCategory} yet`} />
       )}
 
-      {visibleProducts.length === 0 && !error && (
+      {visibleProducts.length === 0 && !errors.includes(currentCategory) && (
         <ErrorMessage
           text={ErrorMessageEnum.ThereAreNoProductsMatchingTheQuery}
         />

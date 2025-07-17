@@ -17,12 +17,21 @@ interface UseLoadingReturn {
   tablets: Tablet[];
   accessories: Accessory[];
   productsWithDetails: ProductWithDetails[];
-  error: boolean;
+  errors: string[];
 }
+
+export const AllCategory = {
+  AllProducts: 'allProducts',
+  Phones: 'phones',
+  Tablets: 'tablets',
+  Accessories: 'accessories',
+} as const;
+
+export type AllCategory = (typeof AllCategory)[keyof typeof AllCategory];
 
 export const useLoading = (): UseLoadingReturn => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [phones, setPhones] = useState<Phone[]>([]);
   const [tablets, setTablets] = useState<Tablet[]>([]);
@@ -37,12 +46,12 @@ export const useLoading = (): UseLoadingReturn => {
         setIsLoading(true);
 
         const [
-          productsWithDetailsData,
-          productsData,
-          phonesData,
-          tabletsData,
-          accessoriesData,
-        ] = await Promise.all([
+          productsWithDetailsResult,
+          productsResult,
+          phonesResult,
+          tabletsResult,
+          accessoriesResult,
+        ] = await Promise.allSettled([
           getProductsWithDetails(),
           getProducts(),
           getPhones(),
@@ -50,14 +59,37 @@ export const useLoading = (): UseLoadingReturn => {
           getAccessories(),
         ]);
 
-        setProductsWithDetails(productsWithDetailsData);
-        setProducts(productsData);
-        setPhones(phonesData);
-        setTablets(tabletsData);
-        setAccessories(accessoriesData);
-      } catch (error) {
-        setError(true);
-        console.error('Error loading data:', error);
+        if (productsWithDetailsResult.status === 'fulfilled') {
+          setProductsWithDetails(productsWithDetailsResult.value);
+        } else {
+          setErrors(prev => [...prev, AllCategory.AllProducts]);
+        }
+
+        if (productsResult.status === 'fulfilled') {
+          setProducts(productsResult.value);
+        } else {
+          setErrors(prev => [...prev, AllCategory.AllProducts]);
+        }
+
+        if (phonesResult.status === 'fulfilled') {
+          setPhones(phonesResult.value);
+        } else {
+          setErrors(prev => [...prev, AllCategory.Phones]);
+        }
+
+        if (tabletsResult.status === 'fulfilled') {
+          setTablets(tabletsResult.value);
+        } else {
+          setErrors(prev => [...prev, AllCategory.Tablets]);
+        }
+
+        if (accessoriesResult.status === 'fulfilled') {
+          setAccessories(accessoriesResult.value);
+        } else {
+          setErrors(prev => [...prev, AllCategory.Accessories]);
+        }
+      } catch (err) {
+        console.error('Помилка при завантаженні даних:', err);
       } finally {
         setIsLoading(false);
       }
@@ -73,6 +105,6 @@ export const useLoading = (): UseLoadingReturn => {
     tablets,
     accessories,
     productsWithDetails,
-    error,
+    errors,
   };
 };
