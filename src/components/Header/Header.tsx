@@ -5,22 +5,19 @@ import { useLanguage } from '../../context/language/useLanguage';
 import { headerDictionary } from '../../i18n/headerDictionary';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
 import { GlassIcon } from '../../images/icons/GlassIcon';
-import * as Switch from '@radix-ui/react-switch';
-import clsx from 'clsx';
+
 import { ArrowDown } from '../../images/icons/ArrowDown';
 import { useState } from 'react';
+import { AuthButton } from '../AuthButton';
+import { LanguageSwitcher } from '../LanguageSwitcher';
 //import { useLanguage } from '../../context/language/LanguageContext';
 
 export const Header = () => {
-  const { currentLanguage, setLanguage } = useLanguage();
+  const { currentLanguage } = useLanguage();
   const { pathname } = useLocation();
 
   // Стан для контролю видимості дропдауну
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const handleLanguageChange = (lang: 'ua' | 'en') => {
-    setLanguage(lang);
-  };
 
   const headerClass =
     'header flex flex-row sticky top-0 justify-between items-center w-full gap-12 bg-white dark:bg-dark-background z-10000 mobile:h-12 desktop:h-16 pl-[18px] border-b border-elements dark:border-dark-border font-bold text-[12px]';
@@ -90,11 +87,11 @@ export const Header = () => {
           </ul>
         </nav>
 
-        <div className="right-container flex flex-row h-full">
+        <div className="right-container flex flex-row h-full dark:text-purple text-secondary ">
           {isVisibleGlassButton && (
             <NavLink
               to={'/allProducts'}
-              className="flex items-center justify-center p-2 rounded transition-colors hover:bg-secondary dark:hover:bg-dark-button-purple-hover"
+              className="flex items-center justify-center p-2 rounded transition-colors hover:bg-[#dfe1e4] dark:hover:bg-[#202937]"
               aria-label="Search"
             >
               <GlassIcon />
@@ -156,7 +153,7 @@ export const Header = () => {
           <div className="dropdown-icon relative">
             <button
               aria-label="More options"
-              className="flex items-center justify-center p-2 rounded h-full transition-colors hover:bg-secondary dark:hover:bg-dark-button-purple-hover focus:outline-none"
+              className=" dark:text-purple text-secondary flex items-center justify-center p-2 rounded h-full transition-colors hover:bg-[#dfe1e4] dark:hover:bg-[#202937] focus:outline-none"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <ArrowDown className="h-5 w-5" />
@@ -164,57 +161,15 @@ export const Header = () => {
           </div>
 
           {isDropdownOpen && (
-            <div className="absolute right-20 mt-12 desktop:mt-16 w-35 bg-white dark:bg-dark-background border border-elements dark:border-dark-border rounded-md shadow-lg z-20000">
-              {/* переключатель мови */}
-              <div className="flex items-center gap-2 p-2">
-                <span
-                  className={clsx(
-                    'text-sm font-bold select-none',
-                    currentLanguage === 'en'
-                      ? 'text-primary dark:text-purple'
-                      : 'text-secondary dark:text-dark-secondary',
-                  )}
-                >
-                  EN
-                </span>
-
-                <Switch.Root
-                  checked={currentLanguage === 'ua'}
-                  onCheckedChange={() =>
-                    handleLanguageChange(currentLanguage === 'en' ? 'ua' : 'en')
-                  }
-                  className={clsx(
-                    'w-12 h-6 rounded-full relative transition-colors duration-200 cursor-pointer outline-none border-2',
-                    'bg-elements dark:bg-dark-elements border-elements dark:border-dark-elements',
-                    'hover:bg-secondary dark:hover:bg-dark-button-purple-hover',
-                  )}
-                >
-                  <Switch.Thumb
-                    className={clsx(
-                      'block w-5 h-5 rounded-full shadow-md transition-transform duration-200',
-                      currentLanguage === 'ua'
-                        ? 'bg-white translate-x-6'
-                        : 'bg-white translate-x-1',
-                    )}
-                  />
-                </Switch.Root>
-
-                <span
-                  className={clsx(
-                    'text-sm font-bold select-none',
-                    currentLanguage === 'ua'
-                      ? 'text-primary dark:text-purple'
-                      : 'text-secondary dark:text-dark-secondary',
-                  )}
-                >
-                  UA
-                </span>
+            <div className="items-center justify-center absolute right-20 mt-12 desktop:mt-16 w-35 bg-white dark:bg-dark-background border border-elements dark:border-dark-border rounded-md shadow-lg z-20000">
+              <div className="flex flex-row items-center justify-center">
+                {' '}
+                <AuthButton />
+                <div className="p-2">
+                  <ThemeSwitcher />
+                </div>
               </div>
-
-              {/* Перемикач теми */}
-              <div className="p-2">
-                <ThemeSwitcher />
-              </div>
+              <LanguageSwitcher />
             </div>
           )}
 

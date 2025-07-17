@@ -21,7 +21,7 @@ export function Pagination<T>({
   currentPage,
   onPageChange,
   refreshParams,
-  pageRangeDisplayed = 5, // Змінено з 3 на 5
+  pageRangeDisplayed = 3,
   marginPagesDisplayed = 1,
 }: PaginationProps<T>) {
   const totalPages = Math.ceil(items.length / itemsPerPage);
@@ -126,6 +126,20 @@ export function Pagination<T>({
 
     return `item-${index}`;
   };
+  const getButtonStyles = (page: number, currentPage: number) => {
+    const baseStyles = 'w-8 h-8 cursor-pointer transition-colors duration-200';
+    const activeStyles = 'border-1 border-secondary   ';
+    const inactiveStyles =
+      'bg-pagination-background text-primary dark:text-dark-primary';
+    const hoverStyles =
+      'hover:bg-primary hover:border-secondary hover:text-hover   dark:hover:bg-dark-purple-hover dark:hover:border-dark-purple-hover dark:hover:text-white';
+
+    return clsx(
+      baseStyles,
+      page === currentPage ? activeStyles : inactiveStyles,
+      hoverStyles,
+    );
+  };
   return (
     <>
       <div className="grid gap-4 mobile:grid-cols-[repeat(auto-fill,_minmax(230px,288px))] mobile:justify-center tablet:grid-cols-[repeat(auto-fill,_minmax(230px,1fr))] mt-6 mb-6 tablet:mb-10">
@@ -147,7 +161,7 @@ export function Pagination<T>({
           aria-label="Previous page"
           aria-disabled={isDisabledPrev}
           onClick={handlePrevPageClick}
-          className={clsx('cursor-not-allowed', {
+          className={clsx('cursor-not-allowed group ', {
             'cursor-pointer': !isDisabledPrev,
           })}
         >
@@ -158,7 +172,7 @@ export function Pagination<T>({
           page === 'dots' ? (
             <span
               key={`dots-${index}`}
-              className="px-2 text-gray-500"
+              className="px-2 text-black"
               aria-hidden="true"
             >
               ...
@@ -167,13 +181,7 @@ export function Pagination<T>({
             <button
               key={page}
               onClick={() => handlePageClick(page)}
-              className={clsx(
-                'w-8 h-8 cursor-pointer',
-                page === currentPage
-                  ? 'bg-primary border-1 border-secondary text-white'
-                  : 'bg-white text-black',
-                'hover:bg-primary hover:border-1 hover:border-secondary hover:text-white',
-              )}
+              className={getButtonStyles(page, currentPage)}
               aria-current={page === currentPage ? 'page' : undefined}
               aria-label={`Page ${page}`}
             >
@@ -184,7 +192,7 @@ export function Pagination<T>({
 
         <button
           onClick={handleNextPageClick}
-          className={clsx('cursor-not-allowed', {
+          className={clsx('cursor-not-allowed group   ', {
             'cursor-pointer': !isDisabledNext,
           })}
           aria-label="Next page"
