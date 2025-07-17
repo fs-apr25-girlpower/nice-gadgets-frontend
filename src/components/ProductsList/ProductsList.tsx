@@ -158,10 +158,7 @@ export const ProductsList = ({ products }: ProductsListProps) => {
       </div>
 
       {errors.includes(currentCategory) && (
-        <ErrorMessage
-          text={ErrorMessageEnum.SomethingWentWrong}
-          path={true}
-        />
+        <ErrorMessage text={ErrorMessageEnum.SomethingWentWrong} />
       )}
 
       {products.length === 0 && !errors.includes(currentCategory) && (
