@@ -7,8 +7,6 @@ import { ProductSlider } from '../components/ProductsSlider/ProductsSlider';
 import { ButtonMain } from '../components/ButtonMain';
 import { Loader } from '../components/Loader';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import type { ProductWithDetails } from '../types/ProductWithDetails';
 import { useProductsWithDetails } from '../context/ProductsWithDetailsContext';
 import type { ColorKey } from '../types/ColorKey';
 import { ErrorMessage } from '../components/ErrorMessage';
@@ -16,67 +14,58 @@ import { ErrorMessage } from '../components/ErrorMessage';
 import { useLanguage } from '../context/language/useLanguage';
 import { productDetailsDictionary } from '../i18n/productDetailsDictionary';
 import type { ProductDetailsDictionary } from '../i18n/productDetailsDictionary';
+import { useLoading } from '../hooks/useLoading';
+import { useState } from 'react';
+
+interface Params {
+  [key: string]: string | undefined;
+  category?: string;
+  itemId?: string;
+}
 
 export const ProductDetailsPage = () => {
   const allProducts = useProductsWithDetails();
-  const { itemId } = useParams<{ itemId: string }>();
+  const { category, itemId } = useParams<Params>();
   const navigate = useNavigate();
 
   const { currentLanguage } = useLanguage();
   const translations: ProductDetailsDictionary =
     productDetailsDictionary[currentLanguage];
 
-  const [product, setProduct] = useState<ProductWithDetails | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  const [selectedColor, setSelectedColor] = useState<string>('');
-  const [selectedCapacity, setSelectedCapacity] = useState<string>('');
-
+  const { isLoading, errors } = useLoading();
   const currentProduct = allProducts.find(p => p.details?.id === itemId);
-  const imagesForGallery = product?.details?.images || [];
+  const imagesForGallery = currentProduct?.details?.images || [];
   const availableColors: ColorKey[] =
     currentProduct?.details?.colorsAvailable || [];
   const availableCapacities = currentProduct?.details?.capacityAvailable || [];
   const [showMessage, setShowMessage] = useState(false);
 
-  useEffect(() => {
-    if (
-      !allProducts ||
-      !Array.isArray(allProducts) ||
-      allProducts.length === 0
-    ) {
-      setLoading(true);
-      return;
-    }
+  const selectedColor = currentProduct?.color || '';
+  const selectedCapacity = currentProduct?.capacity || '';
 
-    setLoading(true);
-    setError(false);
+  const recommendedProducts = allProducts
+    .filter(
+      p =>
+        p.itemId !== currentProduct?.itemId &&
+        p.category === currentProduct?.category,
+    )
+    .slice(0, 10);
 
-    setProduct(null);
-    setShowMessage(false);
-
-    const foundProduct = allProducts.find(p => p.itemId === itemId);
-
-    if (foundProduct) {
-      setProduct(foundProduct);
-    } else {
-      setError(true);
-    }
-
-    setLoading(false);
-  }, [allProducts, itemId]);
+  const sliderConfig = {
+    titleForBrand: translations.youMayAlsoLike,
+    marginTop: 'mt-16',
+  };
 
   const handleSelectColor = (color: string) => {
-    setSelectedColor(color);
-
-    const base = product?.itemId.split('-').slice(0, -2).join('-');
+    const base = currentProduct?.itemId.split('-').slice(0, -2).join('-');
+    console.log('base', base);
+    console.log('color', color);
     if (!base) return;
 
     const targetProduct = allProducts.find(
       p =>
         p.color.replace(' ', '-') === color &&
-        p.capacity === (selectedCapacity || product?.capacity) &&
+        p.capacity === selectedCapacity &&
         p.itemId.includes(base),
     );
 
@@ -88,19 +77,18 @@ export const ProductDetailsPage = () => {
   };
 
   const handleSelectCapacity = (capacity: string) => {
-    setSelectedCapacity(capacity);
-
-    const base = product?.itemId
+    const base = currentProduct?.itemId
       .split('-')
       .filter(item => {
         let colorParts;
-        if (product.color.includes('-')) {
-          colorParts = product.color.toLowerCase().split('-');
+        if (currentProduct.color.includes('-')) {
+          colorParts = currentProduct.color.toLowerCase().split('-');
         } else {
-          colorParts = product.color.toLowerCase().split(' ');
+          colorParts = currentProduct.color.toLowerCase().split(' ');
         }
         return (
-          item !== product.capacity.toLowerCase() && !colorParts.includes(item)
+          item !== currentProduct.capacity.toLowerCase() &&
+          !colorParts.includes(item)
         );
       })
       .join('-');
@@ -110,7 +98,7 @@ export const ProductDetailsPage = () => {
     const targetProduct = allProducts.find(
       p =>
         p.capacity === capacity &&
-        p.color === (selectedColor || product?.color) &&
+        p.color === selectedColor &&
         p.itemId.includes(base),
     );
 
@@ -121,14 +109,7 @@ export const ProductDetailsPage = () => {
     }
   };
 
-  useEffect(() => {
-    if (product) {
-      setSelectedColor(product.color);
-      setSelectedCapacity(product.capacity);
-    }
-  }, [itemId, product]);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-w-[320px] max-w-[1136px] mx-auto flex justify-center items-center h-64">
         <Loader />
@@ -136,22 +117,11 @@ export const ProductDetailsPage = () => {
     );
   }
 
-  if (error) {
+  if (category && errors.includes(category)) {
     return <ErrorMessage text={translations.somethingWentWrong} />;
   }
 
-  const recommendedProducts = allProducts
-    .filter(
-      p => p.itemId !== product?.itemId && p.category === product?.category,
-    )
-    .slice(0, 10);
-
-  const sliderConfig = {
-    titleForBrand: translations.youMayAlsoLike,
-    marginTop: 'mt-16',
-  };
-
-  return !product || showMessage ? (
+  return !currentProduct || showMessage ? (
     <ErrorMessage
       text={translations.productNotFound}
       back={true}
@@ -175,7 +145,7 @@ export const ProductDetailsPage = () => {
       </div>
 
       <h1 className="text-xl tablet:text-2xl desktop:text-[28px] font-bold text-primary dark:text-dark-primary mb-8 tablet:mb-10 desktop:mb-12">
-        {product.name}
+        {currentProduct.name}
       </h1>
 
       <div className="flex flex-col tablet:flex-row gap-6 tablet:gap-8 desktop:gap-16 mb-12 tablet:mb-16 desktop:mb-20 min-w-0">
@@ -184,7 +154,7 @@ export const ProductDetailsPage = () => {
         </div>
         <div className="flex-1 min-w-0 justify-between relative">
           <p className="text-xs tablet:text-sm text-secondary dark:text-dark-secondary font-semibold uppercase tracking-wider absolute top-0 right-0 ">
-            ID: {product.id}
+            ID: {currentProduct.id}
           </p>
           <div className="min-w-0 space-y-4 tablet:space-y-6 desktop:max-w-80">
             <p className="text-xs tablet:text-sm text-secondary dark:text-dark-secondary font-semibold tracking-wider mb-2">
@@ -211,16 +181,16 @@ export const ProductDetailsPage = () => {
 
             <div className="flex items-baseline gap-3 py-4">
               <span className="text-2xl tablet:text-3xl desktop:text-[32px] font-bold text-primary dark:text-dark-primary">
-                ${product.price}
+                ${currentProduct.price}
               </span>
               <span className="text-lg tablet:text-xl desktop:text-[22px] text-secondary dark:text-dark-secondary line-through">
-                ${product.fullPrice}
+                ${currentProduct.fullPrice}
               </span>
             </div>
 
             <div className="flex gap-2 tablet:gap-4">
-              <ButtonMain product={product} />
-              <FavoriteButton product={product} />
+              <ButtonMain product={currentProduct} />
+              <FavoriteButton product={currentProduct} />
             </div>
 
             <div className="space-y-2 pt-6">
@@ -230,7 +200,7 @@ export const ProductDetailsPage = () => {
                     {translations.screen}
                   </span>
                   <span className="text-primary dark:text-dark-primary font-medium">
-                    {product.screen}
+                    {currentProduct.screen}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -238,8 +208,9 @@ export const ProductDetailsPage = () => {
                     {translations.resolution}
                   </span>
                   <span className="text-primary dark:text-dark-primary font-medium">
-                    {product.details && 'resolution' in product.details
-                      ? product.details.resolution
+                    {currentProduct.details &&
+                    'resolution' in currentProduct.details
+                      ? currentProduct.details.resolution
                       : 'N/A'}
                   </span>
                 </div>
@@ -248,8 +219,9 @@ export const ProductDetailsPage = () => {
                     {translations.processor}
                   </span>
                   <span className="text-primary dark:text-dark-primary font-medium">
-                    {product.details && 'processor' in product.details
-                      ? product.details.processor
+                    {currentProduct.details &&
+                    'processor' in currentProduct.details
+                      ? currentProduct.details.processor
                       : 'N/A'}
                   </span>
                 </div>
@@ -258,7 +230,7 @@ export const ProductDetailsPage = () => {
                     RAM
                   </span>
                   <span className="text-primary dark:text-dark-primary font-medium">
-                    {product.ram}
+                    {currentProduct.ram}
                   </span>
                 </div>
               </div>
@@ -274,9 +246,9 @@ export const ProductDetailsPage = () => {
           </h2>
           <div className="h-px w-full bg-elements mt-4 mb-8"></div>
           <div className="space-y-6 text-secondary dark:text-dark-secondary text-default">
-            {product.details?.description &&
-            product.details.description.length > 0 ? (
-              product.details.description.map((section, index) => (
+            {currentProduct.details?.description &&
+            currentProduct.details.description.length > 0 ? (
+              currentProduct.details.description.map((section, index) => (
                 <div key={index}>
                   <h3 className="font-semibold mb-3 text-primary dark:text-dark-primary">
                     {section.title}
@@ -294,7 +266,7 @@ export const ProductDetailsPage = () => {
             ) : (
               <div>
                 <h3 className="font-semibold mb-3 text-primary dark:text-dark-primary">
-                  {translations.about} {product.name}
+                  {translations.about} {currentProduct.name}
                 </h3>
                 <p className="leading-relaxed">{translations.aboutFallback}</p>
               </div>
@@ -313,7 +285,7 @@ export const ProductDetailsPage = () => {
                 {translations.screen}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
-                {product.screen}
+                {currentProduct.screen}
               </span>
             </div>
             <div className="flex justify-between py-3">
@@ -321,7 +293,7 @@ export const ProductDetailsPage = () => {
                 {translations.resolution}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
-                {product.details?.resolution || 'N/A'}
+                {currentProduct.details?.resolution || 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3">
@@ -329,7 +301,7 @@ export const ProductDetailsPage = () => {
                 {translations.processor}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
-                {product.details?.processor || 'N/A'}
+                {currentProduct.details?.processor || 'N/A'}
               </span>
             </div>
             <div className="flex justify-between py-3">
@@ -337,7 +309,7 @@ export const ProductDetailsPage = () => {
                 RAM
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
-                {product.ram}
+                {currentProduct.ram}
               </span>
             </div>
             <div className="flex justify-between py-3">
@@ -345,7 +317,7 @@ export const ProductDetailsPage = () => {
                 {translations.builtInMemory}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
-                {product.capacity}
+                {currentProduct.capacity}
               </span>
             </div>
             <div className="flex justify-between py-3">
@@ -353,8 +325,8 @@ export const ProductDetailsPage = () => {
                 {translations.camera}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
-                {product.details && 'camera' in product.details
-                  ? product.details.camera
+                {currentProduct.details && 'camera' in currentProduct.details
+                  ? currentProduct.details.camera
                   : 'N/A'}
               </span>
             </div>
@@ -363,8 +335,8 @@ export const ProductDetailsPage = () => {
                 {translations.zoom}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
-                {product.details && 'zoom' in product.details
-                  ? product.details.zoom
+                {currentProduct.details && 'zoom' in currentProduct.details
+                  ? currentProduct.details.zoom
                   : 'N/A'}
               </span>
             </div>
@@ -373,8 +345,8 @@ export const ProductDetailsPage = () => {
                 {translations.cell}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
-                {product.details && 'cell' in product.details
-                  ? product.details.cell.join(', ')
+                {currentProduct.details && 'cell' in currentProduct.details
+                  ? currentProduct.details.cell.join(', ')
                   : 'N/A'}
               </span>
             </div>
