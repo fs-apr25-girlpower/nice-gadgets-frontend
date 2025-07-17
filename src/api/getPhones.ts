@@ -2,7 +2,7 @@ import type { Phone } from '../types/Phone';
 import { wait } from './wait';
 
 export const getPhones = async (): Promise<Phone[]> => {
-  await wait(700);
+  await wait(200);
 
   const response = await fetch(`${import.meta.env.BASE_URL}api/phones.json`);
 
