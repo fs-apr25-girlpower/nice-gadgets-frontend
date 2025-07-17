@@ -11,13 +11,11 @@ interface UnicornAssistantProps {
     ua: string[];
   };
   interval?: number;
-  //currentLanguage: 'ua' | 'en'; прибрати потім, коли буде перемикання через контекст
 }
 
 export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
   messages,
   interval = 5000,
-  //currentLanguage,
 }) => {
   const { currentLanguage } = useLanguage();
 
@@ -25,7 +23,7 @@ export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
 
   // drag and drop states
   const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState({ bottom: 20, right: 20 });
+  const [position, setPosition] = useState({ bottom: 112, right: 20 });
   const offset = useRef({ x: 0, y: 0 }); // to store the mouse offset relative to an element
   const assistantRef = useRef<HTMLDivElement>(null); // a reference to the container element itself
 

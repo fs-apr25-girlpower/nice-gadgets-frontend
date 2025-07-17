@@ -49,18 +49,6 @@ a {
   text-decoration: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  font-size: inherit;
-  font-weight: inherit;
-  font-family: inherit;
-}
-
 h1 {
   font-family: 'Mont', sans-serif;
   font-weight: 800;
@@ -68,10 +56,6 @@ h1 {
   line-height: 56px;
   letter-spacing: -0.01em;
 
-  /* @media (max-width: 767px) {
-    font-size: 32px;
-    line-height: 41px;
-  } */
   @media (max-width: 639px) {
     font-size: 32px;
     line-height: 41px;

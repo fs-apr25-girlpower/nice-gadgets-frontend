@@ -58,3 +58,17 @@ export const appleColorsHex: Record<ColorKey, string> = {
   'skyblue': '#87CEEB',
   'sky blue': '#87CEEB',
 };
+
+export const allAvailableCapacity = [
+  '32gb',
+  '64gb',
+  '128gb',
+  '256gb',
+  '512gb',
+  '1tb',
+  '2tb',
+  '38mm',
+  '42mm',
+  '40mm',
+  '44mm',
+];

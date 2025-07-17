@@ -18,7 +18,7 @@ export const ColorSelector = ({
     <div>
       <RadioGroup.Root
         className="flex gap-4"
-        value={selectedColor}
+        value={selectedColor.replace(' ', '-')}
         onValueChange={value => {
           onSelectColor(value);
         }}
