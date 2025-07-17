@@ -2,7 +2,7 @@ import type { Accessory } from '../types/Accessory';
 import { wait } from './wait';
 
 export const getAccessories = async (): Promise<Accessory[]> => {
-  await wait(700);
+  await wait(200);
 
   const response = await fetch(
     `${import.meta.env.BASE_URL}api/accessories.json`,

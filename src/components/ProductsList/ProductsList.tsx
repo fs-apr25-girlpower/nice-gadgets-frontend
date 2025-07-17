@@ -106,6 +106,9 @@ export const ProductsList = ({ products }: ProductsListProps) => {
     }
   }, [location.search, refreshParams, search]);
 
+  console.log('isLoading', isLoading);
+  console.log('error', error);
+
   return (
     <>
       <p className="body-text mb-8 tablet:mb-10">
