@@ -1,12 +1,11 @@
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { ProductsList } from '../components/ProductsList';
-import { useLanguage } from '../context/language/useLanguage';
-import { tabletPageDictionary } from '../i18n/tabletPageDictionary';
 import { useProducts } from '../context/ProductsContext';
+import { useTranslation } from 'react-i18next';
 
 export const TabletsPage = () => {
-  const { currentLanguage } = useLanguage();
-  const translations = tabletPageDictionary[currentLanguage];
+  const { t } = useTranslation('tabletpage');
+
   const tablets = useProducts().filter(
     product => product.category === 'tablets',
   );
@@ -15,7 +14,7 @@ export const TabletsPage = () => {
     <div>
       <Breadcrumbs />
 
-      <h2 className="mt-6 mb-2 tablet:mt-10">{translations.title}</h2>
+      <h2 className="mt-6 mb-2 tablet:mt-10">{t('title')}</h2>
 
       <ProductsList products={tablets} />
     </div>

@@ -1,16 +1,14 @@
+import { useTranslation } from 'react-i18next';
 import { Loader } from '../components/Loader';
 import { ProductSlider } from '../components/ProductsSlider';
 import { ShopByCategory } from '../components/ShopByCategory';
 import { TopSlider } from '../components/TopSlider';
 import { useProducts } from '../context/ProductsContext';
-import { useLanguage } from '../context/language/useLanguage';
-import { homePageDictionary } from '../i18n/homePageDictionary';
 
 export const HomePage = () => {
-  //hook Context
+  const { t } = useTranslation('homepage');
+
   const products = useProducts();
-  const { currentLanguage } = useLanguage();
-  const translations = homePageDictionary[currentLanguage];
 
   const isLoading = !products || !Array.isArray(products);
   if (isLoading) {
@@ -18,7 +16,7 @@ export const HomePage = () => {
       <div>
         <Loader />
       </div>
-    ); // add loader?
+    );
   }
 
   const brandNewProducts = products
@@ -32,19 +30,19 @@ export const HomePage = () => {
     .slice(0, 10);
 
   const productsSliderConfig = {
-    titleForBrand: translations.brandNewModels,
+    titleForBrand: t('brandNewModels'),
     marginTop: 'mt-21 tablet:mt-23 desktop:mt-27',
   };
 
   const hotPricesSliderConfig = {
-    titleForBrand: translations.hotPrices,
+    titleForBrand: t('hotPrices'),
     marginTop: 'mt-14 tablet:mt-16 desktop:mt-20',
   };
 
   return (
     <>
       <h1 className="text-primary dark:text-dark-primary my-6 tablet:my-8 desktop:my-14">
-        {translations.welcomeTitle}
+        {t('welcomeTitle')}
       </h1>
 
       <TopSlider />

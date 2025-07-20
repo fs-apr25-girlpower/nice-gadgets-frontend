@@ -3,16 +3,18 @@ import { FacebookIcon } from '../images/icons/FacebookIcon';
 import { GithubIcon } from '../images/icons/GithubIcon';
 import { InstagramIcon } from '../images/icons/InstagramIcon';
 import { WhatsUpIcon } from '../images/icons/WhatsUpIcon';
-import { useLanguage } from '../context/language/useLanguage';
-import { contactsUsPageDictionary } from '../i18n/contactsUsPageDictionary';
+//import { useLanguage } from '../context/language/useLanguage';
+//import { contactsUsPageDictionary } from '../i18n/contactsUsPageDictionary';
+import { useTranslation } from 'react-i18next';
 
 export const ContactsUsPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  const { currentLanguage } = useLanguage();
-  const translations = contactsUsPageDictionary[currentLanguage];
+  const { t } = useTranslation('contactsuspage');
+  //const { currentLanguage } = useLanguage();
+  //const translations = contactsUsPageDictionary[currentLanguage];
 
   const isFormValid = name.trim() && email.trim() && message.trim();
 
@@ -50,7 +52,7 @@ export const ContactsUsPage = () => {
         <section className="w-full max-w-4xl px-4 sm:px-8 mt-8 mb-16">
           <div className="flex flex-col items-center">
             <h2 className="text-3xl font-bold mb-6 text-center text-primary dark:text-dark-primary">
-              {translations.title}
+              {t('title')}
             </h2>
             <div className="h-1 w-24 bg-elements dark:bg-dark-elements mb-8" />
 
@@ -87,19 +89,19 @@ export const ContactsUsPage = () => {
                   </a>
                 </div>
                 <p className="text-primary dark:text-dark-primary text-sm">
-                  {translations.socialText}
+                  {t('socialText')}
                 </p>
                 <div className="text-primary dark:text-dark-primary text-base font-medium">
-                  {translations.phone}
+                  {t('phone')}
                 </div>
                 <div
                   className="text-primary dark:text-dark-primary text-base font-medium"
                   style={{ whiteSpace: 'pre-line' }}
                 >
-                  {translations.address}
+                  {t('address')}
                 </div>
                 <div className="text-primary dark:text-dark-primary text-base font-medium">
-                  {translations.email}
+                  {t('email')}
                 </div>
               </div>
 
@@ -110,21 +112,21 @@ export const ContactsUsPage = () => {
                 <div className="flex gap-4">
                   <input
                     type="text"
-                    placeholder={translations.placeholderName}
+                    placeholder={t('placeholderName')}
                     value={name}
                     onChange={e => setName(e.target.value)}
                     className="flex-1 border border-elements dark:border-dark-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-form-focus dark:focus:ring-dark-form-focus bg-form-background dark:bg-dark-form-background text-primary dark:text-dark-primary"
                   />
                   <input
                     type="email"
-                    placeholder={translations.placeholderEmail}
+                    placeholder={t('placeholderEmail')}
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     className="flex-1 border border-elements dark:border-dark-elements rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-form-focus dark:focus:ring-dark-form-focus bg-form-background dark:bg-dark-form-background text-primary dark:text-dark-primary"
                   />
                 </div>
                 <textarea
-                  placeholder={translations.placeholderMessage}
+                  placeholder={t('placeholderMessage')}
                   value={message}
                   onChange={e => setMessage(e.target.value)}
                   className="border border-elements dark:border-dark-elements rounded px-4 py-2 min-h-[100px] focus:outline-none focus:ring-2 focus:ring-form-focus dark:focus:ring-dark-form-focus resize-none bg-form-background dark:bg-dark-form-background text-primary dark:text-dark-primary"
@@ -140,7 +142,7 @@ export const ContactsUsPage = () => {
                       : 'bg-elements dark:bg-dark-elements text-secondary dark:text-dark-secondary cursor-not-allowed'
                   }`}
                 >
-                  {translations.buttonSend}
+                  {t('buttonSend')}
                 </button>
               </form>
             </div>

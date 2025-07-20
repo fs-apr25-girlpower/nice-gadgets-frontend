@@ -6,12 +6,16 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { NotFoundPage } from '../../pages/NotFoundPage';
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
+
 interface Props {
   product?: Product;
   isLoading?: boolean;
 }
 
 export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
+  const { t } = useTranslation('productcard');
+
   const hasDiscount = product?.year !== undefined ? product.year < 2020 : false;
 
   if (!product && !isLoading) return <NotFoundPage />;
@@ -194,7 +198,7 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
         <div className="flex-grow space-y-2 mb-4">
           <div className="flex justify-between">
             <p className="small-text text-secondary dark:text-dark-secondary">
-              Screen
+              {t('screen')}
             </p>
             <p className="text-[12px] text-primary dark:text-dark-primary font-bold">
               {product!.screen}
@@ -203,7 +207,7 @@ export const ProductCard: React.FC<Props> = ({ product, isLoading }) => {
 
           <div className="flex justify-between">
             <p className="small-text text-secondary dark:text-dark-secondary">
-              Capacity
+              {t('capacity')}
             </p>
             <p className="text-[12px] text-primary dark:text-dark-primary font-bold">
               {product!.capacity}

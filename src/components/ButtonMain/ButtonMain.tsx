@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { useCart } from '../../hooks/useCart';
 import type { Product } from '../../types/Product';
-import { useLanguage } from '../../context/language/useLanguage';
-import { buttonMainDictionary } from '../../i18n/buttonMainDictionary';
+
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   product: Product;
@@ -10,8 +10,8 @@ interface Props {
 
 export const ButtonMain: React.FC<Props> = ({ product }) => {
   const { addToCart, removeFromCart, isInCart } = useCart();
-  const { currentLanguage } = useLanguage();
-  const translations = buttonMainDictionary[currentLanguage];
+
+  const { t } = useTranslation('buttonmain');
 
   const isSelected = isInCart(product);
 
@@ -39,7 +39,7 @@ export const ButtonMain: React.FC<Props> = ({ product }) => {
           : 'bg-primary dark:bg-dark-button-purple text-white hover:bg-secondary dark:hover:bg-dark-button-purple-hover',
       )}
     >
-      {isSelected ? translations.added : translations.addToCart}
+      {isSelected ? t('added') : t('addToCart')}
     </button>
   );
 };

@@ -11,11 +11,9 @@ import { useProductsWithDetails } from '../context/ProductsWithDetailsContext';
 import type { ColorKey } from '../types/ColorKey';
 import { ErrorMessage } from '../components/ErrorMessage';
 
-import { useLanguage } from '../context/language/useLanguage';
-import { productDetailsDictionary } from '../i18n/productDetailsDictionary';
-import type { ProductDetailsDictionary } from '../i18n/productDetailsDictionary';
 import { useLoading } from '../hooks/useLoading';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Params {
   [key: string]: string | undefined;
@@ -28,9 +26,7 @@ export const ProductDetailsPage = () => {
   const { category, itemId } = useParams<Params>();
   const navigate = useNavigate();
 
-  const { currentLanguage } = useLanguage();
-  const translations: ProductDetailsDictionary =
-    productDetailsDictionary[currentLanguage];
+  const { t } = useTranslation('productdetails');
 
   const { isLoading, errors } = useLoading();
   const currentProduct = allProducts.find(p => p.details?.id === itemId);
@@ -52,7 +48,7 @@ export const ProductDetailsPage = () => {
     .slice(0, 10);
 
   const sliderConfig = {
-    titleForBrand: translations.youMayAlsoLike,
+    titleForBrand: t('youMayAlsoLike'),
     marginTop: 'mt-16',
   };
 
@@ -116,12 +112,12 @@ export const ProductDetailsPage = () => {
   }
 
   if (category && errors.includes(category)) {
-    return <ErrorMessage text={translations.somethingWentWrong} />;
+    return <ErrorMessage text={t('somethingWentWrong')} />;
   }
 
   return !currentProduct || showMessage ? (
     <ErrorMessage
-      text={translations.productNotFound}
+      text={t('productNotFound')}
       back={true}
     />
   ) : (
@@ -137,7 +133,7 @@ export const ProductDetailsPage = () => {
         >
           <span className="text-base tablet:text-lg cursor-pointer">←</span>
           <span className="text-xs tablet:text-sm font-semibold cursor-pointer">
-            {translations.back}
+            {t('back')}
           </span>
         </button>
       </div>
@@ -156,7 +152,7 @@ export const ProductDetailsPage = () => {
           </p>
           <div className="min-w-0 space-y-4 tablet:space-y-6 desktop:max-w-80">
             <p className="text-xs tablet:text-sm text-secondary dark:text-dark-secondary font-semibold tracking-wider mb-2">
-              {translations.availableColors}
+              {t('availableColors')}
             </p>
             <ColorSelector
               colors={availableColors}
@@ -167,7 +163,7 @@ export const ProductDetailsPage = () => {
 
             <div className="space-y-1">
               <p className="text-xs tablet:text-sm text-secondary dark:text-dark-secondary font-semibold tracking-wider">
-                {translations.selectCapacity}
+                {t('selectCapacity')}
               </p>
             </div>
             <CapacitySelector
@@ -195,7 +191,7 @@ export const ProductDetailsPage = () => {
               <div className="flex flex-col gap-y-2 text-xs tablet:text-sm">
                 <div className="flex justify-between">
                   <span className="text-secondary dark:text-dark-secondary">
-                    {translations.screen}
+                    {t('screen')}
                   </span>
                   <span className="text-primary dark:text-dark-primary font-medium">
                     {currentProduct.screen}
@@ -203,7 +199,7 @@ export const ProductDetailsPage = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-secondary dark:text-dark-secondary">
-                    {translations.resolution}
+                    {t('resolution')}
                   </span>
                   <span className="text-primary dark:text-dark-primary font-medium">
                     {currentProduct.details &&
@@ -214,7 +210,7 @@ export const ProductDetailsPage = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-secondary dark:text-dark-secondary">
-                    {translations.processor}
+                    {t('processor')}
                   </span>
                   <span className="text-primary dark:text-dark-primary font-medium">
                     {currentProduct.details &&
@@ -240,7 +236,7 @@ export const ProductDetailsPage = () => {
       <div className="flex flex-col desktop:flex-row gap-8 desktop:gap-16 mb-16 desktop:mb-20">
         <div className="flex-1 min-w-0 w-full desktop:w-auto">
           <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary dark:text-dark-primary">
-            {translations.about}
+            {t('about')}
           </h2>
           <div className="h-px w-full bg-elements mt-4 mb-8"></div>
           <div className="space-y-6 text-secondary dark:text-dark-secondary text-default">
@@ -264,9 +260,9 @@ export const ProductDetailsPage = () => {
             ) : (
               <div>
                 <h3 className="font-semibold mb-3 text-primary dark:text-dark-primary">
-                  {translations.about} {currentProduct.name}
+                  {t('about')} {currentProduct.name}
                 </h3>
-                <p className="leading-relaxed">{translations.aboutFallback}</p>
+                <p className="leading-relaxed">{t('aboutFallback')}</p>
               </div>
             )}
           </div>
@@ -274,13 +270,13 @@ export const ProductDetailsPage = () => {
 
         <div className="flex-1 min-w-0 w-full desktop:w-auto mt-8 desktop:mt-0">
           <h2 className="text-xl tablet:text-2xl font-bold mb-6 text-primary dark:text-dark-primary">
-            {translations.techSpecs}
+            {t('techSpecs')}
           </h2>
           <div className="h-px w-full bg-elements mb-7"></div>
           <div className="space-y-0">
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                {translations.screen}
+                {t('screen')}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {currentProduct.screen}
@@ -288,7 +284,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                {translations.resolution}
+                {t('resolution')}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {currentProduct.details?.resolution || 'N/A'}
@@ -296,7 +292,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                {translations.processor}
+                {t('processor')}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {currentProduct.details?.processor || 'N/A'}
@@ -312,7 +308,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                {translations.builtInMemory}
+                {t('builtInMemory')}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {currentProduct.capacity}
@@ -320,7 +316,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                {translations.camera}
+                {t('camera')}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {currentProduct.details && 'camera' in currentProduct.details
@@ -330,7 +326,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                {translations.zoom}
+                {t('zoom')}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {currentProduct.details && 'zoom' in currentProduct.details
@@ -340,7 +336,7 @@ export const ProductDetailsPage = () => {
             </div>
             <div className="flex justify-between py-3">
               <span className="text-secondary dark:text-dark-secondary text-sm">
-                {translations.cell}
+                {t('cell')}
               </span>
               <span className="text-primary dark:text-dark-primary text-sm font-medium">
                 {currentProduct.details && 'cell' in currentProduct.details

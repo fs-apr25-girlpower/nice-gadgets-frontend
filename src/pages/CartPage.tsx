@@ -3,8 +3,6 @@ import { CheckoutModal } from '../components/CheckoutModal';
 import { useCart } from '../hooks/useCart';
 import unicornWithBusket from '../images/unicorn/unicornWithBusket.png';
 import { useState, useEffect } from 'react';
-import { useLanguage } from '../context/language/useLanguage';
-import { cartPageDictionary } from '../i18n/cartPageDictionary';
 import { SortableItem } from '../components/Sortable/SortableItem';
 import {
   DndContext,
@@ -21,16 +19,17 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import { useTranslation } from 'react-i18next';
 
 export const CartPage = () => {
   const { cartItems, getTotalPrice, getTotalItems, clearCart } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { currentLanguage } = useLanguage();
-  const translations = cartPageDictionary[currentLanguage];
+
+  const { t } = useTranslation('cartpage');
 
   const totalPrice = getTotalPrice();
   const itemsCount = getTotalItems();
-  //dnd
+
   const [items, setItems] = useState<string[]>(
     cartItems.map(p => p.id.toString()),
   );
@@ -60,7 +59,6 @@ export const CartPage = () => {
     const newOrder = arrayMove(items, oldIndex, newIndex);
     setItems(newOrder);
   };
-  //dnd
 
   const handleCheckout = () => {
     setIsModalOpen(true);
@@ -68,7 +66,7 @@ export const CartPage = () => {
 
   const handleConfirmOrder = () => {
     // Тут можна додати логіку для обробки замовлення
-    alert(translations.orderConfirmed);
+    alert(t('orderConfirmed'));
     clearCart();
     setIsModalOpen(false);
   };
@@ -85,14 +83,14 @@ export const CartPage = () => {
   if (cartItems.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <h2 className="text-2xl font-bold mb-6">{translations.title}</h2>
+        <h2 className="text-2xl font-bold mb-6">{t('title')}</h2>
         <div className="text-center py-12">
           <img
             src={unicornWithBusket}
             alt="unicorn"
             className="mx-auto mb-4 w-[400px] h-[300px]"
           />
-          <p className="text-secondary text-lg">{translations.emptyMessage}</p>
+          <p className="text-secondary text-lg">{t('emptyMessage')}</p>
         </div>
       </div>
     );
@@ -100,7 +98,7 @@ export const CartPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
-      <h2 className="text-2xl font-bold mb-6">{translations.title}</h2>
+      <h2 className="text-2xl font-bold mb-6">{t('title')}</h2>
       <div className="flex flex-col desktop:flex-row gap-4 desktop:gap-6">
         <DndContext
           sensors={sensors}
@@ -132,7 +130,7 @@ export const CartPage = () => {
                 ${totalPrice}
               </div>
               <div className="text-sm text-secondary dark:text-dark-secondary">
-                {translations.totalLabel(itemsCount)}
+                {t('totalLabel', { count: itemsCount })}
               </div>
             </div>
 
@@ -140,7 +138,7 @@ export const CartPage = () => {
               onClick={handleCheckout}
               className="w-full bg-primary dark:bg-dark-button-purple text-white py-3 px-6 rounded hover:bg-secondary dark:hover:bg-dark-button-purple-hover transition-colors font-medium text-sm sm:text-base cursor-pointer"
             >
-              {translations.checkoutButton}
+              {t('checkoutButton')}
             </button>
           </div>
         </div>

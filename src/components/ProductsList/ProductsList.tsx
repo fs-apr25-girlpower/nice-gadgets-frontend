@@ -4,8 +4,6 @@ import { useQueryParams } from '../../hooks/useQueryParams';
 import { DropDown } from '../DropDown';
 import { Pagination } from '../Pagination';
 import { ProductCard } from '../ProductCard';
-import { useLanguage } from '../../context/language/useLanguage';
-import { productsListDictionary } from '../../i18n/productsListDictionary';
 import { GlassIcon } from '../../images/icons/GlassIcon';
 import { useLocation } from 'react-router-dom';
 import { Xmark } from '../../images/icons/XmarkIcon';
@@ -13,6 +11,7 @@ import { ErrorMessage } from '../ErrorMessage';
 import { getVisibleProducts } from '../../utils/getVisibleProducts';
 import { useLoading } from '../../hooks/useLoading';
 import { ErrorMessageEnum } from '../../types/ErrorMessage';
+import { useTranslation } from 'react-i18next';
 
 export type ProductsListProps = {
   products: Product[];
@@ -21,20 +20,31 @@ export type ProductsListProps = {
 export const ProductsList = ({ products }: ProductsListProps) => {
   const { isLoading, errors } = useLoading();
 
-  const { currentLanguage } = useLanguage();
-  const translations = productsListDictionary[currentLanguage];
+  const { t } = useTranslation('productslist');
 
   const optionsSortTypes = [
-    { label: translations.sortNewest, value: 'byDate' },
-    { label: translations.sortPrice, value: 'byPrice' },
-    { label: translations.sortName, value: 'byName' },
+    {
+      label: t('sortNewest'),
+      value: 'byDate',
+    },
+    {
+      label: t('sortPrice'),
+      value: 'byPrice',
+    },
+    {
+      label: t('sortName'),
+      value: 'byName',
+    },
   ];
 
   const getOptionsItemsPerPage = () => [
     { label: '4', value: '4' },
     { label: '8', value: '8' },
     { label: '16', value: '16' },
-    { label: translations.allItemsLabel, value: 'all' },
+    {
+      label: t('allItemsLabel'),
+      value: 'all',
+    },
   ];
 
   const { sort, perPage, page, search, refreshParams } =
@@ -111,18 +121,18 @@ export const ProductsList = ({ products }: ProductsListProps) => {
   return (
     <>
       <p className="body-text mb-8 tablet:mb-10">
-        {translations.modelsCount(products.length)}
+        {t('modelsCount', { count: products.length })}
       </p>
 
       <div className="w-full min-h-20 flex items-center gap-4">
         <DropDown
-          label={translations.sortByLabel}
+          label={t('sortByLabel')}
           options={optionsSortTypes}
           value={sortTypeSelected}
           onChange={handleSortChange}
         />
         <DropDown
-          label={translations.itemsOnPageLabel}
+          label={t('itemsOnPageLabel')}
           options={optionsItemsPerPage}
           value={itemsToShow}
           onChange={handleItemsPerPageChange}

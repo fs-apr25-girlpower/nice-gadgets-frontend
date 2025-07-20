@@ -3,23 +3,18 @@ import './UnicornAssistant.css';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import unicornImage from '../../images/unicorn/unicorn-assistant-2.png';
-import { useLanguage } from '../../context/language/useLanguage';
+import { useTranslation } from 'react-i18next';
 
 interface UnicornAssistantProps {
-  messages: {
-    en: string[];
-    ua: string[];
-  };
   interval?: number;
 }
 
 export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
-  messages,
   interval = 5000,
 }) => {
-  const { currentLanguage } = useLanguage();
+  const { t } = useTranslation('unicorn');
 
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(1);
 
   // drag and drop states
   const [isDragging, setIsDragging] = useState(false);
@@ -27,21 +22,35 @@ export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
   const offset = useRef({ x: 0, y: 0 }); // to store the mouse offset relative to an element
   const assistantRef = useRef<HTMLDivElement>(null); // a reference to the container element itself
 
-  const currentLanguageMessages = messages[currentLanguage] || messages.en;
+  const allMessages: string[] = [];
+  let i = 1;
+  while (true) {
+    const messageKey = `message${i}`;
+    const message = t(messageKey, { defaultValue: '' });
+    if (message === '' && i > 1) {
+      break;
+    }
+    if (message === '' && i === 1) {
+      break;
+    }
+    allMessages.push(message);
+    i++;
+  }
 
   useEffect(() => {
-    if (currentLanguageMessages.length === 0) {
-      return;
+    if (allMessages.length === 0) {
+      return; // Якщо немає повідомлень, не запускаємо таймер
     }
 
     const timer = setInterval(() => {
-      setCurrentMessageIndex(
-        prevIndex => (prevIndex + 1) % currentLanguageMessages.length,
-      );
+      setCurrentMessageIndex(prevIndex => {
+        // Якщо prevIndex дорівнює кількості повідомлень, повертаємося до 1, інакше збільшуємо
+        return (prevIndex % allMessages.length) + 1;
+      });
     }, interval);
 
     return () => clearInterval(timer);
-  }, [currentLanguageMessages, interval]);
+  }, [allMessages.length, interval]);
 
   const onMouseDown = useCallback((event: React.MouseEvent) => {
     if (assistantRef.current) {
@@ -115,7 +124,7 @@ export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
     };
   }, [isDragging, onMouseMove, onMouseUp]);
 
-  if (currentLanguageMessages.length === 0) {
+  if (allMessages.length === 0) {
     return null;
   }
 
@@ -140,7 +149,7 @@ export const UnicornAssistant: React.FC<UnicornAssistantProps> = ({
           pointer-events-none animate-jump"
       >
         <p className="message-text text-sm text-gray-700 leading-normal">
-          {currentLanguageMessages[currentMessageIndex]}
+          {t(`message${currentMessageIndex}`)}
         </p>
       </div>
       <img

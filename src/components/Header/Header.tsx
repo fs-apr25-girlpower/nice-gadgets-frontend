@@ -1,8 +1,6 @@
 import { Logo } from '../../images/logos/Logo';
 import { NavLink, useLocation } from 'react-router-dom';
 import { CustomerBar } from '../CustomerBar.tsx/CustomerBar';
-import { useLanguage } from '../../context/language/useLanguage';
-import { headerDictionary } from '../../i18n/headerDictionary';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
 import { GlassIcon } from '../../images/icons/GlassIcon';
 
@@ -10,13 +8,14 @@ import { ArrowDown } from '../../images/icons/ArrowDown';
 import { useState } from 'react';
 import { AuthButton } from '../AuthButton/AuthButton';
 import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher';
-//import { useLanguage } from '../../context/language/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 export const Header = () => {
-  const { currentLanguage } = useLanguage();
+  const { t } = useTranslation('header');
+
   const { pathname } = useLocation();
 
-  // Стан для контролю видимості дропдауну
+  // State to control dropdown visibility
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const headerClass =
@@ -53,8 +52,7 @@ export const Header = () => {
                 to={'/'}
                 className={isActive}
               >
-                {/* home */}
-                {headerDictionary[currentLanguage].main}
+                {t('main')}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -62,8 +60,7 @@ export const Header = () => {
                 to={'/phones'}
                 className={isActive}
               >
-                {/* phones */}
-                {headerDictionary[currentLanguage].phones}
+                {t('phones')}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -71,8 +68,7 @@ export const Header = () => {
                 to={'/tablets'}
                 className={isActive}
               >
-                {/* tablets */}
-                {headerDictionary[currentLanguage].tablets}
+                {t('tablets')}
               </NavLink>
             </li>
             <li className={navItemClass}>
@@ -80,8 +76,7 @@ export const Header = () => {
                 to={'/accessories'}
                 className={isActive}
               >
-                {/* accessories */}
-                {headerDictionary[currentLanguage].accessories}
+                {t('accessories')}
               </NavLink>
             </li>
           </ul>
@@ -98,58 +93,7 @@ export const Header = () => {
             </NavLink>
           )}
 
-          {/* <div className="flex items-center gap-4">
-           
-
-            <div className="flex items-center gap-2">
-              <span
-                className={clsx(
-                  'text-sm font-bold select-none',
-                  currentLanguage === 'en'
-                    ? 'text-primary dark:text-purple'
-                    : 'text-secondary dark:text-dark-secondary',
-                )}
-              >
-                EN
-              </span>
-
-              <Switch.Root
-                checked={currentLanguage === 'ua'}
-                onCheckedChange={() =>
-                  handleLanguageChange(currentLanguage === 'en' ? 'ua' : 'en')
-                }
-                className={clsx(
-                  'w-12 h-6 rounded-full relative transition-colors duration-200 cursor-pointer outline-none border-2',
-                  'bg-elements dark:bg-dark-elements border-elements dark:border-dark-elements',
-                  'hover:bg-secondary dark:hover:bg-dark-button-purple-hover',
-                )}
-              >
-                <Switch.Thumb
-                  className={clsx(
-                    'block w-5 h-5 rounded-full shadow-md transition-transform duration-200',
-                    currentLanguage === 'ua'
-                      ? 'bg-white translate-x-6'
-                      : 'bg-white translate-x-1',
-                  )}
-                />
-              </Switch.Root>
-
-              <span
-                className={clsx(
-                  'text-sm font-bold select-none',
-                  currentLanguage === 'ua'
-                    ? 'text-primary dark:text-purple'
-                    : 'text-secondary dark:text-dark-secondary',
-                )}
-              >
-                UA
-              </span>
-            </div>
-
-            <ThemeSwitcher />
-          </div> */}
-
-          {/* Дропдаун для інших кнопок */}
+          {/* Dropdown for other buttons */}
           <div className="dropdown-icon relative">
             <button
               aria-label="More options"
@@ -169,6 +113,7 @@ export const Header = () => {
                   <ThemeSwitcher />
                 </div>
               </div>
+
               <LanguageSwitcher />
             </div>
           )}
