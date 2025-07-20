@@ -1,6 +1,5 @@
 import React from 'react';
-import { useLanguage } from '../../context/language/useLanguage';
-import { checkoutModalDictionary } from '../../i18n/checkoutModalDictionary';
+import { useTranslation } from 'react-i18next';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -19,8 +18,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   totalPrice,
   itemsCount,
 }) => {
-  const { currentLanguage } = useLanguage();
-  const translations = checkoutModalDictionary[currentLanguage];
+  const { t } = useTranslation('checkoutmodal');
 
   if (!isOpen) return null;
 
@@ -28,7 +26,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     <div className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-[10001]">
       <div className="bg-card-background dark:bg-dark-card-background rounded-lg p-6 max-w-md w-full mx-4 border-2 border-elements dark:border-dark-elements shadow-lg">
         <h2 className="text-xl font-bold mb-4 text-center text-primary dark:text-dark-primary">
-          {translations.title}
+          {t('title')}
         </h2>
 
         <div className="text-center mb-6">
@@ -36,12 +34,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             ${totalPrice}
           </div>
           <div className="text-sm text-secondary dark:text-dark-secondary">
-            {translations.totalLabel(itemsCount)}
+            {t('totalLabel', { count: itemsCount })}
           </div>
         </div>
 
         <p className="text-secondary dark:text-dark-secondary mb-6 text-center">
-          {translations.message}
+          {t('message')}
         </p>
 
         <div className="flex flex-col gap-3">
@@ -49,21 +47,21 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             onClick={onConfirm}
             className="w-full bg-green text-white py-3 px-6 rounded hover:opacity-90 transition-opacity"
           >
-            {translations.confirm}
+            {t('confirm')}
           </button>
 
           <button
             onClick={onClearCart}
             className="w-full bg-red text-white py-3 px-6 rounded hover:opacity-90 transition-opacity"
           >
-            {translations.clear}
+            {t('clear')}
           </button>
 
           <button
             onClick={onClose}
             className="w-full bg-primary dark:bg-dark-button-purple text-white py-3 px-6 rounded hover:bg-secondary dark:hover:bg-dark-button-purple-hover transition-colors"
           >
-            {translations.cancel}
+            {t('cancel')}
           </button>
         </div>
       </div>

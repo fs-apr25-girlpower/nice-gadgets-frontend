@@ -1,15 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { Logo } from '../../images/logos/Logo';
 import { BackToTopButton } from '../BackToTopButton';
-import { useLanguage } from '../../context/language/useLanguage';
-import { footerDictionaty } from '../../i18n/footerDictionary';
+import { useTranslation } from 'react-i18next';
 
 export const Footer = () => {
-  const { currentLanguage } = useLanguage(); // Використовуємо хук для доступу до мови та її зміни
-
-  // const handleLanguageChange = (lang: 'ua' | 'en') => {
-  //     setLanguage(lang);
-  // };
+  const { t } = useTranslation('footer');
 
   return (
     <footer className="border-t border-elements dark:border-dark-elements border-[1.5px] py-8 min-w-[288px] sm:min-w-[192px]">
@@ -53,8 +48,7 @@ export const Footer = () => {
                 to="contacts"
                 className="hover:text-primary dark:hover:text-purple"
               >
-                {/* Contacts */}
-                {footerDictionaty[currentLanguage].contacts}
+                {t('contacts')}
               </NavLink>
             </li>
             <li>
@@ -62,8 +56,7 @@ export const Footer = () => {
                 to="rights"
                 className="hover:text-primary dark:hover:text-purple"
               >
-                {/* Rights */}
-                {footerDictionaty[currentLanguage].rights}
+                {t('rights')}
               </NavLink>
             </li>
           </ul>
@@ -71,8 +64,7 @@ export const Footer = () => {
 
         <div className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-end">
           <span className="text-secondary dark:text-dark-secondary text-base">
-            {/* Back to top */}
-            {footerDictionaty[currentLanguage].backToTop}
+            {t('backToTop')}
           </span>
           <BackToTopButton />
         </div>

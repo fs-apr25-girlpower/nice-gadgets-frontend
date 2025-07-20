@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { HomeIcon } from '../../images/icons/HomeIcon';
-import { breadcrumbDictionary } from '../../i18n/breadcrumbDictionary';
-import { useLanguage } from '../../context/language/useLanguage';
+
+import { useTranslation } from 'react-i18next';
 
 interface BreadcrumbItem {
   label: string;
@@ -9,8 +9,7 @@ interface BreadcrumbItem {
 }
 
 export const Breadcrumbs = () => {
-  const { currentLanguage } = useLanguage();
-  const translations = breadcrumbDictionary[currentLanguage];
+  const { t } = useTranslation('breadcrumb');
 
   const location = useLocation();
   const itemId = location.pathname.split('/')[2];
@@ -29,9 +28,7 @@ export const Breadcrumbs = () => {
       return [];
     }
 
-    const segments: BreadcrumbItem[] = [
-      { label: translations.home, path: '/' },
-    ];
+    const segments: BreadcrumbItem[] = [{ label: t('home'), path: '/' }];
 
     let currentPath = '';
     pathnames.forEach((segment, index) => {
@@ -41,19 +38,19 @@ export const Breadcrumbs = () => {
 
       switch (segment) {
         case 'phones':
-          label = translations.phones;
+          label = t('phones');
           break;
         case 'tablets':
-          label = translations.tablets;
+          label = t('tablets');
           break;
         case 'accessories':
-          label = translations.accessories;
+          label = t('accessories');
           break;
         case 'favourites':
-          label = translations.favourites;
+          label = t('favourites');
           break;
         case 'cart':
-          label = translations.cart;
+          label = t('cart');
           break;
       }
 
