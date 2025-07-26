@@ -124,32 +124,33 @@ export const ProductsList = ({ products }: ProductsListProps) => {
         {t('modelsCount', { count: products.length })}
       </p>
 
-      <div className="w-full min-h-20 flex items-center gap-4">
-        <DropDown
-          label={t('sortByLabel')}
-          options={optionsSortTypes}
-          value={sortTypeSelected}
-          onChange={handleSortChange}
-        />
-        <DropDown
-          label={t('itemsOnPageLabel')}
-          options={optionsItemsPerPage}
-          value={itemsToShow}
-          onChange={handleItemsPerPageChange}
-          triggerButtonClassName={'max-w-[128px]'}
-        />
+      <div className="w-full min-h-20 flex flex-col gap-4 tablet:flex-row">
+        <div className="w-full min-h-20 flex items-center gap-4">
+          <DropDown
+            label={t('sortByLabel')}
+            options={optionsSortTypes}
+            value={sortTypeSelected}
+            onChange={handleSortChange}
+          />
+          <DropDown
+            label={t('itemsOnPageLabel')}
+            options={optionsItemsPerPage}
+            value={itemsToShow}
+            onChange={handleItemsPerPageChange}
+            triggerButtonClassName={'max-w-[128px]'}
+          />
+        </div>
 
         <form className="flex w-full max-w-md my-4">
           <div className="relative w-full mt-4">
             <input
               type="text"
-              className="w-full pl-10 pr-8 py-2 border border-elements dark:border-dark-border rounded bg-white dark:bg-dark-card-background text-primary dark:text-dark-primary focus:outline-none focus:border-primary dark:focus:border-purple placeholder:text-secondary dark:placeholder:text-dark-secondary transition-colors"
+              className="w-full pl-10 pr-8 py-2 h-10 bg-white dark:bg-dark-card-background text-primary dark:text-dark-primary focus:outline-none focus:border-primary dark:focus:border-purple placeholder:text-secondary dark:placeholder:text-dark-secondary transition-colors border border-icons dark:border-gray-600 hover:border-primary dark:hover:border-gray-400"
               placeholder="Search..."
               value={search}
               onChange={handleQuery}
               ref={inputRef}
             />
-
             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-300">
               <GlassIcon />
             </span>
