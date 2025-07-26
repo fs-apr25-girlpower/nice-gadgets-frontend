@@ -29,15 +29,15 @@ export const ProductDetailsPage = () => {
   const { t } = useTranslation('productdetails');
 
   const { isLoading, errors } = useLoading();
-  const currentProduct = allProducts.find(p => p.details?.id === itemId);
+  const currentProduct = allProducts.find(p => p.itemId === itemId);
   const imagesForGallery = currentProduct?.details?.images || [];
   const availableColors: ColorKey[] =
     currentProduct?.details?.colorsAvailable || [];
   const availableCapacities = currentProduct?.details?.capacityAvailable || [];
   const [showMessage, setShowMessage] = useState(false);
 
-  const selectedColor = currentProduct?.color || '';
-  const selectedCapacity = currentProduct?.capacity || '';
+  const selectedColor = currentProduct?.details?.color || '';
+  const selectedCapacity = currentProduct?.details?.capacity || '';
 
   const recommendedProducts = allProducts
     .filter(
@@ -53,13 +53,13 @@ export const ProductDetailsPage = () => {
   };
 
   const handleSelectColor = (color: string) => {
-    const base = currentProduct?.itemId.split('-').slice(0, -2).join('-');
+    const base = currentProduct?.details?.namespaceId;
     if (!base) return;
 
     const targetProduct = allProducts.find(
       p =>
-        p.color.replace(' ', '-') === color &&
-        p.capacity === selectedCapacity &&
+        p.details?.color.replace(' ', '-') === color &&
+        (p.details?.capacity || p.capacity) === selectedCapacity &&
         p.itemId.includes(base),
     );
 
@@ -71,28 +71,14 @@ export const ProductDetailsPage = () => {
   };
 
   const handleSelectCapacity = (capacity: string) => {
-    const base = currentProduct?.itemId
-      .split('-')
-      .filter(item => {
-        let colorParts;
-        if (currentProduct.color.includes('-')) {
-          colorParts = currentProduct.color.toLowerCase().split('-');
-        } else {
-          colorParts = currentProduct.color.toLowerCase().split(' ');
-        }
-        return (
-          item !== currentProduct.capacity.toLowerCase() &&
-          !colorParts.includes(item)
-        );
-      })
-      .join('-');
+    const base = currentProduct?.details?.namespaceId;
 
     if (!base) return;
 
     const targetProduct = allProducts.find(
       p =>
-        p.capacity === capacity &&
-        p.color === selectedColor &&
+        (p.details?.capacity || p.capacity) === capacity &&
+        (p.details?.color || p.color) === selectedColor &&
         p.itemId.includes(base),
     );
 
